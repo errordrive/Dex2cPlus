@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/treeRowRoot" android:background="?selectableItemBackground" android:layout_width="fill_parent" android:layout_height="46.0dip" android:paddingEnd="12.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/ivExpandArrow" android:layout_width="18.0dip" android:layout_height="18.0dip" android:src="@drawable/ic_chevron_right" android:contentDescription="Expand" app:tint="@color/md_theme_onSurfaceVariant" />
+    <ImageView android:id="@id/ivNodeIcon" android:layout_width="28.0dip" android:layout_height="28.0dip" android:src="@drawable/ic_tree_folder" android:contentDescription="Node Icon" android:layout_marginStart="8.0dip" />
+    <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="12.0dip">
+        <TextView android:textSize="15.0sp" android:textColor="@color/md_theme_onSurface" android:ellipsize="middle" android:id="@id/tvClassName" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" />
+        <TextView android:textSize="11.0sp" android:textColor="@color/md_theme_onSurfaceVariant" android:id="@id/tvClassSub" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" />
+    </LinearLayout>
+    <com.google.android.material.checkbox.MaterialCheckBox android:id="@id/cbClass" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="0.0dip" android:minHeight="0.0dip" app:buttonTint="@color/md_theme_primary" />
+</LinearLayout>

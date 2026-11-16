@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ack_card_shadow">#66000000</color>
+    <color name="ack_card_surface">#22252a</color>
+    <color name="console_bg">#181a1e</color>
+    <color name="console_glow_highlight">#93c5fd</color>
+    <color name="console_header_bg">#23262b</color>
+    <color name="console_text">#d5d9e2</color>
+    <color name="dropdown_ripple_color">#28f4f5f7</color>
+    <color name="folder_icon_tint">#7e97b8</color>
+    <color name="md_theme_headerSurface">#23262b</color>
+    <color name="md_theme_onHeader">#f4f5f7</color>
+    <color name="md_theme_onHeaderVariant">#a0a6b2</color>
+    <color name="md_theme_onPrimaryContainer">#e2ecff</color>
+    <color name="md_theme_onSecondary">#0f2926</color>
+    <color name="md_theme_onSurface">#eceef2</color>
+    <color name="md_theme_onSurfaceVariant">#9ba1ae</color>
+    <color name="md_theme_primary">#689bf6</color>
+    <color name="md_theme_primaryContainer">#2c3545</color>
+    <color name="md_theme_primary_gradient_end">#27477d</color>
+    <color name="md_theme_primary_gradient_start">#3b66b0</color>
+    <color name="md_theme_secondary">#2dd4bf</color>
+    <color name="md_theme_surface">#141619</color>
+    <color name="md_theme_surfaceContainer">#181a1e</color>
+    <color name="md_theme_surfaceElevated">#202328</color>
+    <color name="studio_amber">#fbbf24</color>
+    <color name="studio_amber_bg">#3a260e</color>
+    <color name="studio_blue_badge_bg">#282c33</color>
+    <color name="studio_blue_badge_text">#82aeff</color>
+    <color name="studio_danger">#f87171</color>
+    <color name="studio_danger_bg">#3b1619</color>
+    <color name="studio_emerald">#34d399</color>
+    <color name="studio_emerald_bg">#12382b</color>
+    <color name="studio_icon_box_bg">#2a2e35</color>
+</resources>

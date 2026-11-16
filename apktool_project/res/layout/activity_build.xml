@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/rootBuild" android:background="@color/console_bg" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/headerBuild" android:background="@color/md_theme_headerSurface" android:layout_width="fill_parent" android:layout_height="56.0dip" android:paddingStart="6.0dip" android:paddingEnd="10.0dip">
+        <ImageButton android:id="@id/btnBuildBack" android:background="@drawable/bg_compact_icon_ripple" android:padding="8.0dip" android:longClickable="false" android:layout_width="40.0dip" android:layout_height="40.0dip" android:src="@drawable/ic_arrow_back" android:scaleType="centerInside" android:contentDescription="Back" app:tint="@color/md_theme_onHeader" />
+        <TextView android:textSize="19.0sp" android:textStyle="bold" android:textColor="@color/md_theme_onHeader" android:id="@id/tvBuildTitle" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Output" android:singleLine="true" android:layout_weight="1.0" android:layout_marginStart="12.0dip" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/btnCopyConsole" android:background="@drawable/bg_compact_pill_ripple" android:focusable="true" android:clickable="true" android:longClickable="false" android:layout_width="wrap_content" android:layout_height="34.0dip" android:paddingStart="12.0dip" android:paddingEnd="12.0dip">
+            <ImageView android:layout_width="16.0dip" android:layout_height="16.0dip" android:src="@drawable/ic_copy_log" android:contentDescription="Copy" app:tint="@color/md_theme_onHeader" />
+            <TextView android:textSize="13.0sp" android:textStyle="bold" android:textColor="@color/md_theme_onHeader" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Copy" android:layout_marginStart="6.0dip" />
+        </LinearLayout>
+    </LinearLayout>
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <com.dex2c.plus.ui.GlowConsoleTextView android:id="@id/tvConsoleOutput" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <View android:layout_gravity="top" android:background="@drawable/bg_console_fade_top" android:focusable="false" android:clickable="false" android:layout_width="fill_parent" android:layout_height="24.0dip" />
+        <View android:layout_gravity="bottom" android:background="@drawable/bg_console_fade_bottom" android:focusable="false" android:clickable="false" android:layout_width="fill_parent" android:layout_height="28.0dip" />
+        <ImageButton android:layout_gravity="end|bottom|center" android:id="@id/btnCancelBuild" android:background="@drawable/bg_circle_build_btn" android:padding="11.0dip" android:layout_width="48.0dip" android:layout_height="48.0dip" android:layout_marginBottom="18.0dip" android:src="@drawable/ic_cancel_build" android:scaleType="fitCenter" android:contentDescription="Cancel" android:layout_marginEnd="18.0dip" android:elevation="6.0dip" app:tint="@color/md_theme_onPrimary" />
+    </FrameLayout>
+</LinearLayout>

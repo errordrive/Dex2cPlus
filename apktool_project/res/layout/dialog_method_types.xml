@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@drawable/bg_filepicker_surface" android:paddingTop="20.0dip" android:paddingBottom="10.0dip" android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/md_theme_onSurface" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Method Types Configuration" android:paddingStart="22.0dip" android:paddingEnd="22.0dip" />
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:paddingStart="14.0dip" android:paddingEnd="14.0dip">
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/rowDialogTypeSynthetic" android:background="@drawable/bg_compact_menu_ripple" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="44.0dip" android:paddingStart="8.0dip" android:paddingEnd="8.0dip">
+            <TextView android:textSize="15.0sp" android:textColor="@color/md_theme_onSurface" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="synthetic" android:singleLine="true" android:layout_weight="1.0" />
+            <androidx.appcompat.widget.SwitchCompat android:id="@id/swDialogTypeSynthetic" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/rowDialogTypeBridge" android:background="@drawable/bg_compact_menu_ripple" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="44.0dip" android:paddingStart="8.0dip" android:paddingEnd="8.0dip">
+            <TextView android:textSize="15.0sp" android:textColor="@color/md_theme_onSurface" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="bridge" android:singleLine="true" android:layout_weight="1.0" />
+            <androidx.appcompat.widget.SwitchCompat android:id="@id/swDialogTypeBridge" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/rowDialogTypeStatic" android:background="@drawable/bg_compact_menu_ripple" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="44.0dip" android:paddingStart="8.0dip" android:paddingEnd="8.0dip">
+            <TextView android:textSize="15.0sp" android:textColor="@color/md_theme_onSurface" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="static" android:singleLine="true" android:layout_weight="1.0" />
+            <androidx.appcompat.widget.SwitchCompat android:id="@id/swDialogTypeStatic" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/rowDialogTypeVirtual" android:background="@drawable/bg_compact_menu_ripple" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="44.0dip" android:paddingStart="8.0dip" android:paddingEnd="8.0dip">
+            <TextView android:textSize="15.0sp" android:textColor="@color/md_theme_onSurface" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="virtual" android:singleLine="true" android:layout_weight="1.0" />
+            <androidx.appcompat.widget.SwitchCompat android:id="@id/swDialogTypeVirtual" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/rowDialogTypePrivate" android:background="@drawable/bg_compact_menu_ripple" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="44.0dip" android:paddingStart="8.0dip" android:paddingEnd="8.0dip">
+            <TextView android:textSize="15.0sp" android:textColor="@color/md_theme_onSurface" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="private" android:singleLine="true" android:layout_weight="1.0" />
+            <androidx.appcompat.widget.SwitchCompat android:id="@id/swDialogTypePrivate" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/rowDialogTypeSynchronized" android:background="@drawable/bg_compact_menu_ripple" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="44.0dip" android:paddingStart="8.0dip" android:paddingEnd="8.0dip">
+            <TextView android:textSize="15.0sp" android:textColor="@color/md_theme_onSurface" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="synchronized" android:singleLine="true" android:layout_weight="1.0" />
+            <androidx.appcompat.widget.SwitchCompat android:id="@id/swDialogTypeSynchronized" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/rowDialogTypeVarargs" android:background="@drawable/bg_compact_menu_ripple" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="44.0dip" android:paddingStart="8.0dip" android:paddingEnd="8.0dip">
+            <TextView android:textSize="15.0sp" android:textColor="@color/md_theme_onSurface" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="varargs" android:singleLine="true" android:layout_weight="1.0" />
+            <androidx.appcompat.widget.SwitchCompat android:id="@id/swDialogTypeVarargs" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout android:gravity="end|center" android:orientation="horizontal" android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:paddingStart="12.0dip" android:paddingEnd="12.0dip">
+        <TextView android:textSize="13.5sp" android:textStyle="bold" android:textColor="@color/md_theme_primary" android:gravity="center" android:id="@id/btnMethodTypesCancel" android:background="@drawable/bg_compact_menu_ripple" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="36.0dip" android:minWidth="0.0dip" android:text="CANCEL" android:paddingStart="12.0dip" android:paddingEnd="12.0dip" android:layout_marginEnd="4.0dip" />
+        <TextView android:textSize="13.5sp" android:textStyle="bold" android:textColor="@color/md_theme_primary" android:gravity="center" android:id="@id/btnMethodTypesOk" android:background="@drawable/bg_compact_menu_ripple" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="36.0dip" android:minWidth="0.0dip" android:text="OK" android:paddingStart="12.0dip" android:paddingEnd="12.0dip" />
+    </LinearLayout>
+</LinearLayout>

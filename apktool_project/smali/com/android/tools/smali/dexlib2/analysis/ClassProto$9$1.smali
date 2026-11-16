@@ -1,0 +1,99 @@
+.class Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9$1;
+.super Ljava/lang/Object;
+.source "ClassProto.java"
+
+# interfaces
+.implements Ljava/util/Comparator;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9;->get()Ljava/util/List;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Ljava/lang/Object;",
+        "Ljava/util/Comparator<",
+        "Lcom/android/tools/smali/dexlib2/iface/reference/MethodReference;",
+        ">;"
+    }
+.end annotation
+
+
+# instance fields
+.field final synthetic this$1:Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9;
+
+.field final synthetic val$methodOrder:Ljava/util/HashMap;
+
+
+# direct methods
+.method constructor <init>(Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9;Ljava/util/HashMap;)V
+    .locals 0
+
+    .line 1192
+    iput-object p1, p0, Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9$1;->this$1:Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9;
+
+    iput-object p2, p0, Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9$1;->val$methodOrder:Ljava/util/HashMap;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public compare(Lcom/android/tools/smali/dexlib2/iface/reference/MethodReference;Lcom/android/tools/smali/dexlib2/iface/reference/MethodReference;)I
+    .locals 1
+
+    .line 1194
+    iget-object v0, p0, Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9$1;->val$methodOrder:Ljava/util/HashMap;
+
+    invoke-virtual {v0, p1}, Ljava/util/HashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object p1
+
+    check-cast p1, Ljava/lang/Integer;
+
+    invoke-virtual {p1}, Ljava/lang/Integer;->intValue()I
+
+    move-result p1
+
+    iget-object v0, p0, Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9$1;->val$methodOrder:Ljava/util/HashMap;
+
+    invoke-virtual {v0, p2}, Ljava/util/HashMap;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object p2
+
+    check-cast p2, Ljava/lang/Integer;
+
+    invoke-virtual {p2}, Ljava/lang/Integer;->intValue()I
+
+    move-result p2
+
+    invoke-static {p1, p2}, Ljava/lang/Integer;->compare(II)I
+
+    move-result p1
+
+    return p1
+.end method
+
+.method public bridge synthetic compare(Ljava/lang/Object;Ljava/lang/Object;)I
+    .locals 0
+
+    .line 1192
+    check-cast p1, Lcom/android/tools/smali/dexlib2/iface/reference/MethodReference;
+
+    check-cast p2, Lcom/android/tools/smali/dexlib2/iface/reference/MethodReference;
+
+    invoke-virtual {p0, p1, p2}, Lcom/android/tools/smali/dexlib2/analysis/ClassProto$9$1;->compare(Lcom/android/tools/smali/dexlib2/iface/reference/MethodReference;Lcom/android/tools/smali/dexlib2/iface/reference/MethodReference;)I
+
+    move-result p1
+
+    return p1
+.end method

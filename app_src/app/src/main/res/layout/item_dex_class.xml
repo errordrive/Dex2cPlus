@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:id="@+id/treeRowRoot"
+    android:background="?attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="46dp"
+    android:paddingEnd="12dp">
+    <ImageView
+        android:id="@+id/ivExpandArrow"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/ic_chevron_right"
+        android:contentDescription="Expand"
+        app:tint="@color/md_theme_onSurfaceVariant"/>
+    <ImageView
+        android:id="@+id/ivNodeIcon"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:src="@drawable/ic_tree_folder"
+        android:contentDescription="Node Icon"
+        android:layout_marginStart="8dp"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp">
+        <TextView
+            android:textSize="15sp"
+            android:textColor="@color/md_theme_onSurface"
+            android:ellipsize="middle"
+            android:id="@+id/tvClassName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"/>
+        <TextView
+            android:textSize="11sp"
+            android:textColor="@color/md_theme_onSurfaceVariant"
+            android:id="@+id/tvClassSub"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"/>
+    </LinearLayout>
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="0dp"
+        android:minHeight="0dp"
+        app:buttonTint="@color/md_theme_primary"/>
+</LinearLayout>

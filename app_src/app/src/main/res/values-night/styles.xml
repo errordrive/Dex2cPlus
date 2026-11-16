@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.AppTheme" parent="@style/Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/md_theme_surfaceContainer</item>
+        <item name="android:dropDownListViewStyle">@style/OfficialDropDownListView</item>
+        <item name="android:itemTextAppearance">@style/OfficialPopupMenuTextAppearance</item>
+        <item name="android:listPopupWindowStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="android:popupMenuStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:colorControlHighlight">@color/dropdown_ripple_color</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/md_theme_headerSurface</item>
+        <item name="android:navigationBarColor">@color/md_theme_surfaceContainer</item>
+        <item name="actionBarPopupTheme">@style/OfficialOverflowPopupThemeOverlay</item>
+        <item name="actionOverflowMenuStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="colorControlHighlight">@color/dropdown_ripple_color</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
+        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
+        <item name="colorOnSurface">@color/md_theme_onSurface</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_outline</item>
+        <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_secondary</item>
+        <item name="colorSurface">@color/md_theme_surfaceContainer</item>
+        <item name="colorSurfaceVariant">@color/md_theme_surfaceElevated</item>
+        <item name="dropDownListViewStyle">@style/OfficialDropDownListView</item>
+        <item name="listPopupWindowStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="popupMenuStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="popupTheme">@style/OfficialOverflowPopupThemeOverlay</item>
+        <item name="textAppearanceLargePopupMenu">@style/OfficialPopupMenuTextAppearance</item>
+        <item name="textAppearanceSmallPopupMenu">@style/OfficialPopupMenuTextAppearance</item>
+    </style>
+    <style name="OfficialOverflowPopupThemeOverlay" parent="@style/ThemeOverlay.AppCompat.Dark">
+        <item name="android:dropDownListViewStyle">@style/OfficialDropDownListView</item>
+        <item name="android:textColor">@color/md_theme_onSurface</item>
+        <item name="android:itemTextAppearance">@style/OfficialPopupMenuTextAppearance</item>
+        <item name="android:popupBackground">@drawable/bg_dropdown_menu_surface</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/bg_dropdown_item_selector</item>
+        <item name="android:listPopupWindowStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="android:popupMenuStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="android:selectableItemBackground">@drawable/bg_dropdown_item_selector</item>
+        <item name="android:colorControlHighlight">@color/dropdown_ripple_color</item>
+        <item name="actionOverflowMenuStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="colorControlHighlight">@color/dropdown_ripple_color</item>
+        <item name="colorOnSurface">@color/md_theme_onSurface</item>
+        <item name="colorSurface">@color/md_theme_surfaceElevated</item>
+        <item name="dropDownListViewStyle">@style/OfficialDropDownListView</item>
+        <item name="listChoiceBackgroundIndicator">@drawable/bg_dropdown_item_selector</item>
+        <item name="listPopupWindowStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="popupMenuStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="selectableItemBackground">@drawable/bg_dropdown_item_selector</item>
+        <item name="textAppearanceLargePopupMenu">@style/OfficialPopupMenuTextAppearance</item>
+        <item name="textAppearanceSmallPopupMenu">@style/OfficialPopupMenuTextAppearance</item>
+    </style>
+    <style name="SeamlessDialogTheme" parent="@style/ThemeOverlay.Material3.Dialog">
+        <item name="android:backgroundDimAmount">0.65</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+    <style name="Theme.AppCompat.DayNight" parent="@style/Theme.AppCompat">
+    </style>
+    <style name="Theme.AppCompat.DayNight.DarkActionBar" parent="@style/Theme.AppCompat">
+    </style>
+    <style name="Theme.AppCompat.DayNight.Dialog" parent="@style/Theme.AppCompat.Dialog">
+    </style>
+    <style name="Theme.AppCompat.DayNight.Dialog.Alert" parent="@style/Theme.AppCompat.Dialog.Alert">
+    </style>
+    <style name="Theme.AppCompat.DayNight.Dialog.MinWidth" parent="@style/Theme.AppCompat.Dialog.MinWidth">
+    </style>
+    <style name="Theme.AppCompat.DayNight.DialogWhenLarge" parent="@style/Theme.AppCompat.DialogWhenLarge">
+    </style>
+    <style name="Theme.AppCompat.DayNight.NoActionBar" parent="@style/Theme.AppCompat.NoActionBar">
+    </style>
+    <style name="Theme.Material3.DayNight" parent="@style/Theme.Material3.Dark">
+    </style>
+    <style name="Theme.Material3.DayNight.BottomSheetDialog" parent="@style/Theme.Material3.Dark.BottomSheetDialog">
+    </style>
+    <style name="Theme.Material3.DayNight.Dialog" parent="@style/Theme.Material3.Dark.Dialog">
+    </style>
+    <style name="Theme.Material3.DayNight.Dialog.Alert" parent="@style/Theme.Material3.Dark.Dialog.Alert">
+    </style>
+    <style name="Theme.Material3.DayNight.Dialog.MinWidth" parent="@style/Theme.Material3.Dark.Dialog.MinWidth">
+    </style>
+    <style name="Theme.Material3.DayNight.DialogWhenLarge" parent="@style/Theme.Material3.Dark.DialogWhenLarge">
+    </style>
+    <style name="Theme.Material3.DayNight.NoActionBar" parent="@style/Theme.Material3.Dark.NoActionBar">
+    </style>
+    <style name="Theme.Material3.DayNight.SideSheetDialog" parent="@style/Theme.Material3.Dark.SideSheetDialog">
+    </style>
+    <style name="Theme.Material3.DynamicColors.DayNight" parent="@style/Theme.Material3.DynamicColors.Dark">
+    </style>
+    <style name="Theme.Material3.DynamicColors.DayNight.NoActionBar" parent="@style/Theme.Material3.DynamicColors.Dark.NoActionBar">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight" parent="@style/Theme.MaterialComponents">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.BottomSheetDialog" parent="@style/Theme.MaterialComponents.BottomSheetDialog">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.Bridge" parent="@style/Theme.MaterialComponents.Bridge">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.DarkActionBar" parent="@style/Theme.MaterialComponents">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge" parent="@style/Theme.MaterialComponents.Bridge">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.Dialog" parent="@style/Theme.MaterialComponents.Dialog">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.Dialog.Alert" parent="@style/Theme.MaterialComponents.Dialog.Alert">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.Dialog.Alert.Bridge" parent="@style/Theme.MaterialComponents.Dialog.Alert.Bridge">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.Dialog.Bridge" parent="@style/Theme.MaterialComponents.Dialog.Bridge">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.Dialog.FixedSize" parent="@style/Theme.MaterialComponents.Dialog.FixedSize">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.Dialog.FixedSize.Bridge" parent="@style/Theme.MaterialComponents.Dialog.FixedSize.Bridge">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.Dialog.MinWidth" parent="@style/Theme.MaterialComponents.Dialog.MinWidth">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.Dialog.MinWidth.Bridge" parent="@style/Theme.MaterialComponents.Dialog.MinWidth.Bridge">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.DialogWhenLarge" parent="@style/Theme.MaterialComponents.DialogWhenLarge">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.NoActionBar" parent="@style/Theme.MaterialComponents.NoActionBar">
+    </style>
+    <style name="Theme.MaterialComponents.DayNight.NoActionBar.Bridge" parent="@style/Theme.MaterialComponents.NoActionBar.Bridge">
+    </style>
+    <style name="ThemeOverlay.AppCompat.DayNight" parent="@style/ThemeOverlay.AppCompat.Dark">
+    </style>
+    <style name="ThemeOverlay.Material3.DynamicColors.DayNight" parent="@style/ThemeOverlay.Material3.DynamicColors.Dark">
+    </style>
+    <style name="Widget.MaterialComponents.ActionBar.PrimarySurface" parent="@style/Widget.MaterialComponents.ActionBar.Surface">
+    </style>
+    <style name="Widget.MaterialComponents.AppBarLayout.PrimarySurface" parent="@style/Widget.MaterialComponents.AppBarLayout.Surface">
+    </style>
+    <style name="Widget.MaterialComponents.BottomAppBar.PrimarySurface" parent="@style/Widget.MaterialComponents.BottomAppBar">
+    </style>
+    <style name="Widget.MaterialComponents.BottomNavigationView.PrimarySurface" parent="@style/Widget.MaterialComponents.BottomNavigationView">
+    </style>
+    <style name="Widget.MaterialComponents.NavigationRailView.PrimarySurface" parent="@style/Widget.MaterialComponents.NavigationRailView">
+    </style>
+    <style name="Widget.MaterialComponents.TabLayout.PrimarySurface" parent="@style/Widget.MaterialComponents.TabLayout">
+    </style>
+    <style name="Widget.MaterialComponents.Toolbar.PrimarySurface" parent="@style/Widget.MaterialComponents.Toolbar.Surface">
+    </style>
+</resources>

@@ -1,0 +1,89 @@
+.class Lcom/android/tools/smali/dexlib2/analysis/ClassPath$1;
+.super Lcom/android/tools/smali/dexlib2/analysis/util/LruCache;
+.source "ClassPath.java"
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingClass;
+    value = Lcom/android/tools/smali/dexlib2/analysis/ClassPath;
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+.annotation system Ldalvik/annotation/Signature;
+    value = {
+        "Lcom/android/tools/smali/dexlib2/analysis/util/LruCache<",
+        "Ljava/lang/String;",
+        "Lcom/android/tools/smali/dexlib2/analysis/TypeProto;",
+        ">;"
+    }
+.end annotation
+
+
+# instance fields
+.field final synthetic this$0:Lcom/android/tools/smali/dexlib2/analysis/ClassPath;
+
+
+# direct methods
+.method constructor <init>(Lcom/android/tools/smali/dexlib2/analysis/ClassPath;I)V
+    .locals 0
+
+    .line 135
+    iput-object p1, p0, Lcom/android/tools/smali/dexlib2/analysis/ClassPath$1;->this$0:Lcom/android/tools/smali/dexlib2/analysis/ClassPath;
+
+    invoke-direct {p0, p2}, Lcom/android/tools/smali/dexlib2/analysis/util/LruCache;-><init>(I)V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method protected create(Ljava/lang/String;)Lcom/android/tools/smali/dexlib2/analysis/TypeProto;
+    .locals 2
+
+    const/4 v0, 0x0
+
+    .line 137
+    invoke-virtual {p1, v0}, Ljava/lang/String;->charAt(I)C
+
+    move-result v0
+
+    const/16 v1, 0x5b
+
+    if-ne v0, v1, :cond_0
+
+    .line 138
+    new-instance v0, Lcom/android/tools/smali/dexlib2/analysis/ArrayProto;
+
+    iget-object v1, p0, Lcom/android/tools/smali/dexlib2/analysis/ClassPath$1;->this$0:Lcom/android/tools/smali/dexlib2/analysis/ClassPath;
+
+    invoke-direct {v0, v1, p1}, Lcom/android/tools/smali/dexlib2/analysis/ArrayProto;-><init>(Lcom/android/tools/smali/dexlib2/analysis/ClassPath;Ljava/lang/String;)V
+
+    return-object v0
+
+    .line 140
+    :cond_0
+    new-instance v0, Lcom/android/tools/smali/dexlib2/analysis/ClassProto;
+
+    iget-object v1, p0, Lcom/android/tools/smali/dexlib2/analysis/ClassPath$1;->this$0:Lcom/android/tools/smali/dexlib2/analysis/ClassPath;
+
+    invoke-direct {v0, v1, p1}, Lcom/android/tools/smali/dexlib2/analysis/ClassProto;-><init>(Lcom/android/tools/smali/dexlib2/analysis/ClassPath;Ljava/lang/String;)V
+
+    return-object v0
+.end method
+
+.method protected bridge synthetic create(Ljava/lang/Object;)Ljava/lang/Object;
+    .locals 0
+
+    .line 135
+    check-cast p1, Ljava/lang/String;
+
+    invoke-virtual {p0, p1}, Lcom/android/tools/smali/dexlib2/analysis/ClassPath$1;->create(Ljava/lang/String;)Lcom/android/tools/smali/dexlib2/analysis/TypeProto;
+
+    move-result-object p1
+
+    return-object p1
+.end method

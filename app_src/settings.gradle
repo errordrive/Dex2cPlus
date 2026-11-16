@@ -1,0 +1,3 @@
+rootProject.name = 'Dex2c Plus'
+
+include 'app'

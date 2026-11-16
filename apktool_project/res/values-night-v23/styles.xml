@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.AppTheme" parent="@style/Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/md_theme_surfaceContainer</item>
+        <item name="android:dropDownListViewStyle">@style/OfficialDropDownListView</item>
+        <item name="android:itemTextAppearance">@style/OfficialPopupMenuTextAppearance</item>
+        <item name="android:listPopupWindowStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="android:popupMenuStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:colorControlHighlight">@color/dropdown_ripple_color</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@color/md_theme_headerSurface</item>
+        <item name="android:navigationBarColor">@color/md_theme_surfaceContainer</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="actionBarPopupTheme">@style/OfficialOverflowPopupThemeOverlay</item>
+        <item name="actionOverflowMenuStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="colorControlHighlight">@color/dropdown_ripple_color</item>
+        <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
+        <item name="colorOnPrimaryContainer">@color/md_theme_onPrimaryContainer</item>
+        <item name="colorOnSecondary">@color/md_theme_onSecondary</item>
+        <item name="colorOnSurface">@color/md_theme_onSurface</item>
+        <item name="colorOnSurfaceVariant">@color/md_theme_onSurfaceVariant</item>
+        <item name="colorOutline">@color/md_theme_outline</item>
+        <item name="colorPrimary">@color/md_theme_primary</item>
+        <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
+        <item name="colorSecondary">@color/md_theme_secondary</item>
+        <item name="colorSurface">@color/md_theme_surfaceContainer</item>
+        <item name="colorSurfaceVariant">@color/md_theme_surfaceElevated</item>
+        <item name="dropDownListViewStyle">@style/OfficialDropDownListView</item>
+        <item name="listPopupWindowStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="popupMenuStyle">@style/OfficialOverflowPopupMenu</item>
+        <item name="popupTheme">@style/OfficialOverflowPopupThemeOverlay</item>
+        <item name="textAppearanceLargePopupMenu">@style/OfficialPopupMenuTextAppearance</item>
+        <item name="textAppearanceSmallPopupMenu">@style/OfficialPopupMenuTextAppearance</item>
+    </style>
+</resources>

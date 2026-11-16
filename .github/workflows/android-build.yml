@@ -1,0 +1,134 @@
+name: Dex2c Plus 2.0.2 - Android Cloud Build & Release
+
+on:
+  push:
+    branches: [ "main", "master" ]
+    tags: [ "v*" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build & Package Dex2c Plus APK
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Android SDK Build-Tools & Apktool
+        run: |
+          # Add latest pre-installed Android build-tools to PATH
+          BUILD_TOOLS_DIR=$(ls -d $ANDROID_HOME/build-tools/* | sort -V | tail -n 1)
+          echo "Using Android Build Tools: $BUILD_TOOLS_DIR"
+          echo "$BUILD_TOOLS_DIR" >> $GITHUB_PATH
+
+          # Download and configure Apktool v2.10.0
+          sudo curl -sL "https://github.com/iBotPeaches/Apktool/releases/download/v2.10.0/apktool_2.10.0.jar" -o /usr/local/bin/apktool.jar
+          sudo chmod 644 /usr/local/bin/apktool.jar
+          printf '#!/bin/bash\nexec java -jar /usr/local/bin/apktool.jar "$@"\n' | sudo tee /usr/local/bin/apktool > /dev/null
+          sudo chmod +x /usr/local/bin/apktool
+
+          echo "Apktool version:"
+          apktool --version
+
+          # Install Android 34 framework to ensure full resource attribute compatibility
+          if [ -f "$ANDROID_HOME/platforms/android-34/android.jar" ]; then
+            echo "Installing Android API 34 framework into apktool..."
+            apktool if "$ANDROID_HOME/platforms/android-34/android.jar"
+          fi
+
+      - name: Build Dex2c Plus APK with AAPT2
+        run: |
+          mkdir -p build/unsigned
+          mkdir -p build/aligned
+          mkdir -p artifacts
+          
+          # Build APK using aapt2
+          apktool b --use-aapt2 apktool_project -o build/unsigned/Dex2cPlus-2.0.2-unsigned.apk
+          
+          # Align APK
+          zipalign -v -p 4 build/unsigned/Dex2cPlus-2.0.2-unsigned.apk build/aligned/Dex2cPlus-2.0.2-aligned.apk
+
+      - name: Generate Keystore & Sign Release APK
+        run: |
+          # Create release keystore
+          keytool -genkeypair -v \
+            -keystore dex2cplus.keystore \
+            -alias dex2cplus \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass dex2cplus123 \
+            -keypass dex2cplus123 \
+            -dname "CN=Dex2cPlus, OU=Mobile, O=Dex2cPlusApp, L=Dhaka, ST=Dhaka, C=BD"
+
+          # Sign release APK with explicit v1, v2, v3 schemes for 100% Android device compatibility
+          apksigner sign \
+            --ks dex2cplus.keystore \
+            --ks-key-alias dex2cplus \
+            --ks-pass pass:dex2cplus123 \
+            --key-pass pass:dex2cplus123 \
+            --v1-signing-enabled true \
+            --v2-signing-enabled true \
+            --v3-signing-enabled true \
+            --min-sdk-version 21 \
+            --out artifacts/Dex2cPlus-v2.0.2.apk \
+            build/aligned/Dex2cPlus-2.0.2-aligned.apk
+
+          # Verify signatures across all SDK levels
+          echo "=== APK Signature Verification (SDK 21+) ==="
+          apksigner verify --verbose --min-sdk-version 21 artifacts/Dex2cPlus-v2.0.2.apk
+
+      - name: Generate Checksums
+        run: |
+          cd artifacts
+          sha256sum Dex2cPlus-v2.0.2.apk > checksums.txt
+          cat checksums.txt
+
+      - name: Upload Dex2c Plus APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Dex2cPlus-v2.0.2-apk
+          path: artifacts/Dex2cPlus-v2.0.2.apk
+          retention-days: 30
+
+      - name: Upload Checksums Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: checksums
+          path: artifacts/checksums.txt
+          retention-days: 30
+
+      - name: Publish GitHub Release
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v2.0.2
+          name: "Dex2c Plus v2.0.2 Release"
+          body: |
+            ### Dex2c Plus v2.0.2 Release Build
+            - **Application:** Dex2c Plus
+            - **Package:** `com.dex2c.plus`
+            - **Version:** 2.0.2 (Build 2027)
+            - **Compatibility:** Min SDK 21, Target SDK 34, Android 14/15/16 Ready
+            - **Signatures:** Dual v1 + v2 + v3 release signature scheme
+            - **Native Architectures:** `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64` (`libdex2cplus.so`)
+          files: |
+            artifacts/Dex2cPlus-v2.0.2.apk
+            artifacts/checksums.txt
+          draft: false
+          prerelease: false
+          generate_release_notes: true

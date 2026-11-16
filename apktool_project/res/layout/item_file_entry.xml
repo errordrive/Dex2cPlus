@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/rowFileEntry" android:background="?selectableItemBackground" android:layout_width="fill_parent" android:layout_height="58.0dip" android:paddingStart="18.0dip" android:paddingEnd="14.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/ivFileIcon" android:layout_width="32.0dip" android:layout_height="32.0dip" android:src="@drawable/ic_folder_open" android:scaleType="fitCenter" android:contentDescription="Icon" />
+    <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="16.0dip">
+        <TextView android:textSize="15.0sp" android:textColor="@color/md_theme_onSurface" android:ellipsize="middle" android:id="@id/tvFileName" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" />
+        <TextView android:textSize="12.0sp" android:textColor="@color/md_theme_onSurfaceVariant" android:id="@id/tvFileSub" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="2.0dip" android:singleLine="true" />
+    </LinearLayout>
+    <com.google.android.material.checkbox.MaterialCheckBox android:id="@id/cbFileSelect" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="0.0dip" android:minHeight="0.0dip" app:buttonTint="@color/md_theme_primary" />
+</LinearLayout>
