@@ -30,16 +30,7 @@
 .method static constructor <clinit>()V
     .locals 2
 
-    .line 28
-    :try_start_0
-    const-string v0, "dex2cplus"
-
-    invoke-static {v0}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
     .line 37
-    :catchall_0
     new-instance v0, Ljava/util/concurrent/atomic/AtomicBoolean;
 
     const/4 v1, 0x0
@@ -3891,7 +3882,12 @@
     return-object p0
 .end method
 
-.method public static native getOnlineNdkUrlNative()Ljava/lang/String;
+.method public static getOnlineNdkUrlNative()Ljava/lang/String;
+    .locals 1
+
+    const-string v0, "https://github.com/iAmINCoder/Dex2cPlus/releases/download/Dex2cPlus/dex2cPlus.NDK.zip"
+
+    return-object v0
 .end method
 
 .method private static hasMiniNdkAsset(Landroid/content/Context;)Z

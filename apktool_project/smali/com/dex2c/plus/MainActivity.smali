@@ -235,11 +235,6 @@
 .method static constructor <clinit>()V
     .locals 1
 
-    .line 63
-    const-string v0, "dex2cplus"
-
-    invoke-static {v0}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
-
     .line 69
     new-instance v0, Lcom/dex2c/plus/MainActivity$$ExternalSyntheticLambda0;
 
@@ -1630,7 +1625,37 @@
     return p1
 .end method
 
-.method public static native openGithubRepoNative(Landroid/content/Context;)V
+.method public static openGithubRepoNative(Landroid/content/Context;)V
+    .locals 3
+
+    if-nez p0, :cond_0
+
+    return-void
+
+    :cond_0
+    :try_start_0
+    new-instance v0, Landroid/content/Intent;
+
+    const-string v1, "android.intent.action.VIEW"
+
+    const-string v2, "https://github.com/iAmINCoder/Dex2cPlus"
+
+    invoke-static {v2}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v2
+
+    invoke-direct {v0, v1, v2}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
+
+    const/high16 v1, 0x10000000
+
+    invoke-virtual {v0, v1}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+
+    invoke-virtual {p0, v0}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    :catch_0
+    return-void
 .end method
 
 .method private openInBuiltFileManager()V
@@ -2734,7 +2759,27 @@
 
 
 # virtual methods
-.method public native getNativeAbi()Ljava/lang/String;
+.method public getNativeAbi()Ljava/lang/String;
+    .locals 2
+
+    sget-object v0, Landroid/os/Build;->SUPPORTED_ABIS:[Ljava/lang/String;
+
+    if-eqz v0, :cond_0
+
+    array-length v1, v0
+
+    if-lez v1, :cond_0
+
+    const/4 v1, 0x0
+
+    aget-object v0, v0, v1
+
+    return-object v0
+
+    :cond_0
+    sget-object v0, Landroid/os/Build;->CPU_ABI:Ljava/lang/String;
+
+    return-object v0
 .end method
 
 .method protected onCreate(Landroid/os/Bundle;)V

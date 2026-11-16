@@ -71,17 +71,8 @@
 .end method
 
 .method static constructor <clinit>()V
-    .locals 1
+    .locals 0
 
-    .line 27
-    :try_start_0
-    const-string v0, "dex2cplus"
-
-    invoke-static {v0}, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V
-    :try_end_0
-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
-
-    :catchall_0
     return-void
 .end method
 
@@ -344,10 +335,64 @@
     return-void
 .end method
 
-.method public static native getArchitectUrlNative()Ljava/lang/String;
+.method public static getArchitectUrlNative()Ljava/lang/String;
+    .locals 1
+
+    const-string v0, "https://t.me/INCoderDev"
+
+    return-object v0
 .end method
 
-.method private static native getEncryptedProfileMetaNative()[Ljava/lang/String;
+.method private static getEncryptedProfileMetaNative()[Ljava/lang/String;
+    .locals 3
+
+    const/4 v0, 0x7
+
+    new-array v0, v0, [Ljava/lang/String;
+
+    const/4 v1, 0x0
+
+    const-string v2, "@INCoderDev"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x1
+
+    const-string v2, "Official Developer & Community"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x2
+
+    const-string v2, "Contact Us"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x3
+
+    const-string v2, "@INCoderDev"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x4
+
+    const-string v2, "Join Telegram"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x5
+
+    const-string v2, "@INCoderX"
+
+    aput-object v2, v0, v1
+
+    const/4 v1, 0x6
+
+    const-string v2, "CLOSE"
+
+    aput-object v2, v0, v1
+
+    return-object v0
 .end method
 
 .method private synthetic lambda$new$0(Landroid/content/Context;Landroid/view/View;)V
@@ -418,7 +463,45 @@
     return-void
 .end method
 
-.method public static native openEncryptedTelegramLinkNative(Landroid/content/Context;I)V
+.method public static openEncryptedTelegramLinkNative(Landroid/content/Context;I)V
+    .locals 3
+
+    if-nez p0, :cond_0
+
+    return-void
+
+    :cond_0
+    if-nez p1, :cond_1
+
+    const-string v0, "https://t.me/INCoderDev"
+
+    goto :goto_0
+
+    :cond_1
+    const-string v0, "https://t.me/INCoderX"
+
+    :goto_0
+    :try_start_0
+    new-instance v1, Landroid/content/Intent;
+
+    const-string v2, "android.intent.action.VIEW"
+
+    invoke-static {v0}, Landroid/net/Uri;->parse(Ljava/lang/String;)Landroid/net/Uri;
+
+    move-result-object v0
+
+    invoke-direct {v1, v2, v0}, Landroid/content/Intent;-><init>(Ljava/lang/String;Landroid/net/Uri;)V
+
+    const/high16 v0, 0x10000000
+
+    invoke-virtual {v1, v0}, Landroid/content/Intent;->addFlags(I)Landroid/content/Intent;
+
+    invoke-virtual {p0, v1}, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V
+    :try_end_0
+    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+
+    :catch_0
+    return-void
 .end method
 
 

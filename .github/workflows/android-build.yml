@@ -125,7 +125,7 @@ jobs:
             - **Version:** 2.0.2 (Build 2027)
             - **Compatibility:** Min SDK 21, Target SDK 34, Android 14/15/16 Ready
             - **Signatures:** Dual v1 + v2 + v3 release signature scheme
-            - **Native Architectures:** `arm64-v8a`, `armeabi-v7a`, `x86`, `x86_64` (`libdex2cplus.so`)
+            - **Architecture:** 100% Pure Java Pipeline (Zero native .so dependencies, universal cross-architecture compatibility)
           files: |
             artifacts/Dex2cPlus-v2.0.2.apk
             artifacts/checksums.txt

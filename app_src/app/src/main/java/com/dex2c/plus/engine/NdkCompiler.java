@@ -35,13 +35,11 @@ public class NdkCompiler {
         void onProgress(String str, String str2, int i, boolean z);
     }
 
-    public static native String getOnlineNdkUrlNative();
+    public static String getOnlineNdkUrlNative() {
+        return "https://github.com/iAmINCoder/Dex2cPlus/releases/download/Dex2cPlus/dex2cPlus.NDK.zip";
+    }
 
     static {
-        try {
-            System.loadLibrary("dex2cplus");
-        } catch (Throwable unused) {
-        }
         CANCEL_REQUESTED = new AtomicBoolean(false);
         ACTIVE_PROCESSES = Collections.newSetFromMap(new ConcurrentHashMap());
     }

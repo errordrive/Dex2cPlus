@@ -33,16 +33,30 @@ public final class TelegramProfileDialog {
         }
     };
 
-    public static native String getArchitectUrlNative();
+    public static String getArchitectUrlNative() {
+        return "https://t.me/INCoderDev";
+    }
 
-    private static native String[] getEncryptedProfileMetaNative();
+    private static String[] getEncryptedProfileMetaNative() {
+        return new String[] {
+            "@INCoderDev",
+            "Official Developer & Community",
+            "Contact Us",
+            "@INCoderDev",
+            "Join Telegram",
+            "@INCoderX",
+            "CLOSE"
+        };
+    }
 
-    public static native void openEncryptedTelegramLinkNative(Context context, int i);
-
-    static {
+    public static void openEncryptedTelegramLinkNative(Context context, int i) {
+        if (context == null) return;
         try {
-            System.loadLibrary("dex2cplus");
-        } catch (Throwable unused) {
+            String url = (i == 0) ? "https://t.me/INCoderDev" : "https://t.me/INCoderX";
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (Exception unused) {
         }
     }
 

@@ -27,19 +27,15 @@
 - **`FastZipModifier.java`**: High-performance zip manipulation bridge for packaging APKs, fixing fake encryption, and fast signature checks.
 - **`ApkDexManager.java`**: Handles multidex processing, dex extraction, and packaging.
 
-### 3. Native JNI Libraries (`libdex2cplus.so`)
-Located in `app/src/main/jniLibs/`:
-- `arm64-v8a/libdex2cplus.so`
-- `armeabi-v7a/libdex2cplus.so`
-- `x86/libdex2cplus.so`
-- `x86_64/libdex2cplus.so`
+### 3. Pure Java Pipeline (Native .so Libraries Removed)
+All 22 previously native JNI entry points in `libdex2cplus.so` have been reverse engineered via REA, decrypted, and implemented in 100% pure Java:
+- `com.dex2c.plus.MainActivity.getNativeAbi`
+- `com.dex2c.plus.MainActivity.openGithubRepoNative`
+- `com.dex2c.plus.engine.NdkCompiler.getOnlineNdkUrlNative`
+- `com.dex2c.plus.engine.FastZipModifier.*` (16 ZIP and file manipulation methods, SHA-256, AXML parsing)
+- `com.dex2c.plus.ui.TelegramProfileDialog.*` (decrypted metadata and links)
 
-JNI Entry Points:
-- `Java_com_dex2c_plus_MainActivity_getNativeAbi`
-- `Java_com_dex2c_plus_MainActivity_openGithubRepoNative`
-- `Java_com_dex2c_plus_engine_NdkCompiler_getOnlineNdkUrlNative`
-- `Java_com_dex2c_plus_engine_FastZipModifier_*` (file manipulation, sha256, axml parsing)
-- `Java_com_dex2c_plus_ui_TelegramProfileDialog_*` (meta and links)
+The application is now architecture-independent and does not require native `.so` files to execute.
 
 ---
 

@@ -79,12 +79,24 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    public static native void openGithubRepoNative(Context context);
+    public static void openGithubRepoNative(Context context) {
+        if (context == null) return;
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/iAmINCoder/Dex2cPlus"));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (Exception unused) {
+        }
+    }
 
-    public native String getNativeAbi();
+    public String getNativeAbi() {
+        if (Build.SUPPORTED_ABIS != null && Build.SUPPORTED_ABIS.length > 0) {
+            return Build.SUPPORTED_ABIS[0];
+        }
+        return Build.CPU_ABI != null ? Build.CPU_ABI : "arm64-v8a";
+    }
 
     static {
-        System.loadLibrary("dex2cplus");
         TREE_EXECUTOR = Executors.newSingleThreadExecutor(new ThreadFactory() { // from class: com.dex2c.plus.MainActivity$$ExternalSyntheticLambda0
             @Override // java.util.concurrent.ThreadFactory
             public final Thread newThread(Runnable runnable) {
