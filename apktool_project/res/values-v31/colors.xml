@@ -210,4 +210,13 @@
     <color name="material_dynamic_tertiary90">@color/m3_ref_palette_dynamic_tertiary90</color>
     <color name="material_dynamic_tertiary95">@color/m3_ref_palette_dynamic_tertiary95</color>
     <color name="material_dynamic_tertiary99">@color/m3_ref_palette_dynamic_tertiary99</color>
+
+    <color name="m3_sys_color_dynamic_dark_error">#ffffb4ab</color>
+    <color name="m3_sys_color_dynamic_dark_error_container">#ff93000a</color>
+    <color name="m3_sys_color_dynamic_dark_on_error">#ff690005</color>
+    <color name="m3_sys_color_dynamic_dark_on_error_container">#ffffdad6</color>
+    <color name="m3_sys_color_dynamic_light_error">#ffba1a1a</color>
+    <color name="m3_sys_color_dynamic_light_error_container">#ffffdad6</color>
+    <color name="m3_sys_color_dynamic_light_on_error">#ffffffff</color>
+    <color name="m3_sys_color_dynamic_light_on_error_container">#ff410002</color>
 </resources>
