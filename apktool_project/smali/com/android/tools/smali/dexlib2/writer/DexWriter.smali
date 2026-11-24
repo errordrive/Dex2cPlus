@@ -3025,8 +3025,6 @@
 
     if-nez p5, :cond_0
 
-    if-nez v4, :cond_0
-
     const/4 v0, -0x1
 
     return v0

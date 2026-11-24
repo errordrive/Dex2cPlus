@@ -1453,6 +1453,21 @@
     .annotation runtime Ljavax/annotation/Nullable;
     .end annotation
 
+    invoke-virtual {p1}, Lcom/android/tools/smali/dexlib2/writer/pool/PoolMethod;->getAccessFlags()I
+
+    move-result v0
+
+    const/16 v1, 0x500
+
+    and-int/2addr v0, v1
+
+    if-eqz v0, :cond_not_native
+
+    const/4 v0, 0x0
+
+    return-object v0
+
+    :cond_not_native
     .line 406
     new-instance v0, Lcom/android/tools/smali/util/TransformedIterable;
 

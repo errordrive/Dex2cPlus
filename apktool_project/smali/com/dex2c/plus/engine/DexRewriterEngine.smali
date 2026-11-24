@@ -1334,6 +1334,8 @@
 
     invoke-static {v8, v2}, Lcom/android/tools/smali/dexlib2/DexFileFactory;->writeDexFile(Ljava/lang/String;Lcom/android/tools/smali/dexlib2/iface/DexFile;)V
 
+    invoke-static {v7}, Lcom/dex2c/plus/engine/DexRewriterEngine;->sanitizeNativeMethodsInDexFile(Ljava/io/File;)Z
+
     .line 167
     invoke-interface {v3, v12, v7}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
 
@@ -2827,6 +2829,10 @@
 
     move-result-object v5
 
+    invoke-static {v5}, Lcom/dex2c/plus/engine/DexRewriterEngine;->toCleanParameters(Ljava/util/List;)Ljava/util/List;
+
+    move-result-object v5
+
     .line 410
     invoke-interface {p0}, Lcom/android/tools/smali/dexlib2/iface/Method;->getReturnType()Ljava/lang/String;
 
@@ -2851,4 +2857,803 @@
     invoke-direct/range {v2 .. v10}, Lcom/android/tools/smali/dexlib2/immutable/ImmutableMethod;-><init>(Ljava/lang/String;Ljava/lang/String;Ljava/lang/Iterable;Ljava/lang/String;ILjava/util/Set;Ljava/util/Set;Lcom/android/tools/smali/dexlib2/iface/MethodImplementation;)V
 
     return-object v2
+.end method
+.method public static toCleanParameters(Ljava/util/List;)Ljava/util/List;
+    .locals 5
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/util/List<",
+            "+",
+            "Lcom/android/tools/smali/dexlib2/iface/MethodParameter;",
+            ">;)",
+            "Ljava/util/List<",
+            "Lcom/android/tools/smali/dexlib2/immutable/ImmutableMethodParameter;",
+            ">;"
+        }
+    .end annotation
+
+    if-nez p0, :cond_7
+
+    .line 7
+    invoke-static {}, Ljava/util/Collections;->emptyList()Ljava/util/List;
+
+    move-result-object p0
+
+    return-object p0
+
+    .line 8
+    :cond_7
+    new-instance v0, Ljava/util/ArrayList;
+
+    invoke-interface {p0}, Ljava/util/List;->size()I
+
+    move-result v1
+
+    invoke-direct {v0, v1}, Ljava/util/ArrayList;-><init>(I)V
+
+    .line 9
+    invoke-interface {p0}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+
+    move-result-object p0
+
+    :goto_14
+    invoke-interface {p0}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_32
+
+    invoke-interface {p0}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v1
+
+    check-cast v1, Lcom/android/tools/smali/dexlib2/iface/MethodParameter;
+
+    .line 10
+    new-instance v2, Lcom/android/tools/smali/dexlib2/immutable/ImmutableMethodParameter;
+
+    invoke-interface {v1}, Lcom/android/tools/smali/dexlib2/iface/MethodParameter;->getType()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-static {}, Ljava/util/Collections;->emptySet()Ljava/util/Set;
+
+    move-result-object v3
+
+    const/4 v4, 0x0
+
+    invoke-direct {v2, v1, v3, v4}, Lcom/android/tools/smali/dexlib2/immutable/ImmutableMethodParameter;-><init>(Ljava/lang/String;Ljava/util/Set;Ljava/lang/String;)V
+
+    invoke-virtual {v0, v2}, Ljava/util/ArrayList;->add(Ljava/lang/Object;)Z
+
+    goto :goto_14
+
+    :cond_32
+    return-object v0
+.end method
+
+.method private static readUleb([BI)[I
+    .locals 4
+
+    const/4 v0, 0x0
+
+    const/4 v1, 0x0
+
+    :goto_2
+    add-int/lit8 v2, p1, 0x1
+
+    .line 145
+    aget-byte p1, p0, p1
+
+    and-int/lit8 v3, p1, 0x7f
+
+    shl-int/2addr v3, v1
+
+    or-int/2addr v0, v3
+
+    and-int/lit16 p1, p1, 0x80
+
+    if-nez p1, :cond_13
+
+    .line 150
+    filled-new-array {v0, v2}, [I
+
+    move-result-object p0
+
+    return-object p0
+
+    :cond_13
+    add-int/lit8 v1, v1, 0x7
+
+    move p1, v2
+
+    goto :goto_2
+.end method
+
+.method public static sanitizeNativeMethodsInDexFile(Ljava/io/File;)Z
+    .locals 22
+
+    move-object/from16 v0, p0
+
+    const/4 v1, 0x0
+
+    if-eqz v0, :cond_1e4
+
+    .line 16
+    invoke-virtual/range {p0 .. p0}, Ljava/io/File;->exists()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_1e4
+
+    invoke-virtual/range {p0 .. p0}, Ljava/io/File;->length()J
+
+    move-result-wide v2
+
+    const-wide/16 v4, 0x70
+
+    cmp-long v6, v2, v4
+
+    if-gez v6, :cond_17
+
+    goto/16 :goto_1e4
+
+    .line 21
+    :cond_17
+    :try_start_17
+    new-instance v2, Ljava/io/FileInputStream;
+
+    invoke-direct {v2, v0}, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V
+    :try_end_1c
+    .catchall {:try_start_17 .. :try_end_1c} :catchall_1df
+
+    .line 22
+    :try_start_1c
+    new-instance v3, Ljava/io/ByteArrayOutputStream;
+
+    invoke-virtual/range {p0 .. p0}, Ljava/io/File;->length()J
+
+    move-result-wide v4
+
+    long-to-int v5, v4
+
+    add-int/lit16 v5, v5, 0x1000
+
+    invoke-direct {v3, v5}, Ljava/io/ByteArrayOutputStream;-><init>(I)V
+    :try_end_28
+    .catchall {:try_start_1c .. :try_end_28} :catchall_1d3
+
+    const/16 v4, 0x4000
+
+    :try_start_2a
+    new-array v4, v4, [B
+
+    .line 25
+    :goto_2c
+    invoke-virtual {v2, v4}, Ljava/io/FileInputStream;->read([B)I
+
+    move-result v5
+
+    const/4 v6, -0x1
+
+    if-eq v5, v6, :cond_37
+
+    .line 26
+    invoke-virtual {v3, v4, v1, v5}, Ljava/io/ByteArrayOutputStream;->write([BII)V
+
+    goto :goto_2c
+
+    .line 28
+    :cond_37
+    invoke-virtual {v3}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
+
+    move-result-object v4
+    :try_end_3b
+    .catchall {:try_start_2a .. :try_end_3b} :catchall_1c7
+
+    .line 29
+    :try_start_3b
+    invoke-virtual {v3}, Ljava/io/ByteArrayOutputStream;->close()V
+    :try_end_3e
+    .catchall {:try_start_3b .. :try_end_3e} :catchall_1d3
+
+    :try_start_3e
+    invoke-virtual {v2}, Ljava/io/FileInputStream;->close()V
+
+    .line 31
+    invoke-static {v4}, Ljava/nio/ByteBuffer;->wrap([B)Ljava/nio/ByteBuffer;
+
+    move-result-object v2
+
+    sget-object v3, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v2, v3}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v2
+
+    const/16 v3, 0x60
+
+    .line 32
+    invoke-virtual {v2, v3}, Ljava/nio/ByteBuffer;->getInt(I)I
+
+    move-result v3
+
+    const/16 v5, 0x64
+
+    .line 33
+    invoke-virtual {v2, v5}, Ljava/nio/ByteBuffer;->getInt(I)I
+
+    move-result v5
+
+    .line 35
+    new-instance v6, Ljava/io/ByteArrayOutputStream;
+
+    invoke-direct {v6}, Ljava/io/ByteArrayOutputStream;-><init>()V
+
+    .line 36
+    array-length v7, v4
+
+    const/4 v8, 0x0
+
+    const/4 v9, 0x0
+
+    :goto_5f
+    const/4 v10, 0x1
+
+    if-ge v8, v3, :cond_15c
+
+    mul-int/lit8 v11, v8, 0x20
+
+    add-int/2addr v11, v5
+
+    add-int/lit8 v11, v11, 0x18
+
+    .line 41
+    invoke-virtual {v2, v11}, Ljava/nio/ByteBuffer;->getInt(I)I
+
+    move-result v12
+
+    if-nez v12, :cond_73
+
+    move/from16 v16, v3
+
+    move/from16 v19, v5
+
+    goto/16 :goto_151
+
+    .line 45
+    :cond_73
+    invoke-static {v4, v12}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v12
+
+    .line 46
+    aget v13, v12, v1
+
+    aget v12, v12, v10
+
+    .line 47
+    invoke-static {v4, v12}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v12
+
+    .line 48
+    aget v14, v12, v1
+
+    aget v12, v12, v10
+
+    .line 49
+    invoke-static {v4, v12}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v12
+
+    .line 50
+    aget v15, v12, v1
+
+    aget v12, v12, v10
+
+    .line 51
+    invoke-static {v4, v12}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v12
+
+    move/from16 v16, v3
+
+    .line 52
+    aget v3, v12, v1
+
+    aget v12, v12, v10
+
+    move/from16 v19, v5
+
+    move v10, v12
+
+    :goto_98
+    add-int v5, v13, v14
+
+    if-ge v1, v5, :cond_ad
+
+    .line 57
+    invoke-static {v4, v10}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v5
+
+    const/4 v10, 0x1
+
+    aget v5, v5, v10
+
+    .line 58
+    invoke-static {v4, v5}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v5
+
+    aget v5, v5, v10
+
+    add-int/lit8 v1, v1, 0x1
+
+    move v10, v5
+
+    goto :goto_98
+
+    :cond_ad
+    move/from16 v20, v12
+
+    const/4 v1, 0x0
+
+    :goto_b0
+    add-int v12, v15, v3
+
+    if-ge v1, v12, :cond_db
+
+    .line 62
+    invoke-static {v4, v10}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v10
+
+    const/16 v18, 0x1
+
+    aget v10, v10, v18
+
+    .line 63
+    invoke-static {v4, v10}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v10
+
+    const/16 v17, 0x0
+
+    aget v0, v10, v17
+
+    aget v10, v10, v18
+
+    .line 64
+    invoke-static {v4, v10}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v10
+
+    aget v21, v10, v17
+
+    aget v10, v10, v18
+
+    and-int/lit16 v0, v0, 0x500
+
+    if-eqz v0, :cond_d6
+
+    if-eqz v21, :cond_d6
+
+    const/4 v0, 0x1
+
+    goto :goto_dc
+
+    :cond_d6
+    add-int/lit8 v1, v1, 0x1
+
+    move-object/from16 v0, p0
+
+    goto :goto_b0
+
+    :cond_db
+    const/4 v0, 0x0
+
+    :goto_dc
+    if-nez v0, :cond_df
+
+    goto :goto_151
+
+    .line 74
+    :cond_df
+    new-instance v0, Ljava/io/ByteArrayOutputStream;
+
+    invoke-direct {v0}, Ljava/io/ByteArrayOutputStream;-><init>()V
+
+    .line 75
+    invoke-static {v0, v13}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    .line 76
+    invoke-static {v0, v14}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    .line 77
+    invoke-static {v0, v15}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    .line 78
+    invoke-static {v0, v3}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    move/from16 v1, v20
+
+    const/4 v3, 0x0
+
+    :goto_f3
+    if-ge v3, v5, :cond_110
+
+    .line 83
+    invoke-static {v4, v1}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v1
+
+    const/4 v9, 0x0
+
+    aget v10, v1, v9
+
+    invoke-static {v0, v10}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    const/4 v10, 0x1
+
+    aget v1, v1, v10
+
+    .line 84
+    invoke-static {v4, v1}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v1
+
+    aget v13, v1, v9
+
+    invoke-static {v0, v13}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    aget v1, v1, v10
+
+    add-int/lit8 v3, v3, 0x1
+
+    goto :goto_f3
+
+    :cond_110
+    const/4 v3, 0x0
+
+    :goto_111
+    if-ge v3, v12, :cond_141
+
+    .line 89
+    invoke-static {v4, v1}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v1
+
+    const/4 v5, 0x0
+
+    aget v9, v1, v5
+
+    invoke-static {v0, v9}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    const/4 v9, 0x1
+
+    aget v1, v1, v9
+
+    .line 90
+    invoke-static {v4, v1}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v1
+
+    aget v10, v1, v5
+
+    invoke-static {v0, v10}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    aget v1, v1, v9
+
+    .line 91
+    invoke-static {v4, v1}, Lcom/dex2c/plus/engine/DexRewriterEngine;->readUleb([BI)[I
+
+    move-result-object v1
+
+    aget v13, v1, v5
+
+    aget v1, v1, v9
+
+    and-int/lit16 v9, v10, 0x500
+
+    if-eqz v9, :cond_13b
+
+    .line 93
+    invoke-static {v0, v5}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    goto :goto_13e
+
+    .line 95
+    :cond_13b
+    invoke-static {v0, v13}, Lcom/dex2c/plus/engine/DexRewriterEngine;->writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+
+    :goto_13e
+    add-int/lit8 v3, v3, 0x1
+
+    goto :goto_111
+
+    .line 99
+    :cond_141
+    invoke-virtual {v0}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
+
+    move-result-object v0
+
+    .line 100
+    invoke-virtual {v6}, Ljava/io/ByteArrayOutputStream;->size()I
+
+    move-result v1
+
+    add-int/2addr v1, v7
+
+    .line 101
+    invoke-virtual {v6, v0}, Ljava/io/ByteArrayOutputStream;->write([B)V
+
+    .line 104
+    invoke-virtual {v2, v11, v1}, Ljava/nio/ByteBuffer;->putInt(II)Ljava/nio/ByteBuffer;
+
+    const/4 v9, 0x1
+
+    :goto_151
+    add-int/lit8 v8, v8, 0x1
+
+    move-object/from16 v0, p0
+
+    move/from16 v3, v16
+
+    move/from16 v5, v19
+
+    const/4 v1, 0x0
+
+    goto/16 :goto_5f
+
+    :cond_15c
+    if-nez v9, :cond_160
+
+    const/4 v0, 0x1
+
+    return v0
+
+    .line 111
+    :cond_160
+    invoke-virtual {v6}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
+
+    move-result-object v0
+
+    .line 112
+    array-length v1, v4
+
+    array-length v2, v0
+
+    add-int/2addr v1, v2
+
+    new-array v2, v1, [B
+
+    .line 113
+    array-length v3, v4
+
+    const/4 v5, 0x0
+
+    invoke-static {v4, v5, v2, v5, v3}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    .line 114
+    array-length v3, v4
+
+    array-length v4, v0
+
+    invoke-static {v0, v5, v2, v3, v4}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    .line 117
+    invoke-static {v2}, Ljava/nio/ByteBuffer;->wrap([B)Ljava/nio/ByteBuffer;
+
+    move-result-object v0
+
+    sget-object v3, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v0, v3}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v0
+
+    const/16 v3, 0x20
+
+    .line 118
+    invoke-virtual {v0, v3, v1}, Ljava/nio/ByteBuffer;->putInt(II)Ljava/nio/ByteBuffer;
+
+    const-string v4, "SHA-1"
+
+    .line 121
+    invoke-static {v4}, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;
+
+    move-result-object v4
+
+    add-int/lit8 v5, v1, -0x20
+
+    .line 122
+    invoke-virtual {v4, v2, v3, v5}, Ljava/security/MessageDigest;->update([BII)V
+
+    .line 123
+    invoke-virtual {v4}, Ljava/security/MessageDigest;->digest()[B
+
+    move-result-object v3
+
+    const/16 v4, 0x14
+
+    const/16 v5, 0xc
+
+    const/4 v6, 0x0
+
+    .line 124
+    invoke-static {v3, v6, v2, v5, v4}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
+
+    .line 127
+    new-instance v3, Ljava/util/zip/Adler32;
+
+    invoke-direct {v3}, Ljava/util/zip/Adler32;-><init>()V
+
+    sub-int/2addr v1, v5
+
+    .line 128
+    invoke-virtual {v3, v2, v5, v1}, Ljava/util/zip/Adler32;->update([BII)V
+
+    .line 129
+    invoke-virtual {v3}, Ljava/util/zip/Adler32;->getValue()J
+
+    move-result-wide v3
+
+    long-to-int v1, v3
+
+    const/16 v3, 0x8
+
+    invoke-virtual {v0, v3, v1}, Ljava/nio/ByteBuffer;->putInt(II)Ljava/nio/ByteBuffer;
+
+    .line 131
+    new-instance v1, Ljava/io/FileOutputStream;
+
+    move-object/from16 v0, p0
+
+    invoke-direct {v1, v0}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+    :try_end_1b3
+    .catchall {:try_start_3e .. :try_end_1b3} :catchall_1df
+
+    .line 132
+    :try_start_1b3
+    invoke-virtual {v1, v2}, Ljava/io/FileOutputStream;->write([B)V
+    :try_end_1b6
+    .catchall {:try_start_1b3 .. :try_end_1b6} :catchall_1bb
+
+    .line 133
+    :try_start_1b6
+    invoke-virtual {v1}, Ljava/io/FileOutputStream;->close()V
+    :try_end_1b9
+    .catchall {:try_start_1b6 .. :try_end_1b9} :catchall_1df
+
+    const/4 v0, 0x1
+
+    return v0
+
+    :catchall_1bb
+    move-exception v0
+
+    move-object v2, v0
+
+    .line 131
+    :try_start_1bd
+    invoke-virtual {v1}, Ljava/io/FileOutputStream;->close()V
+    :try_end_1c0
+    .catchall {:try_start_1bd .. :try_end_1c0} :catchall_1c1
+
+    goto :goto_1c6
+
+    :catchall_1c1
+    move-exception v0
+
+    move-object v1, v0
+
+    :try_start_1c3
+    invoke-virtual {v2, v1}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
+
+    :goto_1c6
+    throw v2
+    :try_end_1c7
+    .catchall {:try_start_1c3 .. :try_end_1c7} :catchall_1df
+
+    :catchall_1c7
+    move-exception v0
+
+    move-object v1, v0
+
+    .line 21
+    :try_start_1c9
+    invoke-virtual {v3}, Ljava/io/ByteArrayOutputStream;->close()V
+    :try_end_1cc
+    .catchall {:try_start_1c9 .. :try_end_1cc} :catchall_1cd
+
+    goto :goto_1d2
+
+    :catchall_1cd
+    move-exception v0
+
+    move-object v3, v0
+
+    :try_start_1cf
+    invoke-virtual {v1, v3}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
+
+    :goto_1d2
+    throw v1
+    :try_end_1d3
+    .catchall {:try_start_1cf .. :try_end_1d3} :catchall_1d3
+
+    :catchall_1d3
+    move-exception v0
+
+    move-object v1, v0
+
+    :try_start_1d5
+    invoke-virtual {v2}, Ljava/io/FileInputStream;->close()V
+    :try_end_1d8
+    .catchall {:try_start_1d5 .. :try_end_1d8} :catchall_1d9
+
+    goto :goto_1de
+
+    :catchall_1d9
+    move-exception v0
+
+    move-object v2, v0
+
+    :try_start_1db
+    invoke-virtual {v1, v2}, Ljava/lang/Throwable;->addSuppressed(Ljava/lang/Throwable;)V
+
+    :goto_1de
+    throw v1
+    :try_end_1df
+    .catchall {:try_start_1db .. :try_end_1df} :catchall_1df
+
+    :catchall_1df
+    move-exception v0
+
+    .line 136
+    invoke-virtual {v0}, Ljava/lang/Throwable;->printStackTrace()V
+
+    const/4 v1, 0x0
+
+    :cond_1e4
+    :goto_1e4
+    return v1
+.end method
+
+.method private static writeUleb(Ljava/io/ByteArrayOutputStream;I)V
+    .locals 2
+
+    :goto_0
+    ushr-int/lit8 v0, p1, 0x7
+
+    move v1, v0
+
+    move v0, p1
+
+    move p1, v1
+
+    if-eqz p1, :cond_10
+
+    and-int/lit8 v0, v0, 0x7f
+
+    or-int/lit16 v0, v0, 0x80
+
+    int-to-byte v0, v0
+
+    .line 156
+    invoke-virtual {p0, v0}, Ljava/io/ByteArrayOutputStream;->write(I)V
+
+    goto :goto_0
+
+    :cond_10
+    and-int/lit8 p1, v0, 0x7f
+
+    int-to-byte p1, p1
+
+    .line 160
+    invoke-virtual {p0, p1}, Ljava/io/ByteArrayOutputStream;->write(I)V
+
+    return-void
 .end method

@@ -23,6 +23,7 @@ import com.android.tools.smali.dexlib2.immutable.ImmutableExceptionHandler;
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethod;
 import com.android.tools.smali.dexlib2.immutable.ImmutableMethodImplementation;
 import com.android.tools.smali.dexlib2.immutable.ImmutableTryBlock;
+import com.android.tools.smali.dexlib2.immutable.ImmutableMethodParameter;
 import com.android.tools.smali.dexlib2.immutable.instruction.ImmutableInstruction10x;
 import com.android.tools.smali.dexlib2.immutable.instruction.ImmutableInstruction21c;
 import com.android.tools.smali.dexlib2.immutable.instruction.ImmutableInstruction35c;
@@ -38,10 +39,14 @@ import com.dex2c.plus.model.DexClassItem;
 import com.dex2c.plus.model.ProjectState;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -52,6 +57,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.zip.Adler32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
@@ -136,6 +142,7 @@ public class DexRewriterEngine {
                             }
                             File file7 = new File(file4, str6);
                             DexFileFactory.writeDexFile(file7.getAbsolutePath(), dexFileRewrite);
+                            sanitizeNativeMethodsInDexFile(file7);
                             map.put(str6, file7);
                             i = i2 + 1;
                             ConsoleLogger.get().updateStep("STEP_REWRITE", "Rewriting DEX...", i + "/" + iMax);
@@ -336,11 +343,20 @@ public class DexRewriterEngine {
         int accessFlags = (method.getAccessFlags() | AccessFlags.NATIVE.getValue()) & (~AccessFlags.DECLARED_SYNCHRONIZED.getValue()) & (~AccessFlags.SYNCHRONIZED.getValue()) & (~AccessFlags.STRICTFP.getValue());
         String definingClass = method.getDefiningClass();
         String name = method.getName();
-        List<? extends MethodParameter> parameters = method.getParameters();
+        List<ImmutableMethodParameter> cleanParams = toCleanParameters(method.getParameters());
         String returnType = method.getReturnType();
         Set<? extends Annotation> annotations = method.getAnnotations();
         Set<HiddenApiRestriction> hiddenApiRestrictions = method.getHiddenApiRestrictions();
-        return new ImmutableMethod(definingClass, name, parameters, returnType, accessFlags, annotations, hiddenApiRestrictions, (MethodImplementation) null);
+        return new ImmutableMethod(definingClass, name, cleanParams, returnType, accessFlags, annotations, hiddenApiRestrictions, (MethodImplementation) null);
+    }
+
+    private static List<ImmutableMethodParameter> toCleanParameters(List<? extends MethodParameter> list) {
+        if (list == null) return Collections.emptyList();
+        ArrayList<ImmutableMethodParameter> clean = new ArrayList<>(list.size());
+        for (MethodParameter p : list) {
+            clean.add(new ImmutableMethodParameter(p.getType(), Collections.emptySet(), null));
+        }
+        return clean;
     }
 
     private static Method buildFreshClinitCallingLoader(String str, String str2) {
@@ -567,5 +583,147 @@ public class DexRewriterEngine {
                 }
             }
         }
+    }
+
+    public static boolean sanitizeNativeMethodsInDexFile(File dexFile) {
+        if (dexFile == null || !dexFile.exists() || dexFile.length() < 112) {
+            return false;
+        }
+        try {
+            byte[] dex;
+            try (FileInputStream fis = new FileInputStream(dexFile);
+                 ByteArrayOutputStream baos = new ByteArrayOutputStream((int) dexFile.length() + 4096)) {
+                byte[] buf = new byte[16384];
+                int r;
+                while ((r = fis.read(buf)) != -1) {
+                    baos.write(buf, 0, r);
+                }
+                dex = baos.toByteArray();
+            }
+
+            ByteBuffer header = ByteBuffer.wrap(dex).order(ByteOrder.LITTLE_ENDIAN);
+            int classDefsSize = header.getInt(96);
+            int classDefsOff = header.getInt(100);
+
+            ByteArrayOutputStream appendBaos = new ByteArrayOutputStream();
+            int currentEnd = dex.length;
+            boolean modified = false;
+
+            for (int c = 0; c < classDefsSize; c++) {
+                int classDefOffset = classDefsOff + c * 32;
+                int classDataOff = header.getInt(classDefOffset + 24);
+                if (classDataOff == 0) continue;
+
+                int p = classDataOff;
+                int[] res = readUleb(dex, p);
+                int staticFieldsSize = res[0]; p = res[1];
+                res = readUleb(dex, p);
+                int instanceFieldsSize = res[0]; p = res[1];
+                res = readUleb(dex, p);
+                int directMethodsSize = res[0]; p = res[1];
+                res = readUleb(dex, p);
+                int virtualMethodsSize = res[0]; p = res[1];
+
+                // Check if any native or abstract method has code_off != 0
+                int scanP = p;
+                for (int i = 0; i < staticFieldsSize + instanceFieldsSize; i++) {
+                    res = readUleb(dex, scanP); scanP = res[1];
+                    res = readUleb(dex, scanP); scanP = res[1];
+                }
+                boolean classNeedsFix = false;
+                for (int i = 0; i < directMethodsSize + virtualMethodsSize; i++) {
+                    res = readUleb(dex, scanP); scanP = res[1];
+                    res = readUleb(dex, scanP); int flags = res[0]; scanP = res[1];
+                    res = readUleb(dex, scanP); int codeOff = res[0]; scanP = res[1];
+                    if ((flags & 0x500) != 0 && codeOff != 0) {
+                        classNeedsFix = true;
+                        break;
+                    }
+                }
+
+                if (!classNeedsFix) continue;
+
+                modified = true;
+                ByteArrayOutputStream cdBaos = new ByteArrayOutputStream();
+                writeUleb(cdBaos, staticFieldsSize);
+                writeUleb(cdBaos, instanceFieldsSize);
+                writeUleb(cdBaos, directMethodsSize);
+                writeUleb(cdBaos, virtualMethodsSize);
+
+                int readP = p;
+                for (int i = 0; i < staticFieldsSize + instanceFieldsSize; i++) {
+                    res = readUleb(dex, readP); writeUleb(cdBaos, res[0]); readP = res[1];
+                    res = readUleb(dex, readP); writeUleb(cdBaos, res[0]); readP = res[1];
+                }
+
+                for (int i = 0; i < directMethodsSize + virtualMethodsSize; i++) {
+                    res = readUleb(dex, readP); writeUleb(cdBaos, res[0]); readP = res[1];
+                    res = readUleb(dex, readP); int flags = res[0]; writeUleb(cdBaos, flags); readP = res[1];
+                    res = readUleb(dex, readP); int codeOff = res[0]; readP = res[1];
+                    if ((flags & 0x500) != 0) {
+                        writeUleb(cdBaos, 0);
+                    } else {
+                        writeUleb(cdBaos, codeOff);
+                    }
+                }
+
+                byte[] newCdBytes = cdBaos.toByteArray();
+                int newClassDataOff = currentEnd + appendBaos.size();
+                appendBaos.write(newCdBytes);
+
+                header.putInt(classDefOffset + 24, newClassDataOff);
+            }
+
+            if (!modified) {
+                return true;
+            }
+
+            byte[] appendBytes = appendBaos.toByteArray();
+            byte[] newDex = new byte[dex.length + appendBytes.length];
+            System.arraycopy(dex, 0, newDex, 0, dex.length);
+            System.arraycopy(appendBytes, 0, newDex, dex.length, appendBytes.length);
+
+            ByteBuffer newBuf = ByteBuffer.wrap(newDex).order(ByteOrder.LITTLE_ENDIAN);
+            newBuf.putInt(32, newDex.length);
+
+            MessageDigest sha1 = MessageDigest.getInstance("SHA-1");
+            sha1.update(newDex, 32, newDex.length - 32);
+            byte[] sha1Bytes = sha1.digest();
+            System.arraycopy(sha1Bytes, 0, newDex, 12, 20);
+
+            Adler32 adler = new Adler32();
+            adler.update(newDex, 12, newDex.length - 12);
+            newBuf.putInt(8, (int) adler.getValue());
+
+            try (FileOutputStream fos = new FileOutputStream(dexFile)) {
+                fos.write(newDex);
+            }
+            return true;
+        } catch (Throwable t) {
+            t.printStackTrace();
+            return false;
+        }
+    }
+
+    private static int[] readUleb(byte[] data, int p) {
+        int res = 0;
+        int shift = 0;
+        while (true) {
+            byte b = data[p++];
+            res |= (b & 0x7f) << shift;
+            if ((b & 0x80) == 0) break;
+            shift += 7;
+        }
+        return new int[]{res, p};
+    }
+
+    private static void writeUleb(ByteArrayOutputStream out, int val) {
+        int remaining = val >>> 7;
+        while (remaining != 0) {
+            out.write((byte) ((val & 0x7f) | 0x80));
+            val = remaining;
+            remaining >>>= 7;
+        }
+        out.write((byte) (val & 0x7f));
     }
 }
