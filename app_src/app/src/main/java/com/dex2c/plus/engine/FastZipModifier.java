@@ -25,6 +25,80 @@ public final class FastZipModifier {
     private FastZipModifier() {
     }
 
+    public static class CountingOutputStream extends java.io.FilterOutputStream {
+        private long count = 0;
+
+        public CountingOutputStream(java.io.OutputStream out) {
+            super(out);
+        }
+
+        @Override
+        public void write(int b) throws java.io.IOException {
+            this.out.write(b);
+            this.count++;
+        }
+
+        @Override
+        public void write(byte[] b, int off, int len) throws java.io.IOException {
+            this.out.write(b, off, len);
+            this.count += len;
+        }
+
+        public long getCount() {
+            return this.count;
+        }
+    }
+
+    public static byte[] cleanAlignmentExtra(byte[] extra) {
+        if (extra == null || extra.length < 4) {
+            return extra;
+        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        int i = 0;
+        while (i + 4 <= extra.length) {
+            int tag = (extra[i] & 0xFF) | ((extra[i + 1] & 0xFF) << 8);
+            int len = (extra[i + 2] & 0xFF) | ((extra[i + 3] & 0xFF) << 8);
+            int total = 4 + len;
+            if (i + total > extra.length) {
+                break;
+            }
+            if (tag != 0xd935) {
+                baos.write(extra, i, total);
+            }
+            i += total;
+        }
+        byte[] res = baos.toByteArray();
+        return res.length > 0 ? res : null;
+    }
+
+    public static byte[] buildAlignedExtra(byte[] existingExtra, long curStreamOffset, String name, int alignment) {
+        byte[] baseExtra = cleanAlignmentExtra(existingExtra);
+        int baseExtraLen = (baseExtra != null ? baseExtra.length : 0);
+        byte[] nameBytes = name.getBytes(StandardCharsets.UTF_8);
+        long baseOffset = curStreamOffset + 30 + nameBytes.length + baseExtraLen;
+        int padding = (int) ((alignment - (baseOffset % alignment)) % alignment);
+        if (padding == 0) {
+            return baseExtra;
+        }
+        if (padding < 4) {
+            padding += alignment;
+        }
+        int dataLen = padding - 4;
+        byte[] alignBlock = new byte[padding];
+        alignBlock[0] = (byte) 0x35;
+        alignBlock[1] = (byte) 0xd9;
+        alignBlock[2] = (byte) (dataLen & 0xFF);
+        alignBlock[3] = (byte) ((dataLen >> 8) & 0xFF);
+
+        if (baseExtra == null || baseExtra.length == 0) {
+            return alignBlock;
+        }
+        byte[] combined = new byte[baseExtra.length + padding];
+        System.arraycopy(baseExtra, 0, combined, 0, baseExtra.length);
+        System.arraycopy(alignBlock, 0, combined, baseExtra.length, padding);
+        return combined;
+    }
+
     public static boolean appendFilesNative(String zipPath, String[] filePairs) {
         if (zipPath == null || filePairs == null || filePairs.length == 0) {
             return false;
@@ -50,76 +124,89 @@ public final class FastZipModifier {
             }
         }
 
-        try (ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(tempFile)))) {
-            Set<String> added = new HashSet<>();
+        try {
+            CountingOutputStream cos = new CountingOutputStream(new BufferedOutputStream(new FileOutputStream(tempFile), 65536));
+            try (ZipOutputStream zos = new ZipOutputStream(cos)) {
+                Set<String> added = new HashSet<>();
 
-            if (origFile.exists() && origFile.length() > 0) {
-                try (ZipFile zipFile = new ZipFile(origFile)) {
-                    Enumeration<? extends ZipEntry> entries = zipFile.entries();
-                    byte[] buffer = new byte[16384];
-                    while (entries.hasMoreElements()) {
-                        ZipEntry entry = entries.nextElement();
-                        String name = entry.getName();
-                        if (filesToAdd.containsKey(name) || ApkSignerHelper.isMetaInfSignature(name)) {
-                            continue;
+                if (origFile.exists() && origFile.length() > 0) {
+                    try (ZipFile zipFile = new ZipFile(origFile)) {
+                        Enumeration<? extends ZipEntry> entries = zipFile.entries();
+                        byte[] buffer = new byte[65536];
+                        while (entries.hasMoreElements()) {
+                            ZipEntry entry = entries.nextElement();
+                            String name = entry.getName();
+                            if (filesToAdd.containsKey(name) || ApkSignerHelper.isMetaInfSignature(name)) {
+                                continue;
+                            }
+                            ZipEntry newEntry = new ZipEntry(name);
+                            newEntry.setTime(entry.getTime());
+                            if (entry.getComment() != null) newEntry.setComment(entry.getComment());
+                            boolean isSo = (name.startsWith("lib/") || name.endsWith(".so"));
+                            boolean isStored = isSo || (entry.getMethod() == ZipEntry.STORED);
+                            if (isStored) {
+                                newEntry.setMethod(ZipEntry.STORED);
+                                newEntry.setSize(entry.getSize());
+                                newEntry.setCompressedSize(entry.getSize());
+                                newEntry.setCrc(entry.getCrc());
+                                int align = isSo ? 4096 : 4;
+                                newEntry.setExtra(buildAlignedExtra(entry.getExtra(), cos.getCount(), name, align));
+                            } else {
+                                newEntry.setMethod(ZipEntry.DEFLATED);
+                                if (entry.getExtra() != null) {
+                                    newEntry.setExtra(cleanAlignmentExtra(entry.getExtra()));
+                                }
+                            }
+                            zos.putNextEntry(newEntry);
+                            try (InputStream is = zipFile.getInputStream(entry)) {
+                                int read;
+                                while ((read = is.read(buffer)) != -1) {
+                                    zos.write(buffer, 0, read);
+                                }
+                            }
+                            zos.closeEntry();
+                            added.add(name);
                         }
-                        ZipEntry newEntry = new ZipEntry(name);
-                        newEntry.setTime(entry.getTime());
-                        if (entry.getComment() != null) newEntry.setComment(entry.getComment());
-                        if (entry.getExtra() != null) newEntry.setExtra(entry.getExtra());
-                        boolean shouldStore = (name.startsWith("lib/") || name.endsWith(".so"));
-                        if (shouldStore || entry.getMethod() == ZipEntry.STORED) {
-                            newEntry.setMethod(ZipEntry.STORED);
-                            newEntry.setSize(entry.getSize());
-                            newEntry.setCompressedSize(entry.getSize());
-                            newEntry.setCrc(entry.getCrc());
+                    }
+                }
+
+                byte[] buffer = new byte[65536];
+                for (Map.Entry<String, File> entry : filesToAdd.entrySet()) {
+                    String entryName = entry.getKey();
+                    File src = entry.getValue();
+                    if (src.exists() && src.isFile()) {
+                        ZipEntry zipEntry = new ZipEntry(entryName);
+                        zipEntry.setTime(src.lastModified());
+                        boolean isSo = (entryName.startsWith("lib/") || entryName.endsWith(".so"));
+                        if (isSo) {
+                            zipEntry.setMethod(ZipEntry.STORED);
+                            zipEntry.setSize(src.length());
+                            zipEntry.setCompressedSize(src.length());
+                            java.util.zip.CRC32 crc = new java.util.zip.CRC32();
+                            try (FileInputStream fis = new FileInputStream(src)) {
+                                int read;
+                                while ((read = fis.read(buffer)) != -1) {
+                                    crc.update(buffer, 0, read);
+                                }
+                            }
+                            zipEntry.setCrc(crc.getValue());
+                            zipEntry.setExtra(buildAlignedExtra(null, cos.getCount(), entryName, 4096));
+                        } else {
+                            zipEntry.setMethod(ZipEntry.DEFLATED);
                         }
-                        zos.putNextEntry(newEntry);
-                        try (InputStream is = zipFile.getInputStream(entry)) {
+                        zos.putNextEntry(zipEntry);
+                        try (FileInputStream fis = new FileInputStream(src)) {
                             int read;
-                            while ((read = is.read(buffer)) != -1) {
+                            while ((read = fis.read(buffer)) != -1) {
                                 zos.write(buffer, 0, read);
                             }
                         }
                         zos.closeEntry();
-                        added.add(name);
+                        added.add(entryName);
                     }
                 }
+                zos.finish();
             }
-
-            byte[] buffer = new byte[16384];
-            for (Map.Entry<String, File> entry : filesToAdd.entrySet()) {
-                String entryName = entry.getKey();
-                File src = entry.getValue();
-                if (src.exists() && src.isFile()) {
-                    ZipEntry zipEntry = new ZipEntry(entryName);
-                    zipEntry.setTime(src.lastModified());
-                    boolean shouldStore = (entryName.startsWith("lib/") || entryName.endsWith(".so"));
-                    if (shouldStore) {
-                        zipEntry.setMethod(ZipEntry.STORED);
-                        zipEntry.setSize(src.length());
-                        zipEntry.setCompressedSize(src.length());
-                        java.util.zip.CRC32 crc = new java.util.zip.CRC32();
-                        try (FileInputStream fis = new FileInputStream(src)) {
-                            int read;
-                            while ((read = fis.read(buffer)) != -1) {
-                                crc.update(buffer, 0, read);
-                            }
-                        }
-                        zipEntry.setCrc(crc.getValue());
-                    }
-                    zos.putNextEntry(zipEntry);
-                    try (FileInputStream fis = new FileInputStream(src)) {
-                        int read;
-                        while ((read = fis.read(buffer)) != -1) {
-                            zos.write(buffer, 0, read);
-                        }
-                    }
-                    zos.closeEntry();
-                    added.add(entryName);
-                }
-            }
-            zos.finish();
         } catch (Exception e) {
             if (tempFile.exists()) {
                 tempFile.delete();

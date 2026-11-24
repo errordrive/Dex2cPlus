@@ -159,7 +159,8 @@ public final class ApkSignerHelper {
                 byte[] pkcs7Der = createPkcs7SignedData(cert, certDer, v1Signature);
 
                 // 5. Re-write ZIP with v1 signature entries at beginning
-                try (ZipOutputStream zos = new ZipOutputStream(new BufferedOutputStream(new FileOutputStream(v1SignedFile), 65536))) {
+                FastZipModifier.CountingOutputStream cos = new FastZipModifier.CountingOutputStream(new BufferedOutputStream(new FileOutputStream(v1SignedFile), 65536));
+                try (ZipOutputStream zos = new ZipOutputStream(cos)) {
                     ZipEntry zeMf = new ZipEntry("META-INF/MANIFEST.MF");
                     zos.putNextEntry(zeMf);
                     zos.write(manifestBytes);
@@ -185,14 +186,21 @@ public final class ApkSignerHelper {
                         ZipEntry newEntry = new ZipEntry(name);
                         newEntry.setTime(e.getTime());
                         if (e.getComment() != null) newEntry.setComment(e.getComment());
-                        if (e.getExtra() != null) newEntry.setExtra(e.getExtra());
 
-                        boolean shouldStore = (name.startsWith("lib/") || name.endsWith(".so"));
-                        if (shouldStore || e.getMethod() == ZipEntry.STORED) {
+                        boolean isSo = (name.startsWith("lib/") || name.endsWith(".so"));
+                        boolean isStored = isSo || (e.getMethod() == ZipEntry.STORED);
+                        if (isStored) {
                             newEntry.setMethod(ZipEntry.STORED);
                             newEntry.setSize(e.getSize());
                             newEntry.setCompressedSize(e.getSize());
                             newEntry.setCrc(e.getCrc());
+                            int align = isSo ? 4096 : 4;
+                            newEntry.setExtra(FastZipModifier.buildAlignedExtra(e.getExtra(), cos.getCount(), name, align));
+                        } else {
+                            newEntry.setMethod(ZipEntry.DEFLATED);
+                            if (e.getExtra() != null) {
+                                newEntry.setExtra(FastZipModifier.cleanAlignmentExtra(e.getExtra()));
+                            }
                         }
                         zos.putNextEntry(newEntry);
                         try (InputStream is = zipFile.getInputStream(e)) {

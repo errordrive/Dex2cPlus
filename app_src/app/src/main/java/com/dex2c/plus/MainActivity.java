@@ -254,9 +254,14 @@ public class MainActivity extends AppCompatActivity {
         }
         dialogPermissionPromptBindingInflate.ivDialogIcon.setImageResource(R.drawable.ic_rocket_protect);
         dialogPermissionPromptBindingInflate.tvDialogTitle.setText("Android NDK Required");
-        dialogPermissionPromptBindingInflate.tvDialogMessage.setText("Android NDK toolchain is required to compile translated C/C++ code into native (.so) libraries. Please install it first to enable native build support.");
-        dialogPermissionPromptBindingInflate.btnDialogSecondary.setVisibility(0);
-        dialogPermissionPromptBindingInflate.btnDialogSecondary.setText("ONLINE INSTALL");
+        File localArchive = NdkCompiler.getPersistentNdkArchive(this);
+        if (localArchive != null && localArchive.exists()) {
+            dialogPermissionPromptBindingInflate.tvDialogMessage.setText("Found offline Android NDK backup (" + localArchive.getName() + "). Install it now without downloading from internet?");
+            dialogPermissionPromptBindingInflate.btnDialogSecondary.setText("LOCAL INSTALL");
+        } else {
+            dialogPermissionPromptBindingInflate.tvDialogMessage.setText("Android NDK toolchain is required to compile translated C/C++ code into native (.so) libraries. Please install it first to enable native build support.");
+            dialogPermissionPromptBindingInflate.btnDialogSecondary.setText("ONLINE INSTALL");
+        }
         dialogPermissionPromptBindingInflate.btnDialogSecondary.setTextColor(ContextCompat.getColor(this, R.color.md_theme_primary));
         dialogPermissionPromptBindingInflate.btnDialogPrimary.setVisibility(0);
         dialogPermissionPromptBindingInflate.btnDialogPrimary.setText("CANCEL");

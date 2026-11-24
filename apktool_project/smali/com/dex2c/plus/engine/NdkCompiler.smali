@@ -2523,11 +2523,226 @@
     return-object v2
 .end method
 
+.method public static getPersistentNdkArchive(Landroid/content/Context;)Ljava/io/File;
+    .registers 7
+
+    const/4 v0, 0x0
+
+    if-nez p0, :cond_4
+
+    return-object v0
+
+    :cond_4
+    const-wide/32 v1, 0x4c4b40
+
+    :try_start_7
+    invoke-static {p0}, Lcom/dex2c/plus/StorageHelper;->getDex2cPlusOutputDir(Landroid/content/Context;)Ljava/io/File;
+
+    move-result-object p0
+
+    if-eqz p0, :cond_29
+
+    new-instance v3, Ljava/io/File;
+
+    const-string v4, "mini_ndk.zip"
+
+    invoke-direct {v3, p0, v4}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    invoke-virtual {v3}, Ljava/io/File;->exists()Z
+
+    move-result p0
+
+    if-eqz p0, :cond_29
+
+    invoke-virtual {v3}, Ljava/io/File;->isFile()Z
+
+    move-result p0
+
+    if-eqz p0, :cond_29
+
+    invoke-virtual {v3}, Ljava/io/File;->length()J
+
+    move-result-wide v4
+    :try_end_24
+    .catchall {:try_start_7 .. :try_end_24} :catchall_2a
+
+    cmp-long p0, v4, v1
+
+    if-lez p0, :cond_29
+
+    return-object v3
+
+    :cond_29
+    goto :goto_2b
+
+    :catchall_2a
+    move-exception p0
+
+    :goto_2b
+    :try_start_2b
+    new-instance p0, Ljava/io/File;
+
+    invoke-static {}, Landroid/os/Environment;->getExternalStorageDirectory()Ljava/io/File;
+
+    move-result-object v3
+
+    const-string v4, "Dex2cPlus/mini_ndk.zip"
+
+    invoke-direct {p0, v3, v4}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    invoke-virtual {p0}, Ljava/io/File;->exists()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_4b
+
+    invoke-virtual {p0}, Ljava/io/File;->isFile()Z
+
+    move-result v3
+
+    if-eqz v3, :cond_4b
+
+    invoke-virtual {p0}, Ljava/io/File;->length()J
+
+    move-result-wide v3
+    :try_end_46
+    .catchall {:try_start_2b .. :try_end_46} :catchall_4c
+
+    cmp-long v5, v3, v1
+
+    if-lez v5, :cond_4b
+
+    return-object p0
+
+    :cond_4b
+    goto :goto_4d
+
+    :catchall_4c
+    move-exception p0
+
+    :goto_4d
+    return-object v0
+.end method
+
+.method public static savePersistentNdkArchive(Landroid/content/Context;Ljava/io/File;)V
+    .registers 7
+
+    if-eqz p0, :cond_3d
+
+    if-eqz p1, :cond_3d
+
+    invoke-virtual {p1}, Ljava/io/File;->exists()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_3d
+
+    invoke-virtual {p1}, Ljava/io/File;->length()J
+
+    move-result-wide v0
+
+    const-wide/32 v2, 0x4c4b40
+
+    cmp-long v4, v0, v2
+
+    if-gez v4, :cond_16
+
+    goto :goto_3d
+
+    :cond_16
+    :try_start_16
+    invoke-static {p0}, Lcom/dex2c/plus/StorageHelper;->getDex2cPlusOutputDir(Landroid/content/Context;)Ljava/io/File;
+
+    move-result-object p0
+
+    if-eqz p0, :cond_3a
+
+    invoke-virtual {p0}, Ljava/io/File;->exists()Z
+
+    move-result v0
+
+    if-nez v0, :cond_28
+
+    invoke-virtual {p0}, Ljava/io/File;->mkdirs()Z
+
+    move-result v0
+
+    if-eqz v0, :cond_3a
+
+    :cond_28
+    new-instance v0, Ljava/io/File;
+
+    const-string v1, "mini_ndk.zip"
+
+    invoke-direct {v0, p0, v1}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+
+    invoke-virtual {p1}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-virtual {v0}, Ljava/io/File;->getAbsolutePath()Ljava/lang/String;
+
+    move-result-object p1
+
+    invoke-static {p0, p1}, Lcom/dex2c/plus/engine/FastZipModifier;->copyFileNative(Ljava/lang/String;Ljava/lang/String;)Z
+    :try_end_3a
+    .catchall {:try_start_16 .. :try_end_3a} :catchall_3b
+
+    :cond_3a
+    goto :goto_3c
+
+    :catchall_3b
+    move-exception p0
+
+    :goto_3c
+    return-void
+
+    :cond_3d
+    :goto_3d
+    return-void
+.end method
+
 .method public static downloadAndInstallOnline(Landroid/content/Context;Ljava/lang/String;Lcom/dex2c/plus/engine/NdkCompiler$InstallProgressListener;)Z
     .locals 28
 
     move-object/from16 v1, p2
 
+    invoke-static/range {p0 .. p0}, Lcom/dex2c/plus/engine/NdkCompiler;->getPersistentNdkArchive(Landroid/content/Context;)Ljava/io/File;
+
+    move-result-object v0
+
+    if-eqz v0, :cond_check_ndk_online
+
+    invoke-virtual {v0}, Ljava/io/File;->exists()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_check_ndk_online
+
+    if-eqz v1, :cond_skip_ndk_cb
+
+    const-string v2, "Installing..."
+
+    invoke-virtual {v0}, Ljava/io/File;->getName()Ljava/lang/String;
+
+    move-result-object v3
+
+    const/4 v4, 0x0
+
+    const/4 v5, 0x0
+
+    invoke-interface {v1, v2, v3, v4, v5}, Lcom/dex2c/plus/engine/NdkCompiler$InstallProgressListener;->onProgress(Ljava/lang/String;Ljava/lang/String;IZ)V
+
+    :cond_skip_ndk_cb
+    move-object/from16 v2, p0
+
+    invoke-static {v2, v0, v1}, Lcom/dex2c/plus/engine/NdkCompiler;->installFromLocalFile(Landroid/content/Context;Ljava/io/File;Lcom/dex2c/plus/engine/NdkCompiler$InstallProgressListener;)Z
+
+    move-result v0
+
+    return v0
+
+    :cond_check_ndk_online
     if-eqz p1, :cond_0
 
     .line 173
@@ -3076,6 +3291,8 @@
 
     :cond_e
     move-object/from16 v5, p0
+
+    invoke-static {v5, v2}, Lcom/dex2c/plus/engine/NdkCompiler;->savePersistentNdkArchive(Landroid/content/Context;Ljava/io/File;)V
 
     .line 252
     :try_start_d

@@ -2115,7 +2115,7 @@
 .end method
 
 .method private showNdkRequiredDialog()V
-    .locals 4
+    .locals 5
 
     .line 174
     invoke-virtual {p0}, Lcom/dex2c/plus/MainActivity;->isFinishing()Z
@@ -2237,6 +2237,59 @@
     invoke-virtual {v1, v2}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
     .line 194
+    invoke-static {p0}, Lcom/dex2c/plus/engine/NdkCompiler;->getPersistentNdkArchive(Landroid/content/Context;)Ljava/io/File;
+
+    move-result-object v1
+
+    if-eqz v1, :cond_default_ndk_msg
+
+    invoke-virtual {v1}, Ljava/io/File;->exists()Z
+
+    move-result v2
+
+    if-eqz v2, :cond_default_ndk_msg
+
+    iget-object v2, v0, Lcom/dex2c/plus/databinding/DialogPermissionPromptBinding;->tvDialogMessage:Landroid/widget/TextView;
+
+    new-instance v3, Ljava/lang/StringBuilder;
+
+    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+
+    const-string v4, "Found offline Android NDK backup ("
+
+    invoke-virtual {v3, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v1}, Ljava/io/File;->getName()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    const-string v1, "). Install it now without downloading from internet?"
+
+    invoke-virtual {v3, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v1
+
+    invoke-virtual {v2, v1}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    iget-object v1, v0, Lcom/dex2c/plus/databinding/DialogPermissionPromptBinding;->btnDialogSecondary:Landroid/widget/TextView;
+
+    const/4 v2, 0x0
+
+    invoke-virtual {v1, v2}, Landroid/widget/TextView;->setVisibility(I)V
+
+    iget-object v1, v0, Lcom/dex2c/plus/databinding/DialogPermissionPromptBinding;->btnDialogSecondary:Landroid/widget/TextView;
+
+    const-string v3, "LOCAL INSTALL"
+
+    invoke-virtual {v1, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    goto :goto_btn_color
+
+    :cond_default_ndk_msg
     iget-object v1, v0, Lcom/dex2c/plus/databinding/DialogPermissionPromptBinding;->tvDialogMessage:Landroid/widget/TextView;
 
     const-string v2, "Android NDK toolchain is required to compile translated C/C++ code into native (.so) libraries. Please install it first to enable native build support."
@@ -2256,6 +2309,8 @@
     const-string v3, "ONLINE INSTALL"
 
     invoke-virtual {v1, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    :goto_btn_color
 
     .line 201
     iget-object v1, v0, Lcom/dex2c/plus/databinding/DialogPermissionPromptBinding;->btnDialogSecondary:Landroid/widget/TextView;

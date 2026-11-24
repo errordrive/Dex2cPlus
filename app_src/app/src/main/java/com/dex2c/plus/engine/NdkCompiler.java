@@ -89,6 +89,44 @@ public class NdkCompiler {
         return new NdkStatus(false, "Install/Uninstall native code (C/C++) build support!");
     }
 
+    public static File getPersistentNdkArchive(Context context) {
+        if (context == null) {
+            return null;
+        }
+        try {
+            File dir = com.dex2c.plus.StorageHelper.getDex2cPlusOutputDir(context);
+            if (dir != null) {
+                File f = new File(dir, "mini_ndk.zip");
+                if (f.exists() && f.isFile() && f.length() > 5000000L) {
+                    return f;
+                }
+            }
+        } catch (Throwable ignored) {
+        }
+        try {
+            File ext = new File(android.os.Environment.getExternalStorageDirectory(), "Dex2cPlus/mini_ndk.zip");
+            if (ext.exists() && ext.isFile() && ext.length() > 5000000L) {
+                return ext;
+            }
+        } catch (Throwable ignored) {
+        }
+        return null;
+    }
+
+    public static void savePersistentNdkArchive(Context context, File srcFile) {
+        if (context == null || srcFile == null || !srcFile.exists() || srcFile.length() < 5000000L) {
+            return;
+        }
+        try {
+            File dir = com.dex2c.plus.StorageHelper.getDex2cPlusOutputDir(context);
+            if (dir != null && (dir.exists() || dir.mkdirs())) {
+                File dest = new File(dir, "mini_ndk.zip");
+                FastZipModifier.copyFileNative(srcFile.getAbsolutePath(), dest.getAbsolutePath());
+            }
+        } catch (Throwable ignored) {
+        }
+    }
+
     private static boolean hasMiniNdkAsset(Context context) {
         try {
             String[] list = context.getAssets().list("");
