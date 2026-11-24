@@ -338,7 +338,7 @@
 .method public static getArchitectUrlNative()Ljava/lang/String;
     .locals 1
 
-    const-string v0, "https://t.me/INCoderDev"
+    const-string v0, "https://t.me/errordrive"
 
     return-object v0
 .end method
@@ -352,7 +352,7 @@
 
     const/4 v1, 0x0
 
-    const-string v2, "@INCoderDev"
+    const-string v2, "@errordrive"
 
     aput-object v2, v0, v1
 
@@ -370,7 +370,7 @@
 
     const/4 v1, 0x3
 
-    const-string v2, "@INCoderDev"
+    const-string v2, "@errordrive"
 
     aput-object v2, v0, v1
 
@@ -382,7 +382,7 @@
 
     const/4 v1, 0x5
 
-    const-string v2, "@INCoderX"
+    const-string v2, "@errordrive"
 
     aput-object v2, v0, v1
 
@@ -471,16 +471,7 @@
     return-void
 
     :cond_0
-    if-nez p1, :cond_1
-
-    const-string v0, "https://t.me/INCoderDev"
-
-    goto :goto_0
-
-    :cond_1
-    const-string v0, "https://t.me/INCoderX"
-
-    :goto_0
+    const-string v0, "https://t.me/errordrive"
     :try_start_0
     new-instance v1, Landroid/content/Intent;
 

@@ -169,6 +169,10 @@ public class DexRewriterEngine {
         File fileResolveNextCompiledApkFile = resolveNextCompiledApkFile(fileResolveOutputDirectory, str);
         ConsoleLogger.get().updateStep("STEP_PACKAGE", "Packaging APK...", "0/1");
         rebuildApkWithNativeFastZip(file, fileResolveNextCompiledApkFile, map, file5);
+        try {
+            ApkSignerHelper.signApk(fileResolveNextCompiledApkFile);
+        } catch (Throwable ignored) {
+        }
         if (!NdkCompiler.isCancelRequested()) {
             ConsoleLogger.get().updateStep("STEP_PACKAGE", "Packaging APK...", "1/1");
         }
@@ -525,7 +529,21 @@ public class DexRewriterEngine {
                     continue;
                 } else {
                     set.add(str2);
-                    zipOutputStream.putNextEntry(new ZipEntry(str2));
+                    ZipEntry zipEntry = new ZipEntry(str2);
+                    if (str2.startsWith("lib/") || str2.endsWith(".so")) {
+                        zipEntry.setMethod(ZipEntry.STORED);
+                        zipEntry.setSize(file2.length());
+                        zipEntry.setCompressedSize(file2.length());
+                        java.util.zip.CRC32 crc = new java.util.zip.CRC32();
+                        try (FileInputStream fis = new FileInputStream(file2)) {
+                            int r;
+                            while ((r = fis.read(bArr)) > 0) {
+                                crc.update(bArr, 0, r);
+                            }
+                        }
+                        zipEntry.setCrc(crc.getValue());
+                    }
+                    zipOutputStream.putNextEntry(zipEntry);
                     BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(file2), 65536);
                     while (true) {
                         try {

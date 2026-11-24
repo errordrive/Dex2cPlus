@@ -78,7 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
-                    android:text="Core DEX to C++ transpilation engine, native JNI obfuscation pipeline and Android app architect @INCoderDev"
+                    android:text="Core DEX to C++ transpilation engine, native JNI obfuscation pipeline and Android app architect @errordrive"
                     android:lineSpacingExtra="2dp"/>
             </LinearLayout>
             <LinearLayout

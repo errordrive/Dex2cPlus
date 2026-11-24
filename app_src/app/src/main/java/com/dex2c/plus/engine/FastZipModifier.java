@@ -60,13 +60,20 @@ public final class FastZipModifier {
                     while (entries.hasMoreElements()) {
                         ZipEntry entry = entries.nextElement();
                         String name = entry.getName();
-                        if (filesToAdd.containsKey(name)) {
+                        if (filesToAdd.containsKey(name) || ApkSignerHelper.isMetaInfSignature(name)) {
                             continue;
                         }
                         ZipEntry newEntry = new ZipEntry(name);
                         newEntry.setTime(entry.getTime());
-                        newEntry.setComment(entry.getComment());
-                        newEntry.setExtra(entry.getExtra());
+                        if (entry.getComment() != null) newEntry.setComment(entry.getComment());
+                        if (entry.getExtra() != null) newEntry.setExtra(entry.getExtra());
+                        boolean shouldStore = (name.startsWith("lib/") || name.endsWith(".so"));
+                        if (shouldStore || entry.getMethod() == ZipEntry.STORED) {
+                            newEntry.setMethod(ZipEntry.STORED);
+                            newEntry.setSize(entry.getSize());
+                            newEntry.setCompressedSize(entry.getSize());
+                            newEntry.setCrc(entry.getCrc());
+                        }
                         zos.putNextEntry(newEntry);
                         try (InputStream is = zipFile.getInputStream(entry)) {
                             int read;
@@ -87,6 +94,20 @@ public final class FastZipModifier {
                 if (src.exists() && src.isFile()) {
                     ZipEntry zipEntry = new ZipEntry(entryName);
                     zipEntry.setTime(src.lastModified());
+                    boolean shouldStore = (entryName.startsWith("lib/") || entryName.endsWith(".so"));
+                    if (shouldStore) {
+                        zipEntry.setMethod(ZipEntry.STORED);
+                        zipEntry.setSize(src.length());
+                        zipEntry.setCompressedSize(src.length());
+                        java.util.zip.CRC32 crc = new java.util.zip.CRC32();
+                        try (FileInputStream fis = new FileInputStream(src)) {
+                            int read;
+                            while ((read = fis.read(buffer)) != -1) {
+                                crc.update(buffer, 0, read);
+                            }
+                        }
+                        zipEntry.setCrc(crc.getValue());
+                    }
                     zos.putNextEntry(zipEntry);
                     try (FileInputStream fis = new FileInputStream(src)) {
                         int read;
@@ -104,6 +125,12 @@ public final class FastZipModifier {
                 tempFile.delete();
             }
             return false;
+        }
+
+        // Auto-sign APK with v1 + v2 scheme
+        try {
+            ApkSignerHelper.signApk(tempFile);
+        } catch (Throwable ignored) {
         }
 
         if (origFile.exists()) {

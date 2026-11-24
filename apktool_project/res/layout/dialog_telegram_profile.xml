@@ -6,7 +6,7 @@
             <FrameLayout android:id="@id/avatarCircleContainer" android:background="@drawable/bg_profile_avatar_circle" android:layout_width="68.0dip" android:layout_height="68.0dip" android:elevation="3.0dip">
                 <ImageView android:layout_gravity="center" android:id="@id/ivProfileAvatar" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/ic_telegram_profile_avatar" android:scaleType="centerCrop" android:contentDescription="Official Profile Icon" />
             </FrameLayout>
-            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/md_theme_onSurface" android:id="@id/tvProfileHandle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:text="\@INCoderDev" android:singleLine="true" />
+            <TextView android:textSize="18.0sp" android:textStyle="bold" android:textColor="@color/md_theme_onSurface" android:id="@id/tvProfileHandle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:text="\@errordrive" android:singleLine="true" />
             <TextView android:textSize="12.5sp" android:textColor="@color/md_theme_onSurfaceVariant" android:id="@id/tvProfileSubtitle" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="3.0dip" android:text="Official Developer &amp; Community" android:singleLine="true" />
         </LinearLayout>
         <LinearLayout android:orientation="vertical" android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="18.0dip" android:paddingStart="16.0dip" android:paddingEnd="16.0dip">
@@ -16,7 +16,7 @@
                 </FrameLayout>
                 <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="12.0dip">
                     <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/md_theme_onSurface" android:id="@id/tvContactUsTitle" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Contact Us" android:singleLine="true" />
-                    <TextView android:textSize="12.0sp" android:textColor="@color/md_theme_onSurfaceVariant" android:id="@id/tvContactUsSub" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="1.0dip" android:text="\@INCoderDev" android:singleLine="true" />
+                    <TextView android:textSize="12.0sp" android:textColor="@color/md_theme_onSurfaceVariant" android:id="@id/tvContactUsSub" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="1.0dip" android:text="\@errordrive" android:singleLine="true" />
                 </LinearLayout>
                 <ImageView android:layout_width="18.0dip" android:layout_height="18.0dip" android:src="@drawable/ic_ack_link" android:contentDescription="Open" app:tint="@color/md_theme_onSurfaceVariant" />
             </LinearLayout>
@@ -26,7 +26,7 @@
                 </FrameLayout>
                 <LinearLayout android:orientation="vertical" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:layout_marginStart="12.0dip">
                     <TextView android:textSize="15.0sp" android:textStyle="bold" android:textColor="@color/md_theme_onSurface" android:id="@id/tvJoinTelegramTitle" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="Join Telegram" android:singleLine="true" />
-                    <TextView android:textSize="12.0sp" android:textColor="@color/md_theme_onSurfaceVariant" android:id="@id/tvJoinTelegramSub" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="1.0dip" android:text="\@INCoderX" android:singleLine="true" />
+                    <TextView android:textSize="12.0sp" android:textColor="@color/md_theme_onSurfaceVariant" android:id="@id/tvJoinTelegramSub" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="1.0dip" android:text="\@errordrive" android:singleLine="true" />
                 </LinearLayout>
                 <ImageView android:layout_width="18.0dip" android:layout_height="18.0dip" android:src="@drawable/ic_ack_link" android:contentDescription="Open" app:tint="@color/md_theme_onSurfaceVariant" />
             </LinearLayout>

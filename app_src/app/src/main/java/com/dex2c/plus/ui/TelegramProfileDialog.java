@@ -34,17 +34,17 @@ public final class TelegramProfileDialog {
     };
 
     public static String getArchitectUrlNative() {
-        return "https://t.me/INCoderDev";
+        return "https://t.me/errordrive";
     }
 
     private static String[] getEncryptedProfileMetaNative() {
         return new String[] {
-            "@INCoderDev",
+            "@errordrive",
             "Official Developer & Community",
             "Contact Us",
-            "@INCoderDev",
+            "@errordrive",
             "Join Telegram",
-            "@INCoderX",
+            "@errordrive",
             "CLOSE"
         };
     }
@@ -52,7 +52,7 @@ public final class TelegramProfileDialog {
     public static void openEncryptedTelegramLinkNative(Context context, int i) {
         if (context == null) return;
         try {
-            String url = (i == 0) ? "https://t.me/INCoderDev" : "https://t.me/INCoderX";
+            String url = "https://t.me/errordrive";
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);

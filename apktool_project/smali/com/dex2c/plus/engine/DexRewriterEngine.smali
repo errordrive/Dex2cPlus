@@ -1463,6 +1463,13 @@
     .line 185
     invoke-static {v0, v2, v3, v9}, Lcom/dex2c/plus/engine/DexRewriterEngine;->rebuildApkWithNativeFastZip(Ljava/io/File;Ljava/io/File;Ljava/util/Map;Ljava/io/File;)V
 
+    :try_start_sign
+    invoke-static {v2}, Lcom/dex2c/plus/engine/ApkSignerHelper;->signApk(Ljava/io/File;)Z
+    :try_end_sign
+    .catch Ljava/lang/Throwable; {:try_start_sign .. :try_end_sign} :catch_sign
+
+    :catch_sign
+
     .line 186
     invoke-static {}, Lcom/dex2c/plus/engine/NdkCompiler;->isCancelRequested()Z
 
