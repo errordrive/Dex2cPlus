@@ -3211,6 +3211,7 @@
     return-void
 
     :cond_show
+    :try_start_dialog
     new-instance v0, Landroid/app/Dialog;
     sget v1, Lcom/dex2c/plus/R$style;->SeamlessDialogTheme:I
     invoke-direct {v0, p0, v1}, Landroid/app/Dialog;-><init>(Landroid/content/Context;I)V
@@ -3268,5 +3269,15 @@
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     invoke-virtual {v0}, Landroid/app/Dialog;->show()V
+    :try_end_dialog
+    .catchall {:try_start_dialog .. :try_end_dialog} :catchall_dialog
+
+    return-void
+
+    :catchall_dialog
+    new-instance v0, Landroid/content/Intent;
+    const-class v1, Lcom/dex2c/plus/ui/BuildActivity;
+    invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+    invoke-virtual {p0, v0}, Lcom/dex2c/plus/MainActivity;->startActivity(Landroid/content/Intent;)V
     return-void
 .end method

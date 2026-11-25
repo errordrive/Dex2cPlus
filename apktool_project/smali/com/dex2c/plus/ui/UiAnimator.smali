@@ -664,3 +664,64 @@
 
     return-void
 .end method
+
+.method public static applyDialogWidth(Landroid/app/Dialog;)V
+    .locals 3
+
+    if-nez p0, :cond_0
+
+    return-void
+
+    :cond_0
+    invoke-virtual {p0}, Landroid/app/Dialog;->getWindow()Landroid/view/Window;
+
+    move-result-object v0
+
+    if-nez v0, :cond_1
+
+    return-void
+
+    :cond_1
+    invoke-virtual {p0}, Landroid/app/Dialog;->getContext()Landroid/content/Context;
+
+    move-result-object v1
+
+    if-nez v1, :cond_2
+
+    return-void
+
+    :cond_2
+    invoke-virtual {v1}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
+
+    move-result-object v1
+
+    if-nez v1, :cond_3
+
+    return-void
+
+    :cond_3
+    invoke-virtual {v1}, Landroid/content/Context;->getDisplayMetrics()Landroid/util/DisplayMetrics;
+
+    move-result-object v1
+
+    if-nez v1, :cond_4
+
+    return-void
+
+    :cond_4
+    iget v1, v1, Landroid/util/DisplayMetrics;->widthPixels:I
+
+    int-to-float v1, v1
+
+    const v2, 0x3f59999a    # 0.85f
+
+    mul-float/2addr v1, v2
+
+    float-to-int v1, v1
+
+    const/4 v2, -0x2
+
+    invoke-virtual {v0, v1, v2}, Landroid/view/Window;->setLayout(II)V
+
+    return-void
+.end method

@@ -185,4 +185,24 @@ public final class UiAnimator {
             }
         }).start();
     }
+
+    public static void applyDialogWidth(android.app.Dialog dialog) {
+        if (dialog == null) {
+            return;
+        }
+        Window window = dialog.getWindow();
+        if (window == null) {
+            return;
+        }
+        android.content.Context context = dialog.getContext();
+        if (context == null || context.getResources() == null) {
+            return;
+        }
+        android.util.DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        if (displayMetrics == null) {
+            return;
+        }
+        int i = (int) (((float) displayMetrics.widthPixels) * 0.85f);
+        window.setLayout(i, -2);
+    }
 }

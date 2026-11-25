@@ -939,39 +939,43 @@ public class MainActivity extends AppCompatActivity {
 
     private void showBuildConfirmDialog() {
         if (isFinishing() || isDestroyed()) return;
-        final android.app.Dialog dialog = new android.app.Dialog(this, com.dex2c.plus.R.style.SeamlessDialogTheme);
-        dialog.requestWindowFeature(1);
-        final com.dex2c.plus.databinding.DialogCustomInputBinding dialogBinding = com.dex2c.plus.databinding.DialogCustomInputBinding.inflate(getLayoutInflater());
-        dialog.setContentView(dialogBinding.getRoot());
-        com.dex2c.plus.ui.UiAnimator.applyDialogWidth(dialog);
-        dialogBinding.tvCustomInputTitle.setText("Remote Kill Switch URL");
-        dialogBinding.etCustomInputValue.setHint("Pastebin/JSON raw URL (or leave empty)");
-        final com.dex2c.plus.model.ProjectState projectState = com.dex2c.plus.model.ProjectState.get();
-        String currentUrl = (projectState != null) ? projectState.getRemoteControlUrl() : "";
-        dialogBinding.etCustomInputValue.setText(currentUrl);
-        if (dialogBinding.etCustomInputValue.getText() != null) {
-            dialogBinding.etCustomInputValue.setSelection(dialogBinding.etCustomInputValue.getText().length());
-        }
-        dialogBinding.btnCustomInputOk.setText("START BUILD");
-        dialogBinding.btnCustomInputCancel.setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View v) {
-                dialog.dismiss();
+        try {
+            final android.app.Dialog dialog = new android.app.Dialog(this, com.dex2c.plus.R.style.SeamlessDialogTheme);
+            dialog.requestWindowFeature(1);
+            final com.dex2c.plus.databinding.DialogCustomInputBinding dialogBinding = com.dex2c.plus.databinding.DialogCustomInputBinding.inflate(getLayoutInflater());
+            dialog.setContentView(dialogBinding.getRoot());
+            com.dex2c.plus.ui.UiAnimator.applyDialogWidth(dialog);
+            dialogBinding.tvCustomInputTitle.setText("Remote Kill Switch URL");
+            dialogBinding.etCustomInputValue.setHint("Pastebin/JSON raw URL (or leave empty)");
+            final com.dex2c.plus.model.ProjectState projectState = com.dex2c.plus.model.ProjectState.get();
+            String currentUrl = (projectState != null) ? projectState.getRemoteControlUrl() : "";
+            dialogBinding.etCustomInputValue.setText(currentUrl);
+            if (dialogBinding.etCustomInputValue.getText() != null) {
+                dialogBinding.etCustomInputValue.setSelection(dialogBinding.etCustomInputValue.getText().length());
             }
-        });
-        dialogBinding.btnCustomInputOk.setOnClickListener(new android.view.View.OnClickListener() {
-            @Override
-            public void onClick(android.view.View v) {
-                String url = (dialogBinding.etCustomInputValue.getText() != null) ? dialogBinding.etCustomInputValue.getText().toString().trim() : "";
-                if (projectState != null) {
-                    projectState.remoteControlUrl = url;
-                    projectState.savePrefs(MainActivity.this);
+            dialogBinding.btnCustomInputOk.setText("START BUILD");
+            dialogBinding.btnCustomInputCancel.setOnClickListener(new android.view.View.OnClickListener() {
+                @Override
+                public void onClick(android.view.View v) {
+                    dialog.dismiss();
                 }
-                dialog.dismiss();
-                MainActivity.this.startActivity(new android.content.Intent(MainActivity.this, (Class<?>) com.dex2c.plus.ui.BuildActivity.class));
-            }
-        });
-        dialog.show();
+            });
+            dialogBinding.btnCustomInputOk.setOnClickListener(new android.view.View.OnClickListener() {
+                @Override
+                public void onClick(android.view.View v) {
+                    String url = (dialogBinding.etCustomInputValue.getText() != null) ? dialogBinding.etCustomInputValue.getText().toString().trim() : "";
+                    if (projectState != null) {
+                        projectState.remoteControlUrl = url;
+                        projectState.savePrefs(MainActivity.this);
+                    }
+                    dialog.dismiss();
+                    MainActivity.this.startActivity(new android.content.Intent(MainActivity.this, (Class<?>) com.dex2c.plus.ui.BuildActivity.class));
+                }
+            });
+            dialog.show();
+        } catch (Throwable th) {
+            startActivity(new android.content.Intent(this, (Class<?>) com.dex2c.plus.ui.BuildActivity.class));
+        }
     }
 
 }
