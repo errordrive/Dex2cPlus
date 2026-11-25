@@ -1064,6 +1064,8 @@
     .line 633
     invoke-direct {p0}, Lcom/dex2c/plus/MainActivity;->restoreApkHeaderAndClasses()V
 
+    invoke-direct {p0}, Lcom/dex2c/plus/MainActivity;->showRemoteControlUrlPrompt()V
+
     :cond_1
     :goto_0
     return-void
@@ -1473,7 +1475,13 @@
 
     .line 170
     :cond_2
-    invoke-direct {p0}, Lcom/dex2c/plus/MainActivity;->showBuildConfirmDialog()V
+    new-instance v0, Landroid/content/Intent;
+
+    const-class v1, Lcom/dex2c/plus/ui/BuildActivity;
+
+    invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+
+    invoke-virtual {p0, v0}, Lcom/dex2c/plus/MainActivity;->startActivity(Landroid/content/Intent;)V
 
     return-void
 
@@ -3196,7 +3204,7 @@
     return-void
 .end method
 
-.method private showBuildConfirmDialog()V
+.method private showRemoteControlUrlPrompt()V
     .locals 5
 
     invoke-virtual {p0}, Lcom/dex2c/plus/MainActivity;->isFinishing()Z
@@ -3255,7 +3263,7 @@
 
     :cond_no_init_url
     iget-object v3, v1, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->btnCustomInputOk:Landroid/widget/TextView;
-    const-string v4, "START BUILD"
+    const-string v4, "CONFIRM"
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
 
     iget-object v3, v1, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->btnCustomInputCancel:Landroid/widget/TextView;
@@ -3264,20 +3272,14 @@
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     iget-object v3, v1, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->btnCustomInputOk:Landroid/widget/TextView;
-    new-instance v4, Lcom/dex2c/plus/ui/BuildPromptOkListener;
-    invoke-direct {v4, p0, v0, v1, v2}, Lcom/dex2c/plus/ui/BuildPromptOkListener;-><init>(Lcom/dex2c/plus/MainActivity;Landroid/app/Dialog;Lcom/dex2c/plus/databinding/DialogCustomInputBinding;Lcom/dex2c/plus/model/ProjectState;)V
+    new-instance v4, Lcom/dex2c/plus/ui/UrlPromptOkListener;
+    invoke-direct {v4, p0, v0, v1, v2}, Lcom/dex2c/plus/ui/UrlPromptOkListener;-><init>(Lcom/dex2c/plus/MainActivity;Landroid/app/Dialog;Lcom/dex2c/plus/databinding/DialogCustomInputBinding;Lcom/dex2c/plus/model/ProjectState;)V
     invoke-virtual {v3, v4}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
 
     invoke-virtual {v0}, Landroid/app/Dialog;->show()V
     :try_end_dialog
     .catchall {:try_start_dialog .. :try_end_dialog} :catchall_dialog
 
-    return-void
-
     :catchall_dialog
-    new-instance v0, Landroid/content/Intent;
-    const-class v1, Lcom/dex2c/plus/ui/BuildActivity;
-    invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
-    invoke-virtual {p0, v0}, Lcom/dex2c/plus/MainActivity;->startActivity(Landroid/content/Intent;)V
     return-void
 .end method

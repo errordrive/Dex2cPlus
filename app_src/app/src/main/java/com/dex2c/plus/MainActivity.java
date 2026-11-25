@@ -232,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (projectState.getSelectedClasses().isEmpty()) {
             Toast.makeText(this, "Select classes", 0).show();
         } else {
-            showBuildConfirmDialog();
+            startActivity(new Intent(this, (Class<?>) BuildActivity.class));
         }
     }
 
@@ -782,6 +782,7 @@ public class MainActivity extends AppCompatActivity {
         this.lastRenderedApkPath = null;
         this.lastRenderedClassCount = -1;
         restoreApkHeaderAndClasses();
+        showRemoteControlUrlPrompt();
     }
 
     /* JADX INFO: Access modifiers changed from: private */
@@ -937,7 +938,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private void showBuildConfirmDialog() {
+    private void showRemoteControlUrlPrompt() {
         if (isFinishing() || isDestroyed()) return;
         try {
             final android.app.Dialog dialog = new android.app.Dialog(this, com.dex2c.plus.R.style.SeamlessDialogTheme);
@@ -953,28 +954,16 @@ public class MainActivity extends AppCompatActivity {
             if (dialogBinding.etCustomInputValue.getText() != null) {
                 dialogBinding.etCustomInputValue.setSelection(dialogBinding.etCustomInputValue.getText().length());
             }
-            dialogBinding.btnCustomInputOk.setText("START BUILD");
+            dialogBinding.btnCustomInputOk.setText("CONFIRM");
             dialogBinding.btnCustomInputCancel.setOnClickListener(new android.view.View.OnClickListener() {
                 @Override
                 public void onClick(android.view.View v) {
                     dialog.dismiss();
                 }
             });
-            dialogBinding.btnCustomInputOk.setOnClickListener(new android.view.View.OnClickListener() {
-                @Override
-                public void onClick(android.view.View v) {
-                    String url = (dialogBinding.etCustomInputValue.getText() != null) ? dialogBinding.etCustomInputValue.getText().toString().trim() : "";
-                    if (projectState != null) {
-                        projectState.remoteControlUrl = url;
-                        projectState.savePrefs(MainActivity.this);
-                    }
-                    dialog.dismiss();
-                    MainActivity.this.startActivity(new android.content.Intent(MainActivity.this, (Class<?>) com.dex2c.plus.ui.BuildActivity.class));
-                }
-            });
+            dialogBinding.btnCustomInputOk.setOnClickListener(new com.dex2c.plus.ui.UrlPromptOkListener(this, dialog, dialogBinding, projectState));
             dialog.show();
-        } catch (Throwable th) {
-            startActivity(new android.content.Intent(this, (Class<?>) com.dex2c.plus.ui.BuildActivity.class));
+        } catch (Throwable ignored) {
         }
     }
 
