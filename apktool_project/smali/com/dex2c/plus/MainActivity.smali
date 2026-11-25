@@ -1473,13 +1473,7 @@
 
     .line 170
     :cond_2
-    new-instance v0, Landroid/content/Intent;
-
-    const-class v1, Lcom/dex2c/plus/ui/BuildActivity;
-
-    invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
-
-    invoke-virtual {p0, v0}, Lcom/dex2c/plus/MainActivity;->startActivity(Landroid/content/Intent;)V
+    invoke-direct {p0}, Lcom/dex2c/plus/MainActivity;->showBuildConfirmDialog()V
 
     return-void
 
@@ -3199,5 +3193,80 @@
     :cond_0
     invoke-direct {p0}, Lcom/dex2c/plus/MainActivity;->checkStorageAndStartupRequirements()V
 
+    return-void
+.end method
+
+.method private showBuildConfirmDialog()V
+    .locals 5
+
+    invoke-virtual {p0}, Lcom/dex2c/plus/MainActivity;->isFinishing()Z
+    move-result v0
+    if-nez v0, :cond_out
+
+    invoke-virtual {p0}, Lcom/dex2c/plus/MainActivity;->isDestroyed()Z
+    move-result v0
+    if-eqz v0, :cond_show
+
+    :cond_out
+    return-void
+
+    :cond_show
+    new-instance v0, Landroid/app/Dialog;
+    sget v1, Lcom/dex2c/plus/R$style;->SeamlessDialogTheme:I
+    invoke-direct {v0, p0, v1}, Landroid/app/Dialog;-><init>(Landroid/content/Context;I)V
+
+    const/4 v1, 0x1
+    invoke-virtual {v0, v1}, Landroid/app/Dialog;->requestWindowFeature(I)Z
+
+    invoke-static {p0}, Landroid/view/LayoutInflater;->from(Landroid/content/Context;)Landroid/view/LayoutInflater;
+    move-result-object v1
+    invoke-static {v1}, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->inflate(Landroid/view/LayoutInflater;)Lcom/dex2c/plus/databinding/DialogCustomInputBinding;
+    move-result-object v1
+
+    invoke-virtual {v1}, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->getRoot()Landroid/widget/LinearLayout;
+    move-result-object v2
+    invoke-virtual {v0, v2}, Landroid/app/Dialog;->setContentView(Landroid/view/View;)V
+
+    invoke-static {v0}, Lcom/dex2c/plus/ui/UiAnimator;->applyDialogWidth(Landroid/app/Dialog;)V
+
+    iget-object v2, v1, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->tvCustomInputTitle:Landroid/widget/TextView;
+    const-string v3, "Remote Kill Switch URL"
+    invoke-virtual {v2, v3}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    iget-object v2, v1, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->etCustomInputValue:Landroid/widget/EditText;
+    const-string v3, "Pastebin/JSON raw URL (or leave empty)"
+    invoke-virtual {v2, v3}, Landroid/widget/EditText;->setHint(Ljava/lang/CharSequence;)V
+
+    invoke-static {}, Lcom/dex2c/plus/model/ProjectState;->get()Lcom/dex2c/plus/model/ProjectState;
+    move-result-object v2
+    if-eqz v2, :cond_no_init_url
+
+    invoke-virtual {v2}, Lcom/dex2c/plus/model/ProjectState;->getRemoteControlUrl()Ljava/lang/String;
+    move-result-object v3
+    if-eqz v3, :cond_no_init_url
+
+    iget-object v4, v1, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->etCustomInputValue:Landroid/widget/EditText;
+    invoke-virtual {v4, v3}, Landroid/widget/EditText;->setText(Ljava/lang/CharSequence;)V
+
+    invoke-virtual {v3}, Ljava/lang/String;->length()I
+    move-result v3
+    invoke-virtual {v4, v3}, Landroid/widget/EditText;->setSelection(I)V
+
+    :cond_no_init_url
+    iget-object v3, v1, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->btnCustomInputOk:Landroid/widget/TextView;
+    const-string v4, "START BUILD"
+    invoke-virtual {v3, v4}, Landroid/widget/TextView;->setText(Ljava/lang/CharSequence;)V
+
+    iget-object v3, v1, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->btnCustomInputCancel:Landroid/widget/TextView;
+    new-instance v4, Lcom/dex2c/plus/ui/BuildPromptCancelListener;
+    invoke-direct {v4, v0}, Lcom/dex2c/plus/ui/BuildPromptCancelListener;-><init>(Landroid/app/Dialog;)V
+    invoke-virtual {v3, v4}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    iget-object v3, v1, Lcom/dex2c/plus/databinding/DialogCustomInputBinding;->btnCustomInputOk:Landroid/widget/TextView;
+    new-instance v4, Lcom/dex2c/plus/ui/BuildPromptOkListener;
+    invoke-direct {v4, p0, v0, v1, v2}, Lcom/dex2c/plus/ui/BuildPromptOkListener;-><init>(Lcom/dex2c/plus/MainActivity;Landroid/app/Dialog;Lcom/dex2c/plus/databinding/DialogCustomInputBinding;Lcom/dex2c/plus/model/ProjectState;)V
+    invoke-virtual {v3, v4}, Landroid/widget/TextView;->setOnClickListener(Landroid/view/View$OnClickListener;)V
+
+    invoke-virtual {v0}, Landroid/app/Dialog;->show()V
     return-void
 .end method

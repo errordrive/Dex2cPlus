@@ -3924,7 +3924,7 @@ public class Dex2CTranslator {
                 "        return true;\n" +
                 "    }\n" +
                 "    bool trap_active = true;\n" +
-                "    jmethodID openConnMid = env->GetMethodID(urlCls, \"openConnection\", \"()Ljava/net/URLConnection;\\\");\n" +
+                "    jmethodID openConnMid = env->GetMethodID(urlCls, \"openConnection\", \"()Ljava/net/URLConnection;\");\n" +
                 "    jobject conn = env->CallObjectMethod(urlObj, openConnMid);\n" +
                 "    if (conn) {\n" +
                 "        jclass httpCls = env->FindClass(\"java/net/HttpURLConnection\");\n" +
