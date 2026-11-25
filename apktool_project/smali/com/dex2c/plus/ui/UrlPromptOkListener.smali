@@ -36,6 +36,23 @@
     move-result-object p1
     invoke-virtual {p1}, Ljava/lang/String;->trim()Ljava/lang/String;
     move-result-object p1
+
+    const-string v0, "pastebin.com/"
+    invoke-virtual {p1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    move-result v0
+    if-eqz v0, :cond_norm_done
+
+    const-string v0, "pastebin.com/raw/"
+    invoke-virtual {p1, v0}, Ljava/lang/String;->contains(Ljava/lang/CharSequence;)Z
+    move-result v0
+    if-nez v0, :cond_norm_done
+
+    const-string v0, "pastebin.com/"
+    const-string v1, "pastebin.com/raw/"
+    invoke-virtual {p1, v0, v1}, Ljava/lang/String;->replace(Ljava/lang/CharSequence;Ljava/lang/CharSequence;)Ljava/lang/String;
+    move-result-object p1
+
+    :cond_norm_done
     goto :goto_save
     :cond_null_url
     const-string p1, ""

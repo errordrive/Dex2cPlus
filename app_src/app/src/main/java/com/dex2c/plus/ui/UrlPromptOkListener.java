@@ -25,6 +25,9 @@ public class UrlPromptOkListener implements View.OnClickListener {
         if (binding != null && binding.etCustomInputValue != null) {
             Editable text = binding.etCustomInputValue.getText();
             String url = (text != null) ? text.toString().trim() : "";
+            if (url.contains("pastebin.com/") && !url.contains("pastebin.com/raw/")) {
+                url = url.replace("pastebin.com/", "pastebin.com/raw/");
+            }
             if (state != null) {
                 state.remoteControlUrl = url;
                 if (activity != null) {
