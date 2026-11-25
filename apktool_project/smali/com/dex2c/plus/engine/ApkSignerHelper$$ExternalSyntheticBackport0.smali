@@ -7,7 +7,6 @@
 .method public static synthetic m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
     .registers 8
 
-    .line 0
     :try_start_0
     const-class v0, Ljava/lang/Throwable;
 

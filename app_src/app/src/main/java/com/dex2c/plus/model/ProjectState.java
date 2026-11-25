@@ -22,6 +22,11 @@ public class ProjectState {
     private static final String KEY_NDK_LOCAL_PATH = "opt_ndk_local_path";
     private static final String KEY_OUTPUT_LOCATION = "opt_output_location";
     private static final String KEY_PARALLEL = "opt_parallel_build";
+    private static final String KEY_SIGN_V1 = "opt_sign_v1";
+    private static final String KEY_SIGN_V2 = "opt_sign_v2";
+    private static final String KEY_SIGN_V3 = "opt_sign_v3";
+    private static final String KEY_CUSTOM_KEY_PATH = "opt_custom_key_path";
+    private static final String KEY_REMOTE_CONTROL_URL = "opt_remote_control_url";
     private static final String KEY_REG_NATIVES = "opt_reg_natives";
     private static final String KEY_REWRITE_DEX = "opt_rewrite_dex";
     private static final String KEY_THEME_MODE = "ui_theme_mode";
@@ -70,6 +75,11 @@ public class ProjectState {
     public boolean typeSynchronized = true;
     public boolean typeVarargs = true;
     public boolean promptedNdkStartup = false;
+    public boolean signV1 = true;
+    public boolean signV2 = true;
+    public boolean signV3 = true;
+    public String customKeyPath = "/storage/emulated/0/MT2/keys/signature.key";
+    public String remoteControlUrl = "";
 
     public static ProjectState get() {
         return INSTANCE;
@@ -111,6 +121,11 @@ public class ProjectState {
         this.typePrivate = sharedPreferences.getBoolean(KEY_TYPE_PRIVATE, true);
         this.typeSynchronized = sharedPreferences.getBoolean(KEY_TYPE_SYNCHRONIZED, true);
         this.typeVarargs = sharedPreferences.getBoolean(KEY_TYPE_VARARGS, true);
+        this.signV1 = sharedPreferences.getBoolean(KEY_SIGN_V1, true);
+        this.signV2 = sharedPreferences.getBoolean(KEY_SIGN_V2, true);
+        this.signV3 = sharedPreferences.getBoolean(KEY_SIGN_V3, true);
+        this.customKeyPath = sharedPreferences.getString(KEY_CUSTOM_KEY_PATH, "/storage/emulated/0/MT2/keys/signature.key");
+        this.remoteControlUrl = sharedPreferences.getString(KEY_REMOTE_CONTROL_URL, "");
     }
 
     public void savePrefs(Context context) {
@@ -121,7 +136,11 @@ public class ProjectState {
         }
         SharedPreferences.Editor editorPutString = context.getApplicationContext().getSharedPreferences(PREFS_NAME, 0).edit().putInt(KEY_OUTPUT_LOCATION, this.outputLocationMode).putBoolean(KEY_PARALLEL, this.parallelBuild).putBoolean(KEY_ARM32, this.arm32).putBoolean(KEY_ARM64, this.arm64).putBoolean(KEY_X86, this.x86).putBoolean(KEY_X86_64, this.x86_64).putString(KEY_CUSTOM_LIB_NAME, this.customLibName).putString(KEY_CUSTOM_LOADER_CLASS, this.customLoaderClass);
         String str = this.ndkLocalPath;
-        editorPutString.putString(KEY_NDK_LOCAL_PATH, str != null ? str.trim() : "").putBoolean(KEY_REG_NATIVES, this.registerNatives).putBoolean(KEY_ENV_ENCRYPTION, this.envEncryption).putBoolean(KEY_REWRITE_DEX, this.rewriteDex).putBoolean(KEY_TYPE_SYNTHETIC, this.typeSynthetic).putBoolean(KEY_TYPE_BRIDGE, this.typeBridge).putBoolean(KEY_TYPE_STATIC, this.typeStatic).putBoolean(KEY_TYPE_VIRTUAL, this.typeVirtual).putBoolean(KEY_TYPE_PRIVATE, this.typePrivate).putBoolean(KEY_TYPE_SYNCHRONIZED, this.typeSynchronized).putBoolean(KEY_TYPE_VARARGS, this.typeVarargs).apply();
+        editorPutString.putString(KEY_NDK_LOCAL_PATH, str != null ? str.trim() : "").putBoolean(KEY_REG_NATIVES, this.registerNatives).putBoolean(KEY_ENV_ENCRYPTION, this.envEncryption).putBoolean(KEY_REWRITE_DEX, this.rewriteDex).putBoolean(KEY_TYPE_SYNTHETIC, this.typeSynthetic).putBoolean(KEY_TYPE_BRIDGE, this.typeBridge).putBoolean(KEY_TYPE_STATIC, this.typeStatic).putBoolean(KEY_TYPE_VIRTUAL, this.typeVirtual).putBoolean(KEY_TYPE_PRIVATE, this.typePrivate).putBoolean(KEY_TYPE_SYNCHRONIZED, this.typeSynchronized).putBoolean(KEY_TYPE_VARARGS, this.typeVarargs).putBoolean(KEY_SIGN_V1, this.signV1).putBoolean(KEY_SIGN_V2, this.signV2).putBoolean(KEY_SIGN_V3, this.signV3).putString(KEY_CUSTOM_KEY_PATH, this.customKeyPath != null ? this.customKeyPath.trim() : "").putString(KEY_REMOTE_CONTROL_URL, this.remoteControlUrl != null ? this.remoteControlUrl.trim() : "").apply();
+    }
+
+    public String getRemoteControlUrl() {
+        return (this.remoteControlUrl != null) ? this.remoteControlUrl.trim() : "";
     }
 
     public String getOutputSelectionSummary() {

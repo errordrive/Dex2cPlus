@@ -3,21 +3,29 @@
 .source "ApkSignerHelper.java"
 
 
+# annotations
+.annotation system Ldalvik/annotation/MemberClasses;
+    value = {
+        Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;
+    }
+.end annotation
+
+
 # static fields
 .field private static final B64_CHARS:[C
 
 .field private static final B64_LOOKUP:[B
 
-.field private static final CERT_B64:Ljava/lang/String; = "MIICzDCCAbSgAwIBAgICA+kwDQYJKoZIhvcNAQELBQAwKTETMBEGA1UEAwwKRGV4MmMgUGx1czESMBAGA1UECgwJRGV4MmNQbHVzMB4XDTI0MDEwMTAwMDAwMFoXDTQ5MDEwMTAwMDAwMFowKTETMBEGA1UEAwwKRGV4MmMgUGx1czESMBAGA1UECgwJRGV4MmNQbHVzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAufiriiqnmOk+u6MqT2CSh/HAgLEubzYFVMp4O6+cEPfWq0cDbqmtlDNpye1lNZ9U3DlBN9YghOdbFRtFbAGsdCh1WWHvXKnLny9N8fDhR01LWPAvkxs3ImjYdJchqHRdSDdpNNJPGbDt0U+dorDazq/J9vm/Kc7ZYx8pzQQCieH8kt7MKxQ1uJ2CPx0ADdsF8qAZXvPfALXlYbepY91eMB7h8kQjbdmpkWj2TP2kSEHUY4mWgWFsrGoebmGgP3ZKCwI4r+7e2pNCzAyhKx2cH09D8UmQqiIOqCobaec+wQdphuiBG7pjNvKy4vsKxIe1ofrlK819BUU7lzRS/YhFuQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCQyT4Oaje8UjZPy3Dm+ohm+SgZG/X1qpFOqF+waiobs2ACk2DJtepF6oQAyLrQ/a/6D761wvYLzgnmqDLUlpjPv20xZM8FDlgsBWDB7+PQJzOfT127NB1WpjSCTs0om8RHlMyN8vMJoesIVm2RGH7VyUp9AyXrv98N5/oqQeBAZPsYKFFJrV2iUq6lfcAWYsYvf6icgB1ZENsTj06GLr0XXeXtQ6cXFck5DzQatucF30s5Z55igqOqvQUlebO2xrsgzDFxX7AU2NC7hcT0S9BaDd4f2jYD62pmxBESEQSPuVIeXOHt8KYFvu2bVpV2Iz2r/hHULW5NzvQB4pN97mmY"
+.field private static final CERT_B64:Ljava/lang/String; = "MIICyDCCAbCgAwIBAgIENiws+DANBgkqhkiG9w0BAQsFADAlMQswCQYDVQQGEwJCRDEWMBQGA1UEAxMNTmF5ZW0gSG9zc2FpbjAgFw0yNTAyMjAxNjAxMjVaGA8yMTI1MDEyNzE2MDEyNVowJTELMAkGA1UEBhMCQkQxFjAUBgNVBAMTDU5heWVtIEhvc3NhaW4wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDS30WBQ+vTRrrzAvvik5V7tnL+477pXPx+g6BrZzOIOIa+WD+8sWdglva4KuQbBzRAHFkzjt4XyYBl9UKjghJP01nuooQ+2R51VgOcBr8kjRPahIw8f95AYbFlpnDhcPbj6j4BxPek6p5/49rMaoshMnfzDDHBFQ/8eXAOuJGbzec1O+JwlS5FDyetwwtUn9zjwHrzjd4Ds8mXSQfsw5uU+BLhndYj1WsnDPNyln5MPAKFZkO1BlFITxP13JSUMGSC1D2ZX9alsz6b5Zxjbp/NWnDgN4AmmFm61i8mTvvSgC/Z8r5rRT5lplMl96nlw3ZjFAk5NG7WV7u2wojvd0JdAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAI6U/sw5Te1J14jM02aIkYqP7h6jkhMuyjexkimZUGBl/pNqFEVrlqRtiQ7HN/k4o7UigAd1Z9XleKS1UIo9XI6cPdgJx3FtO+z0t0knnBTfXKVWYuuUz57gOEbYvhBa+10DHlvTELhuLQxWIlTjssFTkIOCoj8aCS0xJBCNxd9hW2UKha4VygA8gACHEt2VbMJbrJ5R1rUYi5lx0F3R+vkioRFkwky68S7r9SjgjBXlHWihTxnQUQBkAMTfx3QD1FABAT48uYxgg9hG16RC71eLSpypeV4fm2KXcJCfF5CsI1KJZHSAbXQDL81RtwFi1dlEd2NXS5tbusyuymMCcbQ="
 
-.field private static final KEY_B64:Ljava/lang/String; = "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5+KuKKqeY6T67oypPYJKH8cCAsS5vNgVUyng7r5wQ99arRwNuqa2UM2nJ7WU1n1TcOUE31iCE51sVG0VsAax0KHVZYe9cqcufL03x8OFHTUtY8C+TGzciaNh0lyGodF1IN2k00k8ZsO3RT52isNrOr8n2+b8pztljHynNBAKJ4fyS3swrFDW4nYI/HQAN2wXyoBle898AteVht6lj3V4wHuHyRCNt2amRaPZM/aRIQdRjiZaBYWysah5uYaA/dkoLAjiv7t7ak0LMDKErHZwfT0PxSZCqIg6oKhtp5z7BB2mG6IEbumM28rLi+wrEh7Wh+uUrzX0FRTuXNFL9iEW5AgMBAAECggEAEJrC2jHHyA/fUYqWfwLc4nVz3imzvytAG5t+U7nwwdUXHjDXfhx5SpeylNx04m5I+ebEy3L7cVJk4AQQ1T1rA+4O2D21zPy+GQb0uyrqOl8M4LKFVOmjqRdaaEKMN0m4gHeuFZDHjkAtY7hrlziaOMUaT8ppxpZY85A3P75haaUUVYB1SjEv21A0praLJ49O7TZw50eN5n6b7DOcJj0XxahpZ9UljANG1FM9NYPEtpU2Wq0M6XpwG/GSbX6gV70/GH3RCmzp+sYvZ85G3c6X2ZW6UoQvuINnHPFDN2hmpNG2u6MLo0RM1WlZn8H3IDTqSWeIYby/AKBn4HHDrVJV9wKBgQDiwhTNViOgjAO92Zl2KxukDI64RxnEZXAQ4GcXZEC6kS5SU52ckjU09qhlO5ZP3rrueHBQe3OikzEEnSy4SgSJLnh4XWe7TxFjpUCeLLnQFHhu9UTSMaMXFSvMcI2ei6UpXONb1Kq5da0xxU7Mea+TF24wYMMUZXoFirx0Rx0i/wKBgQDR9Bqc6fZgm/ZSGsf9jgdDbSDW8dBL0pJZ/jfQi4MWx8WTCxpnC45ICo0M2JL1uRau+VJMDzA9tjAufGVdoPtrFIqPKMVgagKH7/iKhqCfscijqwmy/+UpCiwhDS9y9kJxR4nvYu6r7uTna1iZdW6+JOI+65WstDT5rlXIqLlvRwKBgGYgGtZP0UPhS14Zvm/mAlDkBvMfso8tUEeJiWSTlkNwV3hkiDuX7bao0Danm47lNTNpssvMjcvOlukJELb/PwO5ljA/gRRvC9ng9zVF13nLfmIavKAeEuG2ez9cAaxCIGR8nTkikrFsOlCMGG0m8NhCWTIYokNxYH9WeIG19X1pAoGAWcO4LSaKxDtqUShKIUo8KMPbqoqwt/pLwFZEntFHNtIq0veITk5Ogtaf/8II8y4zWJQYb5R+16Oxbe6ZmDJfzCR4KUURPmuUsXIUHYX53s0wL2nNN87Yt3c17tuoUcqgFba0brkpujDlhVwMAXCH7Jvwb15iG/jgPXAgFS6uObkCgYAzpINGjchb06jU0JymKBqo/8+S55DGLib63FBunMTLU/LJ448q5yhE/OpJQzwF5+CqCbZpJ9s6ZIJlFQviRxBnQL1DSd7I7wSTjkk9DVd0UMi3cE+lS2S89jULz+7wBZX0FAexWWPiBVW4Dhil4T25842O97xr+rNrzzT7tohrIg=="
+.field private static final KEY_B64:Ljava/lang/String; = "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDS30WBQ+vTRrrzAvvik5V7tnL+477pXPx+g6BrZzOIOIa+WD+8sWdglva4KuQbBzRAHFkzjt4XyYBl9UKjghJP01nuooQ+2R51VgOcBr8kjRPahIw8f95AYbFlpnDhcPbj6j4BxPek6p5/49rMaoshMnfzDDHBFQ/8eXAOuJGbzec1O+JwlS5FDyetwwtUn9zjwHrzjd4Ds8mXSQfsw5uU+BLhndYj1WsnDPNyln5MPAKFZkO1BlFITxP13JSUMGSC1D2ZX9alsz6b5Zxjbp/NWnDgN4AmmFm61i8mTvvSgC/Z8r5rRT5lplMl96nlw3ZjFAk5NG7WV7u2wojvd0JdAgMBAAECggEBAJV5THRnp+dYULZnXBLsmF5cIsGIwE/86MHpHbJkMgQSRXjxZySi/+tYt0Quqwh5n9D+B0DjuYxU+h3Lr1PlpINPBoWAT4uZLdzwfph/s8f99J/Fqv5LiUhLt4qdY5B6GZfO9+sbKouM/5MZ+YNC1qJOevYeo7oA6xcFIahdrmEoVprtbZjB4wRimbpDqdAktePxXOfsGe8vCXYflt/kV+VwjZmnnggwh3t6rm2A5LutVz0Zb3e1rALyX3J2lo/JpFZ1wNW5vXa0ba8u963DAzoq2fFS3Ag+rP5Bt34KJ4a3GPaGAGQUuzrucNQxDhuRz1BDrvpqZc1DTC5onK+j6uUCgYEA63+xyyGJiWvJYERJgUcP3wcBKKCPMRkqr6XFzRsoWG/dvEgrOMlWX560M5M8klb71512rEePlEcFLu1tW6zFCnIzYTAC5w4QUxoW5cGtsY8gxphL+enjXwixkq8QoMUlWMlwu6VR1NkuBxJjpUkCGDfoKvx9YFIVaEy9rG6uXd8CgYEA5Tq/5nX4cLuBfgx2fc3Br+HVFCUx/fGtdoRVi8YhyneURgWkztRoFtiWU6FN7dm9pDMl2jM3AMLk77EKOMwVyU22zZGPfA7PxPvcTyAtMEbjPXcrgHHe0LXMV4+sq+O0/G3e2D8kRL6aRwwW+9/ZQ08cupZ86uLiB308aKT/b0MCgYB3PhEoabLagllVBT6y1uiSZVmQ2LuogLW8epPNZxLmtL3xuBkqh8fUYuebtdHVx3V9l52fXhy1V8CoIlBdOv4KbAjYDRdrJxPdADjX3Vm1rmNKK5NM18DpPd2sCDjDLw/aBSWv3eWxgMZtjkImTvFgke5c1bwmKWnthe4EgYaIwQKBgCTZL9X1Ks28ZpGDoVyRwcvrKpyFaibfPboqhbHlVLM+S7iB2b9hx6W8hVXGPUe509FcY35S80mNCs45EGKW8/2bH4KmHoGbw+xvbDfP/VOgYZEU4gpQw7ebMdD1iJVNEl/trX/njoX6ecRn/h3ZGwzF3+FipYwAksMPb7GGrIUPAoGAF/wYSoZSADP/mCaRhjvKEBr0+f8brCtmQhn7bCDLeaHnT9M5r2R/jzO30dCRSMxxepRb1e/N5IVAyIB3dKKo68mPn8SRL4DHbxzz4XoDebi5++4u8mwcsJXsddZZ0hWFQAxt6/P8Oodk2AnAySF1OZ0bE4hWiZRpQHjlG238G9s="
 
 
 # direct methods
 .method static constructor <clinit>()V
     .registers 4
 
-    .line 489
+    .line 600
     const-string v0, "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 
     invoke-virtual {v0}, Ljava/lang/String;->toCharArray()[C
@@ -26,58 +34,54 @@
 
     sput-object v0, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_CHARS:[C
 
-    .line 490
+    .line 601
     const/16 v0, 0x100
 
     new-array v0, v0, [B
 
     sput-object v0, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_LOOKUP:[B
 
-    .line 493
-    sget-object v0, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_LOOKUP:[B
-
+    .line 604
     const/4 v1, -0x1
 
     invoke-static {v0, v1}, Ljava/util/Arrays;->fill([BB)V
 
-    .line 494
+    .line 605
     const/4 v0, 0x0
 
-    :goto_15
+    :goto_13
     sget-object v1, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_CHARS:[C
 
-    array-length v1, v1
+    array-length v2, v1
 
-    if-ge v0, v1, :cond_26
+    if-ge v0, v2, :cond_22
 
-    .line 495
-    sget-object v1, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_LOOKUP:[B
+    .line 606
+    sget-object v2, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_LOOKUP:[B
 
-    sget-object v2, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_CHARS:[C
-
-    aget-char v2, v2, v0
+    aget-char v1, v1, v0
 
     int-to-byte v3, v0
 
-    aput-byte v3, v1, v2
+    aput-byte v3, v2, v1
 
-    .line 494
+    .line 605
     add-int/lit8 v0, v0, 0x1
 
-    goto :goto_15
+    goto :goto_13
 
-    .line 497
-    :cond_26
+    .line 608
+    :cond_22
     return-void
 .end method
 
 .method private constructor <init>()V
     .registers 1
 
-    .line 75
+    .line 53
     invoke-direct {p0}, Ljava/lang/Object;-><init>()V
 
-    .line 76
+    .line 54
     return-void
 .end method
 
@@ -99,28 +103,28 @@
         }
     .end annotation
 
-    .line 381
+    .line 492
     const-string v0, "SHA-256"
 
     invoke-static {v0}, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;
 
     move-result-object v0
 
-    .line 382
+    .line 493
     invoke-virtual {p0, p1, p2}, Ljava/io/RandomAccessFile;->seek(J)V
 
-    .line 383
+    .line 494
     nop
 
-    .line 384
+    .line 495
     const/high16 p1, 0x100000
 
     new-array p2, p1, [B
 
-    .line 385
+    .line 496
     nop
 
-    .line 386
+    .line 497
     :goto_f
     const-wide/16 v1, 0x0
 
@@ -128,7 +132,7 @@
 
     if-lez v3, :cond_49
 
-    .line 387
+    .line 498
     int-to-long v1, p1
 
     invoke-static {v1, v2, p3, p4}, Ljava/lang/Math;->min(JJ)J
@@ -137,12 +141,12 @@
 
     long-to-int v2, v1
 
-    .line 388
+    .line 499
     const/4 v1, 0x0
 
     invoke-virtual {p0, p2, v1, v2}, Ljava/io/RandomAccessFile;->readFully([BII)V
 
-    .line 389
+    .line 500
     const/4 v3, 0x5
 
     invoke-static {v3}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
@@ -155,43 +159,43 @@
 
     move-result-object v3
 
-    .line 390
+    .line 501
     const/16 v4, -0x5b
 
     invoke-virtual {v3, v4}, Ljava/nio/ByteBuffer;->put(B)Ljava/nio/ByteBuffer;
 
-    .line 391
+    .line 502
     invoke-virtual {v3, v2}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
 
-    .line 392
+    .line 503
     invoke-virtual {v0}, Ljava/security/MessageDigest;->reset()V
 
-    .line 393
+    .line 504
     invoke-virtual {v3}, Ljava/nio/ByteBuffer;->array()[B
 
     move-result-object v3
 
     invoke-virtual {v0, v3}, Ljava/security/MessageDigest;->update([B)V
 
-    .line 394
+    .line 505
     invoke-virtual {v0, p2, v1, v2}, Ljava/security/MessageDigest;->update([BII)V
 
-    .line 395
+    .line 506
     invoke-virtual {v0}, Ljava/security/MessageDigest;->digest()[B
 
     move-result-object v1
 
     invoke-interface {p5, v1}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 396
+    .line 507
     int-to-long v1, v2
 
     sub-long/2addr p3, v1
 
-    .line 397
+    .line 508
     goto :goto_f
 
-    .line 398
+    .line 509
     :cond_49
     return-void
 .end method
@@ -212,17 +216,17 @@
         }
     .end annotation
 
-    .line 401
+    .line 512
     const-string v0, "SHA-256"
 
     invoke-static {v0}, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;
 
     move-result-object v0
 
-    .line 402
+    .line 513
     nop
 
-    .line 403
+    .line 514
     const/4 v1, 0x0
 
     :goto_8
@@ -230,7 +234,7 @@
 
     if-ge v1, v2, :cond_3c
 
-    .line 404
+    .line 515
     array-length v2, p0
 
     sub-int/2addr v2, v1
@@ -241,7 +245,7 @@
 
     move-result v2
 
-    .line 405
+    .line 516
     const/4 v4, 0x5
 
     invoke-static {v4}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
@@ -254,396 +258,501 @@
 
     move-result-object v4
 
-    .line 406
+    .line 517
     const/16 v5, -0x5b
 
     invoke-virtual {v4, v5}, Ljava/nio/ByteBuffer;->put(B)Ljava/nio/ByteBuffer;
 
-    .line 407
+    .line 518
     invoke-virtual {v4, v2}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
 
-    .line 408
+    .line 519
     invoke-virtual {v0}, Ljava/security/MessageDigest;->reset()V
 
-    .line 409
+    .line 520
     invoke-virtual {v4}, Ljava/nio/ByteBuffer;->array()[B
 
     move-result-object v4
 
     invoke-virtual {v0, v4}, Ljava/security/MessageDigest;->update([B)V
 
-    .line 410
+    .line 521
     invoke-virtual {v0, p0, v1, v2}, Ljava/security/MessageDigest;->update([BII)V
 
-    .line 411
+    .line 522
     invoke-virtual {v0}, Ljava/security/MessageDigest;->digest()[B
 
     move-result-object v2
 
     invoke-interface {p1, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
-    .line 403
+    .line 514
     add-int/2addr v1, v3
 
     goto :goto_8
 
-    .line 413
+    .line 524
     :cond_3c
     return-void
 .end method
 
-.method private static applyApkSigningBlockV2(Ljava/io/File;Ljava/io/File;Ljava/security/PrivateKey;[B[B)V
-    .registers 26
+.method private static applyApkSigningBlock(Ljava/io/File;Ljava/io/File;Ljava/security/PrivateKey;[B[BZZ)V
+    .registers 33
     .annotation system Ldalvik/annotation/Throws;
         value = {
             Ljava/lang/Exception;
         }
     .end annotation
 
-    .line 254
+    .line 314
     move-object/from16 v0, p0
 
+    move-object/from16 v1, p1
+
+    move-object/from16 v2, p2
+
+    const/high16 v3, 0x10000
+
+    const/4 v4, -0x1
+
+    const/4 v5, 0x0
+
+    if-nez p5, :cond_43
+
+    if-nez p6, :cond_43
+
+    .line 315
+    new-instance v2, Ljava/io/FileInputStream;
+
+    invoke-direct {v2, v0}, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V
+
+    :try_start_13
+    new-instance v6, Ljava/io/FileOutputStream;
+
+    invoke-direct {v6, v1}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+    :try_end_18
+    .catchall {:try_start_13 .. :try_end_18} :catchall_37
+
+    .line 316
+    :try_start_18
+    new-array v0, v3, [B
+
+    .line 318
+    :goto_1a
+    invoke-virtual {v2, v0}, Ljava/io/InputStream;->read([B)I
+
+    move-result v1
+
+    if-eq v1, v4, :cond_24
+
+    .line 319
+    invoke-virtual {v6, v0, v5, v1}, Ljava/io/OutputStream;->write([BII)V
+    :try_end_23
+    .catchall {:try_start_18 .. :try_end_23} :catchall_2b
+
+    goto :goto_1a
+
+    .line 321
+    :cond_24
+    :try_start_24
+    invoke-virtual {v6}, Ljava/io/OutputStream;->close()V
+    :try_end_27
+    .catchall {:try_start_24 .. :try_end_27} :catchall_37
+
+    invoke-virtual {v2}, Ljava/io/InputStream;->close()V
+
+    .line 322
+    return-void
+
+    .line 315
+    :catchall_2b
+    move-exception v0
+
+    move-object v1, v0
+
+    :try_start_2d
+    invoke-virtual {v6}, Ljava/io/OutputStream;->close()V
+    :try_end_30
+    .catchall {:try_start_2d .. :try_end_30} :catchall_31
+
+    goto :goto_36
+
+    :catchall_31
+    move-exception v0
+
+    move-object v3, v0
+
+    :try_start_33
+    invoke-static {v1, v3}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
+
+    :goto_36
+    throw v1
+    :try_end_37
+    .catchall {:try_start_33 .. :try_end_37} :catchall_37
+
+    :catchall_37
+    move-exception v0
+
+    move-object v1, v0
+
+    :try_start_39
+    invoke-virtual {v2}, Ljava/io/InputStream;->close()V
+    :try_end_3c
+    .catchall {:try_start_39 .. :try_end_3c} :catchall_3d
+
+    goto :goto_42
+
+    :catchall_3d
+    move-exception v0
+
+    move-object v2, v0
+
+    invoke-static {v1, v2}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
+
+    :goto_42
+    throw v1
+
+    .line 325
+    :cond_43
     invoke-virtual/range {p0 .. p0}, Ljava/io/File;->length()J
 
-    move-result-wide v1
+    move-result-wide v6
 
-    .line 255
-    const-wide/16 v3, 0x16
+    .line 326
+    const-wide/16 v8, 0x16
 
-    cmp-long v5, v1, v3
+    cmp-long v10, v6, v8
 
-    if-ltz v5, :cond_277
+    if-ltz v10, :cond_3a1
 
-    .line 259
-    const-wide/32 v3, 0x10000
+    .line 330
+    const-wide/32 v8, 0x10000
 
-    invoke-static {v1, v2, v3, v4}, Ljava/lang/Math;->min(JJ)J
+    invoke-static {v6, v7, v8, v9}, Ljava/lang/Math;->min(JJ)J
 
-    move-result-wide v3
+    move-result-wide v8
 
-    long-to-int v4, v3
+    long-to-int v9, v8
 
-    .line 260
-    new-array v3, v4, [B
+    .line 331
+    new-array v8, v9, [B
 
-    .line 261
-    int-to-long v5, v4
+    .line 332
+    int-to-long v10, v9
 
-    sub-long/2addr v1, v5
+    sub-long/2addr v6, v10
 
-    .line 262
-    new-instance v5, Ljava/io/RandomAccessFile;
+    .line 333
+    new-instance v10, Ljava/io/RandomAccessFile;
 
-    const-string v6, "r"
+    const-string v11, "r"
 
-    invoke-direct {v5, v0, v6}, Ljava/io/RandomAccessFile;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-direct {v10, v0, v11}, Ljava/io/RandomAccessFile;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 263
-    :try_start_1f
-    invoke-virtual {v5, v1, v2}, Ljava/io/RandomAccessFile;->seek(J)V
+    .line 334
+    :try_start_60
+    invoke-virtual {v10, v6, v7}, Ljava/io/RandomAccessFile;->seek(J)V
 
-    .line 264
-    invoke-virtual {v5, v3}, Ljava/io/RandomAccessFile;->readFully([B)V
-    :try_end_25
-    .catchall {:try_start_1f .. :try_end_25} :catchall_26b
+    .line 335
+    invoke-virtual {v10, v8}, Ljava/io/RandomAccessFile;->readFully([B)V
+    :try_end_66
+    .catchall {:try_start_60 .. :try_end_66} :catchall_395
 
-    .line 265
-    invoke-virtual {v5}, Ljava/io/RandomAccessFile;->close()V
+    .line 336
+    invoke-virtual {v10}, Ljava/io/RandomAccessFile;->close()V
 
-    .line 267
+    .line 338
     nop
 
-    .line 268
-    add-int/lit8 v1, v4, -0x16
+    .line 339
+    add-int/lit8 v6, v9, -0x16
 
-    :goto_2b
-    const/4 v2, -0x1
+    :goto_6c
+    if-ltz v6, :cond_8f
 
-    if-ltz v1, :cond_4f
+    .line 340
+    aget-byte v7, v8, v6
 
-    .line 269
-    aget-byte v5, v3, v1
+    const/16 v10, 0x50
 
-    const/16 v7, 0x50
+    if-ne v7, v10, :cond_8c
 
-    if-ne v5, v7, :cond_4c
+    add-int/lit8 v7, v6, 0x1
 
-    add-int/lit8 v5, v1, 0x1
+    aget-byte v7, v8, v7
 
-    aget-byte v5, v3, v5
+    const/16 v10, 0x4b
 
-    const/16 v7, 0x4b
+    if-ne v7, v10, :cond_8c
 
-    if-ne v5, v7, :cond_4c
+    add-int/lit8 v7, v6, 0x2
 
-    add-int/lit8 v5, v1, 0x2
+    aget-byte v7, v8, v7
 
-    aget-byte v5, v3, v5
+    const/4 v10, 0x5
 
-    const/4 v7, 0x5
+    if-ne v7, v10, :cond_8c
 
-    if-ne v5, v7, :cond_4c
+    add-int/lit8 v7, v6, 0x3
 
-    add-int/lit8 v5, v1, 0x3
+    aget-byte v7, v8, v7
 
-    aget-byte v5, v3, v5
+    const/4 v10, 0x6
 
-    const/4 v7, 0x6
+    if-ne v7, v10, :cond_8c
 
-    if-ne v5, v7, :cond_4c
-
-    .line 270
+    .line 341
     nop
 
-    .line 271
-    goto :goto_50
+    .line 342
+    goto :goto_90
 
-    .line 268
-    :cond_4c
-    add-int/lit8 v1, v1, -0x1
+    .line 339
+    :cond_8c
+    add-int/lit8 v6, v6, -0x1
 
-    goto :goto_2b
+    goto :goto_6c
 
-    :cond_4f
-    const/4 v1, -0x1
+    :cond_8f
+    const/4 v6, -0x1
 
-    .line 274
-    :goto_50
-    if-eq v1, v2, :cond_263
+    .line 345
+    :goto_90
+    if-eq v6, v4, :cond_38d
 
-    .line 278
-    invoke-static {v3}, Ljava/nio/ByteBuffer;->wrap([B)Ljava/nio/ByteBuffer;
+    .line 349
+    invoke-static {v8}, Ljava/nio/ByteBuffer;->wrap([B)Ljava/nio/ByteBuffer;
 
-    move-result-object v2
+    move-result-object v4
 
-    sget-object v5, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+    sget-object v7, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
 
-    invoke-virtual {v2, v5}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+    invoke-virtual {v4, v7}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
 
-    move-result-object v2
+    move-result-object v4
 
-    .line 279
-    add-int/lit8 v5, v1, 0xc
+    .line 350
+    add-int/lit8 v7, v6, 0xc
 
-    invoke-virtual {v2, v5}, Ljava/nio/ByteBuffer;->getInt(I)I
+    invoke-virtual {v4, v7}, Ljava/nio/ByteBuffer;->getInt(I)I
 
-    move-result v5
+    move-result v7
 
-    int-to-long v7, v5
+    int-to-long v12, v7
 
-    const-wide v9, 0xffffffffL
+    const-wide v14, 0xffffffffL
 
-    and-long/2addr v7, v9
+    and-long/2addr v12, v14
 
-    .line 280
-    add-int/lit8 v5, v1, 0x10
+    .line 351
+    add-int/lit8 v7, v6, 0x10
 
-    invoke-virtual {v2, v5}, Ljava/nio/ByteBuffer;->getInt(I)I
+    invoke-virtual {v4, v7}, Ljava/nio/ByteBuffer;->getInt(I)I
 
-    move-result v2
+    move-result v4
 
-    int-to-long v11, v2
+    int-to-long v3, v4
 
-    and-long/2addr v9, v11
+    and-long/2addr v3, v14
 
-    .line 282
-    invoke-static {v3, v1, v4}, Ljava/util/Arrays;->copyOfRange([BII)[B
+    .line 353
+    invoke-static {v8, v6, v9}, Ljava/util/Arrays;->copyOfRange([BII)[B
 
-    move-result-object v1
+    move-result-object v6
 
-    .line 283
-    invoke-static {v1}, Ljava/nio/ByteBuffer;->wrap([B)Ljava/nio/ByteBuffer;
+    .line 354
+    invoke-static {v6}, Ljava/nio/ByteBuffer;->wrap([B)Ljava/nio/ByteBuffer;
 
-    move-result-object v2
+    move-result-object v8
 
-    sget-object v3, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+    sget-object v9, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
 
-    invoke-virtual {v2, v3}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+    invoke-virtual {v8, v9}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
 
-    move-result-object v2
+    move-result-object v8
 
-    .line 284
-    long-to-int v3, v9
+    .line 355
+    long-to-int v9, v3
 
-    const/16 v4, 0x10
+    const/16 v10, 0x10
 
-    invoke-virtual {v2, v4, v3}, Ljava/nio/ByteBuffer;->putInt(II)Ljava/nio/ByteBuffer;
+    invoke-virtual {v8, v10, v9}, Ljava/nio/ByteBuffer;->putInt(II)Ljava/nio/ByteBuffer;
 
-    .line 286
-    new-instance v3, Ljava/util/ArrayList;
+    .line 357
+    new-instance v9, Ljava/util/ArrayList;
 
-    invoke-direct {v3}, Ljava/util/ArrayList;-><init>()V
+    invoke-direct {v9}, Ljava/util/ArrayList;-><init>()V
 
-    .line 287
-    new-instance v5, Ljava/io/RandomAccessFile;
+    .line 358
+    new-instance v14, Ljava/io/RandomAccessFile;
 
-    invoke-direct {v5, v0, v6}, Ljava/io/RandomAccessFile;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-direct {v14, v0, v11}, Ljava/io/RandomAccessFile;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 288
-    const-wide/16 v14, 0x0
+    .line 359
+    const-wide/16 v17, 0x0
 
-    move-object v13, v5
+    move-object/from16 v16, v14
 
-    move-wide/from16 v16, v9
+    move-wide/from16 v19, v3
 
-    move-object/from16 v18, v3
+    move-object/from16 v21, v9
 
-    :try_start_96
-    invoke-static/range {v13 .. v18}, Lcom/dex2c/plus/engine/ApkSignerHelper;->addFileRangeDigests(Ljava/io/RandomAccessFile;JJLjava/util/List;)V
+    :try_start_d7
+    invoke-static/range {v16 .. v21}, Lcom/dex2c/plus/engine/ApkSignerHelper;->addFileRangeDigests(Ljava/io/RandomAccessFile;JJLjava/util/List;)V
 
-    .line 289
-    move-object v11, v5
+    .line 360
+    move-object/from16 v16, v14
 
-    move-wide v12, v9
+    move-wide/from16 v17, v3
 
-    move-wide v14, v7
+    move-wide/from16 v19, v12
 
-    move-object/from16 v16, v3
+    move-object/from16 v21, v9
 
-    invoke-static/range {v11 .. v16}, Lcom/dex2c/plus/engine/ApkSignerHelper;->addFileRangeDigests(Ljava/io/RandomAccessFile;JJLjava/util/List;)V
+    invoke-static/range {v16 .. v21}, Lcom/dex2c/plus/engine/ApkSignerHelper;->addFileRangeDigests(Ljava/io/RandomAccessFile;JJLjava/util/List;)V
 
-    .line 290
-    invoke-static {v1, v3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->addMemoryDigests([BLjava/util/List;)V
-    :try_end_a4
-    .catchall {:try_start_96 .. :try_end_a4} :catchall_257
+    .line 361
+    invoke-static {v6, v9}, Lcom/dex2c/plus/engine/ApkSignerHelper;->addMemoryDigests([BLjava/util/List;)V
+    :try_end_e8
+    .catchall {:try_start_d7 .. :try_end_e8} :catchall_381
 
-    .line 291
-    invoke-virtual {v5}, Ljava/io/RandomAccessFile;->close()V
+    .line 362
+    invoke-virtual {v14}, Ljava/io/RandomAccessFile;->close()V
 
-    .line 293
-    new-instance v5, Ljava/io/ByteArrayOutputStream;
+    .line 364
+    new-instance v14, Ljava/io/ByteArrayOutputStream;
 
-    invoke-direct {v5}, Ljava/io/ByteArrayOutputStream;-><init>()V
+    invoke-direct {v14}, Ljava/io/ByteArrayOutputStream;-><init>()V
 
-    .line 294
-    const/16 v11, 0x5a
+    .line 365
+    const/16 v15, 0x5a
 
-    invoke-virtual {v5, v11}, Ljava/io/ByteArrayOutputStream;->write(I)V
+    invoke-virtual {v14, v15}, Ljava/io/ByteArrayOutputStream;->write(I)V
 
-    .line 295
-    const/4 v11, 0x4
+    .line 366
+    const/4 v15, 0x4
 
-    invoke-static {v11}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+    invoke-static {v15}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
 
-    move-result-object v12
+    move-result-object v7
 
-    sget-object v13, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+    sget-object v10, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
 
-    invoke-virtual {v12, v13}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+    invoke-virtual {v7, v10}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
 
-    move-result-object v12
+    move-result-object v7
 
-    .line 296
-    invoke-interface {v3}, Ljava/util/List;->size()I
+    .line 367
+    invoke-interface {v9}, Ljava/util/List;->size()I
 
-    move-result v13
+    move-result v10
 
-    invoke-virtual {v12, v13}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+    invoke-virtual {v7, v10}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
 
-    .line 297
-    invoke-virtual {v12}, Ljava/nio/ByteBuffer;->array()[B
+    .line 368
+    invoke-virtual {v7}, Ljava/nio/ByteBuffer;->array()[B
 
-    move-result-object v12
+    move-result-object v7
 
-    invoke-virtual {v5, v12}, Ljava/io/ByteArrayOutputStream;->write([B)V
+    invoke-virtual {v14, v7}, Ljava/io/ByteArrayOutputStream;->write([B)V
 
-    .line 298
-    invoke-interface {v3}, Ljava/util/List;->iterator()Ljava/util/Iterator;
+    .line 369
+    invoke-interface {v9}, Ljava/util/List;->iterator()Ljava/util/Iterator;
 
-    move-result-object v3
+    move-result-object v7
 
-    :goto_ce
-    invoke-interface {v3}, Ljava/util/Iterator;->hasNext()Z
+    :goto_112
+    invoke-interface {v7}, Ljava/util/Iterator;->hasNext()Z
 
-    move-result v12
+    move-result v9
 
-    if-eqz v12, :cond_de
+    if-eqz v9, :cond_122
 
-    invoke-interface {v3}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+    invoke-interface {v7}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
-    move-result-object v12
+    move-result-object v9
 
-    check-cast v12, [B
+    check-cast v9, [B
 
-    .line 299
-    invoke-virtual {v5, v12}, Ljava/io/ByteArrayOutputStream;->write([B)V
+    .line 370
+    invoke-virtual {v14, v9}, Ljava/io/ByteArrayOutputStream;->write([B)V
 
-    .line 300
-    goto :goto_ce
+    .line 371
+    goto :goto_112
 
-    .line 301
-    :cond_de
-    const-string v3, "SHA-256"
+    .line 372
+    :cond_122
+    const-string v7, "SHA-256"
 
-    invoke-static {v3}, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;
+    invoke-static {v7}, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;
 
-    move-result-object v3
+    move-result-object v7
 
-    .line 302
-    invoke-virtual {v5}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
+    .line 373
+    invoke-virtual {v14}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
 
-    move-result-object v5
+    move-result-object v9
 
-    invoke-virtual {v3, v5}, Ljava/security/MessageDigest;->digest([B)[B
+    invoke-virtual {v7, v9}, Ljava/security/MessageDigest;->digest([B)[B
 
-    move-result-object v3
+    move-result-object v7
 
-    .line 304
-    array-length v5, v3
+    .line 375
+    array-length v9, v7
 
-    const/16 v12, 0x8
+    const/16 v10, 0x8
 
-    add-int/2addr v5, v12
+    add-int/2addr v9, v10
 
-    invoke-static {v5}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+    invoke-static {v9}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
 
-    move-result-object v5
+    move-result-object v9
 
-    sget-object v13, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+    sget-object v14, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
 
-    invoke-virtual {v5, v13}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+    invoke-virtual {v9, v14}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
 
-    move-result-object v5
+    move-result-object v9
 
-    .line 305
-    const/16 v13, 0x103
+    .line 376
+    const/16 v14, 0x103
 
-    invoke-virtual {v5, v13}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+    invoke-virtual {v9, v14}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
 
-    .line 306
-    array-length v14, v3
+    .line 377
+    array-length v14, v7
 
-    invoke-virtual {v5, v14}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+    invoke-virtual {v9, v14}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
 
-    .line 307
-    invoke-virtual {v5, v3}, Ljava/nio/ByteBuffer;->put([B)Ljava/nio/ByteBuffer;
+    .line 378
+    invoke-virtual {v9, v7}, Ljava/nio/ByteBuffer;->put([B)Ljava/nio/ByteBuffer;
 
-    .line 308
-    invoke-virtual {v5}, Ljava/nio/ByteBuffer;->array()[B
+    .line 379
+    invoke-virtual {v9}, Ljava/nio/ByteBuffer;->array()[B
 
-    move-result-object v3
+    move-result-object v7
 
-    invoke-static {v3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+    invoke-static {v7}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
 
-    move-result-object v3
+    move-result-object v7
 
-    .line 309
-    invoke-static {v3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+    .line 380
+    invoke-static {v7}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
 
-    move-result-object v3
+    move-result-object v7
 
-    .line 311
+    .line 382
     invoke-static/range {p3 .. p3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
 
-    move-result-object v5
+    move-result-object v9
 
-    .line 312
-    invoke-static {v5}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+    .line 383
+    invoke-static {v9}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
 
-    move-result-object v5
+    move-result-object v9
 
-    .line 314
-    invoke-static {v11}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+    .line 385
+    invoke-static {v15}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
 
     move-result-object v14
 
@@ -653,419 +762,683 @@
 
     move-result-object v14
 
-    .line 315
-    const/4 v15, 0x0
+    .line 386
+    invoke-virtual {v14, v5}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
 
-    invoke-virtual {v14, v15}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
-
-    .line 316
+    .line 387
     invoke-virtual {v14}, Ljava/nio/ByteBuffer;->array()[B
 
     move-result-object v14
 
-    .line 318
-    const/4 v4, 0x3
-
-    new-array v11, v4, [[B
-
-    aput-object v3, v11, v15
-
-    const/4 v3, 0x1
-
-    aput-object v5, v11, v3
-
-    const/4 v5, 0x2
-
-    aput-object v14, v11, v5
-
-    invoke-static {v11}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
-
-    move-result-object v11
-
-    .line 319
-    invoke-static {v11}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
-
-    move-result-object v14
-
-    .line 321
-    const-string v18, "SHA256withRSA"
-
-    invoke-static/range {v18 .. v18}, Ljava/security/Signature;->getInstance(Ljava/lang/String;)Ljava/security/Signature;
-
-    move-result-object v5
-
-    .line 322
-    move-object/from16 v3, p2
-
-    invoke-virtual {v5, v3}, Ljava/security/Signature;->initSign(Ljava/security/PrivateKey;)V
-
-    .line 323
-    invoke-virtual {v5, v11}, Ljava/security/Signature;->update([B)V
-
-    .line 324
-    invoke-virtual {v5}, Ljava/security/Signature;->sign()[B
-
-    move-result-object v3
-
-    .line 326
-    array-length v5, v3
-
-    add-int/2addr v5, v12
-
-    invoke-static {v5}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
-
-    move-result-object v5
-
-    sget-object v11, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
-
-    invoke-virtual {v5, v11}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
-
-    move-result-object v5
-
-    .line 327
-    invoke-virtual {v5, v13}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
-
-    .line 328
-    array-length v11, v3
-
-    invoke-virtual {v5, v11}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
-
-    .line 329
-    invoke-virtual {v5, v3}, Ljava/nio/ByteBuffer;->put([B)Ljava/nio/ByteBuffer;
-
-    .line 330
-    invoke-virtual {v5}, Ljava/nio/ByteBuffer;->array()[B
-
-    move-result-object v3
-
-    invoke-static {v3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
-
-    move-result-object v3
-
-    .line 331
-    invoke-static {v3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
-
-    move-result-object v3
-
-    .line 333
+    .line 389
     invoke-static/range {p4 .. p4}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
 
-    move-result-object v5
+    move-result-object v15
 
-    .line 335
-    new-array v11, v4, [[B
+    .line 391
+    const-string v20, "SHA256withRSA"
 
-    aput-object v14, v11, v15
+    invoke-static/range {v20 .. v20}, Ljava/security/Signature;->getInstance(Ljava/lang/String;)Ljava/security/Signature;
 
-    const/4 v13, 0x1
+    move-result-object v10
 
-    aput-object v3, v11, v13
+    .line 392
+    new-instance v5, Ljava/io/ByteArrayOutputStream;
 
-    const/4 v3, 0x2
+    invoke-direct {v5}, Ljava/io/ByteArrayOutputStream;-><init>()V
 
-    aput-object v5, v11, v3
+    .line 395
+    move-object/from16 v22, v6
 
-    invoke-static {v11}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+    const/16 v23, 0x1
 
-    move-result-object v3
+    if-eqz p5, :cond_227
 
-    .line 336
-    invoke-static {v3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+    .line 396
+    move-wide/from16 v24, v12
 
-    move-result-object v3
+    const/4 v6, 0x3
 
-    .line 337
-    invoke-static {v3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+    new-array v12, v6, [[B
 
-    move-result-object v3
+    const/4 v6, 0x0
 
-    .line 339
-    const/4 v5, 0x4
+    aput-object v7, v12, v6
 
-    invoke-static {v5}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+    aput-object v9, v12, v23
 
-    move-result-object v11
+    const/4 v6, 0x2
 
-    sget-object v5, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+    aput-object v14, v12, v6
 
-    invoke-virtual {v11, v5}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+    invoke-static {v12}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
 
-    move-result-object v5
+    move-result-object v6
 
-    .line 340
-    const v11, 0x7109871a
-
-    invoke-virtual {v5, v11}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
-
-    .line 341
-    invoke-virtual {v5}, Ljava/nio/ByteBuffer;->array()[B
-
-    move-result-object v5
-
-    const/4 v11, 0x2
-
-    new-array v13, v11, [[B
-
-    aput-object v5, v13, v15
-
-    const/4 v5, 0x1
-
-    aput-object v3, v13, v5
-
-    invoke-static {v13}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
-
-    move-result-object v3
-
-    .line 343
-    invoke-static {v12}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
-
-    move-result-object v5
-
-    sget-object v11, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
-
-    invoke-virtual {v5, v11}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
-
-    move-result-object v5
-
-    .line 344
-    array-length v11, v3
-
-    int-to-long v13, v11
-
-    invoke-virtual {v5, v13, v14}, Ljava/nio/ByteBuffer;->putLong(J)Ljava/nio/ByteBuffer;
-
-    .line 345
-    invoke-virtual {v5}, Ljava/nio/ByteBuffer;->array()[B
-
-    move-result-object v5
-
-    const/4 v11, 0x2
-
-    new-array v13, v11, [[B
-
-    aput-object v5, v13, v15
-
-    const/4 v5, 0x1
-
-    aput-object v3, v13, v5
-
-    invoke-static {v13}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
-
-    move-result-object v3
-
-    .line 347
-    array-length v5, v3
-
-    add-int/2addr v5, v12
-
-    const/16 v11, 0x10
-
-    add-int/2addr v5, v11
-
-    int-to-long v13, v5
-
-    .line 348
-    const-wide/16 v19, 0x8
-
-    add-long v19, v13, v19
-
-    .line 350
-    invoke-static {v12}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
-
-    move-result-object v5
-
-    sget-object v11, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
-
-    invoke-virtual {v5, v11}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
-
-    move-result-object v5
-
-    .line 351
-    invoke-virtual {v5, v13, v14}, Ljava/nio/ByteBuffer;->putLong(J)Ljava/nio/ByteBuffer;
-
-    .line 353
-    const-string v11, "APK Sig Block 42"
-
-    sget-object v12, Ljava/nio/charset/StandardCharsets;->US_ASCII:Ljava/nio/charset/Charset;
-
-    invoke-virtual {v11, v12}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
-
-    move-result-object v11
-
-    .line 354
-    invoke-virtual {v5}, Ljava/nio/ByteBuffer;->array()[B
+    .line 397
+    invoke-static {v6}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
 
     move-result-object v12
 
-    invoke-virtual {v5}, Ljava/nio/ByteBuffer;->array()[B
+    .line 399
+    invoke-virtual {v10, v2}, Ljava/security/Signature;->initSign(Ljava/security/PrivateKey;)V
 
-    move-result-object v5
+    .line 400
+    invoke-virtual {v10, v6}, Ljava/security/Signature;->update([B)V
 
-    const/4 v13, 0x4
+    .line 401
+    invoke-virtual {v10}, Ljava/security/Signature;->sign()[B
 
-    new-array v13, v13, [[B
+    move-result-object v6
 
-    aput-object v12, v13, v15
+    .line 403
+    array-length v13, v6
 
-    const/4 v12, 0x1
+    const/16 v21, 0x8
 
-    aput-object v3, v13, v12
+    add-int/lit8 v13, v13, 0x8
 
-    const/4 v3, 0x2
+    invoke-static {v13}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
 
-    aput-object v5, v13, v3
+    move-result-object v13
 
-    aput-object v11, v13, v4
+    sget-object v1, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v13, v1}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v1
+
+    .line 404
+    const/16 v13, 0x103
+
+    invoke-virtual {v1, v13}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+
+    .line 405
+    array-length v13, v6
+
+    invoke-virtual {v1, v13}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+
+    .line 406
+    invoke-virtual {v1, v6}, Ljava/nio/ByteBuffer;->put([B)Ljava/nio/ByteBuffer;
+
+    .line 407
+    invoke-virtual {v1}, Ljava/nio/ByteBuffer;->array()[B
+
+    move-result-object v1
+
+    invoke-static {v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+
+    move-result-object v1
+
+    .line 408
+    invoke-static {v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+
+    move-result-object v1
+
+    .line 410
+    const/4 v6, 0x3
+
+    new-array v13, v6, [[B
+
+    const/4 v6, 0x0
+
+    aput-object v12, v13, v6
+
+    aput-object v1, v13, v23
+
+    const/4 v1, 0x2
+
+    aput-object v15, v13, v1
 
     invoke-static {v13}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
 
-    move-result-object v3
+    move-result-object v1
 
-    .line 356
-    add-long v4, v9, v19
+    .line 411
+    invoke-static {v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
 
-    long-to-int v5, v4
+    move-result-object v1
 
-    const/16 v4, 0x10
+    .line 412
+    invoke-static {v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
 
-    invoke-virtual {v2, v4, v5}, Ljava/nio/ByteBuffer;->putInt(II)Ljava/nio/ByteBuffer;
+    move-result-object v1
 
-    .line 358
+    .line 414
+    const/4 v6, 0x4
+
+    invoke-static {v6}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+
+    move-result-object v12
+
+    sget-object v6, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v12, v6}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v6
+
+    .line 415
+    const v12, 0x7109871a
+
+    invoke-virtual {v6, v12}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+
+    .line 416
+    const/4 v12, 0x2
+
+    new-array v13, v12, [[B
+
+    invoke-virtual {v6}, Ljava/nio/ByteBuffer;->array()[B
+
+    move-result-object v6
+
+    const/4 v12, 0x0
+
+    aput-object v6, v13, v12
+
+    aput-object v1, v13, v23
+
+    invoke-static {v13}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+
+    move-result-object v1
+
+    .line 418
+    const/16 v6, 0x8
+
+    invoke-static {v6}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+
+    move-result-object v12
+
+    sget-object v6, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v12, v6}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v6
+
+    .line 419
+    array-length v12, v1
+
+    int-to-long v12, v12
+
+    invoke-virtual {v6, v12, v13}, Ljava/nio/ByteBuffer;->putLong(J)Ljava/nio/ByteBuffer;
+
+    .line 420
+    const/4 v12, 0x2
+
+    new-array v13, v12, [[B
+
+    invoke-virtual {v6}, Ljava/nio/ByteBuffer;->array()[B
+
+    move-result-object v6
+
+    const/4 v12, 0x0
+
+    aput-object v6, v13, v12
+
+    aput-object v1, v13, v23
+
+    invoke-static {v13}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+
+    move-result-object v1
+
+    invoke-virtual {v5, v1}, Ljava/io/ByteArrayOutputStream;->write([B)V
+
+    goto :goto_229
+
+    .line 395
+    :cond_227
+    move-wide/from16 v24, v12
+
+    .line 424
+    :goto_229
+    if-eqz p6, :cond_2ea
+
+    .line 425
+    const/16 v1, 0x8
+
+    invoke-static {v1}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+
+    move-result-object v6
+
+    sget-object v1, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v6, v1}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v1
+
+    .line 426
+    const/16 v6, 0x18
+
+    invoke-virtual {v1, v6}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+
+    .line 427
+    const v6, 0x7fffffff
+
+    invoke-virtual {v1, v6}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+
+    .line 428
+    invoke-virtual {v1}, Ljava/nio/ByteBuffer;->array()[B
+
+    move-result-object v1
+
+    .line 430
+    const/4 v6, 0x4
+
+    new-array v12, v6, [[B
+
+    const/4 v6, 0x0
+
+    aput-object v7, v12, v6
+
+    aput-object v9, v12, v23
+
+    const/4 v6, 0x2
+
+    aput-object v1, v12, v6
+
+    const/4 v6, 0x3
+
+    aput-object v14, v12, v6
+
+    invoke-static {v12}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+
+    move-result-object v6
+
+    .line 431
+    invoke-static {v6}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+
+    move-result-object v7
+
+    .line 433
+    invoke-virtual {v10, v2}, Ljava/security/Signature;->initSign(Ljava/security/PrivateKey;)V
+
+    .line 434
+    invoke-virtual {v10, v6}, Ljava/security/Signature;->update([B)V
+
+    .line 435
+    invoke-virtual {v10}, Ljava/security/Signature;->sign()[B
+
+    move-result-object v2
+
+    .line 437
+    array-length v6, v2
+
+    const/16 v9, 0x8
+
+    add-int/2addr v6, v9
+
+    invoke-static {v6}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+
+    move-result-object v6
+
+    sget-object v9, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v6, v9}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v6
+
+    .line 438
+    const/16 v9, 0x103
+
+    invoke-virtual {v6, v9}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+
+    .line 439
+    array-length v9, v2
+
+    invoke-virtual {v6, v9}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+
+    .line 440
+    invoke-virtual {v6, v2}, Ljava/nio/ByteBuffer;->put([B)Ljava/nio/ByteBuffer;
+
+    .line 441
+    invoke-virtual {v6}, Ljava/nio/ByteBuffer;->array()[B
+
+    move-result-object v2
+
+    invoke-static {v2}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+
+    move-result-object v2
+
+    .line 442
+    invoke-static {v2}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+
+    move-result-object v2
+
+    .line 444
+    const/4 v6, 0x4
+
+    new-array v9, v6, [[B
+
+    const/4 v10, 0x0
+
+    aput-object v7, v9, v10
+
+    aput-object v1, v9, v23
+
+    const/4 v1, 0x2
+
+    aput-object v2, v9, v1
+
+    const/4 v1, 0x3
+
+    aput-object v15, v9, v1
+
+    invoke-static {v9}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+
+    move-result-object v1
+
+    .line 445
+    invoke-static {v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+
+    move-result-object v1
+
+    .line 446
+    invoke-static {v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->prefixLength([B)[B
+
+    move-result-object v1
+
+    .line 448
+    invoke-static {v6}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+
+    move-result-object v2
+
+    sget-object v6, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v2, v6}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v2
+
+    .line 449
+    const v6, -0xfac9740
+
+    invoke-virtual {v2, v6}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
+
+    .line 450
+    const/4 v6, 0x2
+
+    new-array v7, v6, [[B
+
+    invoke-virtual {v2}, Ljava/nio/ByteBuffer;->array()[B
+
+    move-result-object v2
+
+    const/4 v6, 0x0
+
+    aput-object v2, v7, v6
+
+    aput-object v1, v7, v23
+
+    invoke-static {v7}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+
+    move-result-object v1
+
+    .line 452
+    const/16 v2, 0x8
+
+    invoke-static {v2}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+
+    move-result-object v6
+
+    sget-object v2, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v6, v2}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v2
+
+    .line 453
+    array-length v6, v1
+
+    int-to-long v6, v6
+
+    invoke-virtual {v2, v6, v7}, Ljava/nio/ByteBuffer;->putLong(J)Ljava/nio/ByteBuffer;
+
+    .line 454
+    const/4 v6, 0x2
+
+    new-array v7, v6, [[B
+
+    invoke-virtual {v2}, Ljava/nio/ByteBuffer;->array()[B
+
+    move-result-object v2
+
+    const/4 v6, 0x0
+
+    aput-object v2, v7, v6
+
+    aput-object v1, v7, v23
+
+    invoke-static {v7}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+
+    move-result-object v1
+
+    invoke-virtual {v5, v1}, Ljava/io/ByteArrayOutputStream;->write([B)V
+
+    .line 457
+    :cond_2ea
+    invoke-virtual {v5}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
+
+    move-result-object v1
+
+    .line 458
+    array-length v2, v1
+
+    const/16 v5, 0x8
+
+    add-int/2addr v2, v5
+
+    const/16 v6, 0x10
+
+    add-int/2addr v2, v6
+
+    int-to-long v6, v2
+
+    .line 459
+    const-wide/16 v9, 0x8
+
+    add-long/2addr v9, v6
+
+    .line 461
+    invoke-static {v5}, Ljava/nio/ByteBuffer;->allocate(I)Ljava/nio/ByteBuffer;
+
+    move-result-object v2
+
+    sget-object v5, Ljava/nio/ByteOrder;->LITTLE_ENDIAN:Ljava/nio/ByteOrder;
+
+    invoke-virtual {v2, v5}, Ljava/nio/ByteBuffer;->order(Ljava/nio/ByteOrder;)Ljava/nio/ByteBuffer;
+
+    move-result-object v2
+
+    .line 462
+    invoke-virtual {v2, v6, v7}, Ljava/nio/ByteBuffer;->putLong(J)Ljava/nio/ByteBuffer;
+
+    .line 464
+    const-string v5, "APK Sig Block 42"
+
+    sget-object v6, Ljava/nio/charset/StandardCharsets;->US_ASCII:Ljava/nio/charset/Charset;
+
+    invoke-virtual {v5, v6}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
+
+    move-result-object v5
+
+    .line 465
+    const/4 v6, 0x4
+
+    new-array v6, v6, [[B
+
+    invoke-virtual {v2}, Ljava/nio/ByteBuffer;->array()[B
+
+    move-result-object v7
+
+    const/4 v12, 0x0
+
+    aput-object v7, v6, v12
+
+    aput-object v1, v6, v23
+
+    invoke-virtual {v2}, Ljava/nio/ByteBuffer;->array()[B
+
+    move-result-object v1
+
+    const/4 v2, 0x2
+
+    aput-object v1, v6, v2
+
+    const/4 v1, 0x3
+
+    aput-object v5, v6, v1
+
+    invoke-static {v6}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+
+    move-result-object v1
+
+    .line 467
+    add-long/2addr v9, v3
+
+    long-to-int v2, v9
+
+    const/16 v5, 0x10
+
+    invoke-virtual {v8, v5, v2}, Ljava/nio/ByteBuffer;->putInt(II)Ljava/nio/ByteBuffer;
+
+    .line 469
     new-instance v2, Ljava/io/RandomAccessFile;
 
-    invoke-direct {v2, v0, v6}, Ljava/io/RandomAccessFile;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-direct {v2, v0, v11}, Ljava/io/RandomAccessFile;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 359
-    :try_start_212
-    new-instance v4, Ljava/io/BufferedOutputStream;
+    .line 470
+    :try_start_334
+    new-instance v5, Ljava/io/BufferedOutputStream;
 
     new-instance v0, Ljava/io/FileOutputStream;
 
-    move-object/from16 v5, p1
+    move-object/from16 v6, p1
 
-    invoke-direct {v0, v5}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+    invoke-direct {v0, v6}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
 
-    const/high16 v5, 0x10000
+    const/high16 v6, 0x10000
 
-    invoke-direct {v4, v0, v5}, Ljava/io/BufferedOutputStream;-><init>(Ljava/io/OutputStream;I)V
-    :try_end_220
-    .catchall {:try_start_212 .. :try_end_220} :catchall_24b
+    invoke-direct {v5, v0, v6}, Ljava/io/BufferedOutputStream;-><init>(Ljava/io/OutputStream;I)V
+    :try_end_342
+    .catchall {:try_start_334 .. :try_end_342} :catchall_375
 
-    .line 360
-    const-wide/16 v14, 0x0
+    .line 471
+    const-wide/16 v6, 0x0
 
-    move-object v13, v2
+    move-object/from16 p0, v2
 
-    move-wide/from16 v16, v9
+    move-wide/from16 p1, v6
 
-    move-object/from16 v18, v4
+    move-wide/from16 p3, v3
 
-    :try_start_227
-    invoke-static/range {v13 .. v18}, Lcom/dex2c/plus/engine/ApkSignerHelper;->copyRange(Ljava/io/RandomAccessFile;JJLjava/io/OutputStream;)V
+    move-object/from16 p5, v5
 
-    .line 361
-    invoke-virtual {v4, v3}, Ljava/io/OutputStream;->write([B)V
+    :try_start_34c
+    invoke-static/range {p0 .. p5}, Lcom/dex2c/plus/engine/ApkSignerHelper;->copyRange(Ljava/io/RandomAccessFile;JJLjava/io/OutputStream;)V
 
-    .line 362
-    move-object v11, v2
+    .line 472
+    invoke-virtual {v5, v1}, Ljava/io/OutputStream;->write([B)V
 
-    move-wide v12, v9
+    .line 473
+    move-object/from16 p0, v2
 
-    move-wide v14, v7
+    move-wide/from16 p1, v3
 
-    move-object/from16 v16, v4
+    move-wide/from16 p3, v24
 
-    invoke-static/range {v11 .. v16}, Lcom/dex2c/plus/engine/ApkSignerHelper;->copyRange(Ljava/io/RandomAccessFile;JJLjava/io/OutputStream;)V
+    move-object/from16 p5, v5
 
-    .line 363
-    invoke-virtual {v4, v1}, Ljava/io/OutputStream;->write([B)V
-    :try_end_238
-    .catchall {:try_start_227 .. :try_end_238} :catchall_23f
+    invoke-static/range {p0 .. p5}, Lcom/dex2c/plus/engine/ApkSignerHelper;->copyRange(Ljava/io/RandomAccessFile;JJLjava/io/OutputStream;)V
 
-    .line 364
-    :try_start_238
-    invoke-virtual {v4}, Ljava/io/OutputStream;->close()V
-    :try_end_23b
-    .catchall {:try_start_238 .. :try_end_23b} :catchall_24b
+    .line 474
+    move-object/from16 v0, v22
+
+    invoke-virtual {v5, v0}, Ljava/io/OutputStream;->write([B)V
+    :try_end_362
+    .catchall {:try_start_34c .. :try_end_362} :catchall_369
+
+    .line 475
+    :try_start_362
+    invoke-virtual {v5}, Ljava/io/OutputStream;->close()V
+    :try_end_365
+    .catchall {:try_start_362 .. :try_end_365} :catchall_375
 
     invoke-virtual {v2}, Ljava/io/RandomAccessFile;->close()V
 
-    .line 365
+    .line 476
     return-void
 
-    .line 358
-    :catchall_23f
+    .line 469
+    :catchall_369
     move-exception v0
 
     move-object v1, v0
 
-    :try_start_241
-    invoke-virtual {v4}, Ljava/io/OutputStream;->close()V
-    :try_end_244
-    .catchall {:try_start_241 .. :try_end_244} :catchall_245
+    :try_start_36b
+    invoke-virtual {v5}, Ljava/io/OutputStream;->close()V
+    :try_end_36e
+    .catchall {:try_start_36b .. :try_end_36e} :catchall_36f
 
-    goto :goto_24a
+    goto :goto_374
 
-    :catchall_245
+    :catchall_36f
     move-exception v0
 
     move-object v3, v0
 
-    :try_start_247
+    :try_start_371
     invoke-static {v1, v3}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
 
-    :goto_24a
+    :goto_374
     throw v1
-    :try_end_24b
-    .catchall {:try_start_247 .. :try_end_24b} :catchall_24b
+    :try_end_375
+    .catchall {:try_start_371 .. :try_end_375} :catchall_375
 
-    :catchall_24b
+    :catchall_375
     move-exception v0
 
     move-object v1, v0
 
-    :try_start_24d
+    :try_start_377
     invoke-virtual {v2}, Ljava/io/RandomAccessFile;->close()V
-    :try_end_250
-    .catchall {:try_start_24d .. :try_end_250} :catchall_251
+    :try_end_37a
+    .catchall {:try_start_377 .. :try_end_37a} :catchall_37b
 
-    goto :goto_256
+    goto :goto_380
 
-    :catchall_251
+    :catchall_37b
     move-exception v0
 
     move-object v2, v0
 
     invoke-static {v1, v2}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
 
-    :goto_256
+    :goto_380
     throw v1
 
-    .line 287
-    :catchall_257
+    .line 358
+    :catchall_381
     move-exception v0
 
     move-object v1, v0
 
-    :try_start_259
-    invoke-virtual {v5}, Ljava/io/RandomAccessFile;->close()V
-    :try_end_25c
-    .catchall {:try_start_259 .. :try_end_25c} :catchall_25d
+    :try_start_383
+    invoke-virtual {v14}, Ljava/io/RandomAccessFile;->close()V
+    :try_end_386
+    .catchall {:try_start_383 .. :try_end_386} :catchall_387
 
-    goto :goto_262
+    goto :goto_38c
 
-    :catchall_25d
+    :catchall_387
     move-exception v0
 
     move-object v2, v0
 
     invoke-static {v1, v2}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
 
-    :goto_262
+    :goto_38c
     throw v1
 
-    .line 275
-    :cond_263
+    .line 346
+    :cond_38d
     new-instance v0, Ljava/lang/IllegalStateException;
 
     const-string v1, "EOCD not found"
@@ -1074,50 +1447,50 @@
 
     throw v0
 
-    .line 262
-    :catchall_26b
+    .line 333
+    :catchall_395
     move-exception v0
 
     move-object v1, v0
 
-    :try_start_26d
-    invoke-virtual {v5}, Ljava/io/RandomAccessFile;->close()V
-    :try_end_270
-    .catchall {:try_start_26d .. :try_end_270} :catchall_271
+    :try_start_397
+    invoke-virtual {v10}, Ljava/io/RandomAccessFile;->close()V
+    :try_end_39a
+    .catchall {:try_start_397 .. :try_end_39a} :catchall_39b
 
-    goto :goto_276
+    goto :goto_3a0
 
-    :catchall_271
+    :catchall_39b
     move-exception v0
 
     move-object v2, v0
 
     invoke-static {v1, v2}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
 
-    :goto_276
+    :goto_3a0
     throw v1
 
-    .line 256
-    :cond_277
+    .line 327
+    :cond_3a1
     new-instance v0, Ljava/lang/IllegalStateException;
 
     const-string v1, "ZIP too small"
 
     invoke-direct {v0, v1}, Ljava/lang/IllegalStateException;-><init>(Ljava/lang/String;)V
 
-    goto :goto_280
+    goto :goto_3aa
 
-    :goto_27f
+    :goto_3a9
     throw v0
 
-    :goto_280
-    goto :goto_27f
+    :goto_3aa
+    goto :goto_3a9
 .end method
 
 .method public static base64Decode(Ljava/lang/String;)[B
     .registers 7
 
-    .line 527
+    .line 638
     const/4 v0, 0x0
 
     if-eqz p0, :cond_4a
@@ -1130,7 +1503,7 @@
 
     goto :goto_4a
 
-    .line 528
+    .line 639
     :cond_a
     new-instance v1, Ljava/io/ByteArrayOutputStream;
 
@@ -1144,13 +1517,13 @@
 
     invoke-direct {v1, v2}, Ljava/io/ByteArrayOutputStream;-><init>(I)V
 
-    .line 529
+    .line 640
     nop
 
-    .line 530
+    .line 641
     nop
 
-    .line 531
+    .line 642
     const/4 v2, 0x0
 
     const/4 v3, 0x0
@@ -1162,58 +1535,58 @@
 
     if-ge v0, v4, :cond_45
 
-    .line 532
+    .line 643
     invoke-virtual {p0, v0}, Ljava/lang/String;->charAt(I)C
 
     move-result v4
 
-    .line 533
+    .line 644
     const/16 v5, 0x100
 
     if-lt v4, v5, :cond_2a
 
     goto :goto_42
 
-    .line 534
+    .line 645
     :cond_2a
     sget-object v5, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_LOOKUP:[B
 
     aget-byte v4, v5, v4
 
-    .line 535
+    .line 646
     if-ltz v4, :cond_42
 
-    .line 536
+    .line 647
     shl-int/lit8 v2, v2, 0x6
 
     or-int/2addr v2, v4
 
-    .line 537
+    .line 648
     add-int/lit8 v3, v3, 0x6
 
-    .line 538
+    .line 649
     const/16 v4, 0x8
 
     if-lt v3, v4, :cond_42
 
-    .line 539
+    .line 650
     add-int/lit8 v3, v3, -0x8
 
-    .line 540
+    .line 651
     ushr-int v4, v2, v3
 
     and-int/lit16 v4, v4, 0xff
 
     invoke-virtual {v1, v4}, Ljava/io/ByteArrayOutputStream;->write(I)V
 
-    .line 531
+    .line 642
     :cond_42
     :goto_42
     add-int/lit8 v0, v0, 0x1
 
     goto :goto_1b
 
-    .line 544
+    .line 655
     :cond_45
     invoke-virtual {v1}, Ljava/io/ByteArrayOutputStream;->toByteArray()[B
 
@@ -1221,7 +1594,7 @@
 
     return-object p0
 
-    .line 527
+    .line 638
     :cond_4a
     :goto_4a
     new-array p0, v0, [B
@@ -1232,16 +1605,16 @@
 .method public static base64Encode([B)Ljava/lang/String;
     .registers 10
 
-    .line 500
-    if-eqz p0, :cond_93
+    .line 611
+    if-eqz p0, :cond_89
 
     array-length v0, p0
 
     if-nez v0, :cond_7
 
-    goto/16 :goto_93
+    goto/16 :goto_89
 
-    .line 501
+    .line 612
     :cond_7
     new-instance v0, Ljava/lang/StringBuilder;
 
@@ -1255,23 +1628,23 @@
 
     invoke-direct {v0, v1}, Ljava/lang/StringBuilder;-><init>(I)V
 
-    .line 502
+    .line 613
     const/4 v1, 0x0
 
-    .line 503
+    .line 614
     :goto_14
     array-length v2, p0
 
-    if-ge v1, v2, :cond_8e
+    if-ge v1, v2, :cond_84
 
-    .line 504
+    .line 615
     add-int/lit8 v2, v1, 0x1
 
     aget-byte v1, p0, v1
 
     and-int/lit16 v1, v1, 0xff
 
-    .line 505
+    .line 616
     array-length v3, p0
 
     const/4 v4, -0x1
@@ -1291,7 +1664,7 @@
 
     const/4 v2, -0x1
 
-    .line 506
+    .line 617
     :goto_2a
     array-length v5, p0
 
@@ -1314,22 +1687,20 @@
     :cond_37
     const/4 v5, -0x1
 
-    .line 508
+    .line 619
     :goto_38
     sget-object v6, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_CHARS:[C
 
     ushr-int/lit8 v7, v1, 0x2
 
-    aget-char v6, v6, v7
+    aget-char v7, v6, v7
 
-    invoke-virtual {v0, v6}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 509
-    if-eq v2, v4, :cond_7c
+    .line 620
+    if-eq v2, v4, :cond_74
 
-    .line 510
-    sget-object v6, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_CHARS:[C
-
+    .line 621
     and-int/lit8 v1, v1, 0x3
 
     shl-int/lit8 v1, v1, 0x4
@@ -1342,88 +1713,80 @@
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 511
-    if-eq v5, v4, :cond_6b
+    .line 622
+    if-eq v5, v4, :cond_65
 
-    .line 512
-    sget-object v1, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_CHARS:[C
+    .line 623
+    and-int/lit8 v1, v2, 0xf
 
-    and-int/lit8 v2, v2, 0xf
+    shl-int/lit8 v1, v1, 0x2
 
-    shl-int/lit8 v2, v2, 0x2
+    ushr-int/lit8 v2, v5, 0x6
 
-    ushr-int/lit8 v4, v5, 0x6
+    or-int/2addr v1, v2
 
-    or-int/2addr v2, v4
-
-    aget-char v1, v1, v2
+    aget-char v1, v6, v1
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 513
-    sget-object v1, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_CHARS:[C
+    .line 624
+    and-int/lit8 v1, v5, 0x3f
 
-    and-int/lit8 v2, v5, 0x3f
-
-    aget-char v1, v1, v2
+    aget-char v1, v6, v1
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    goto :goto_8c
+    goto :goto_82
 
-    .line 515
-    :cond_6b
-    sget-object v1, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_CHARS:[C
+    .line 626
+    :cond_65
+    and-int/lit8 v1, v2, 0xf
 
-    and-int/lit8 v2, v2, 0xf
+    shl-int/lit8 v1, v1, 0x2
 
-    shl-int/lit8 v2, v2, 0x2
-
-    aget-char v1, v1, v2
+    aget-char v1, v6, v1
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 516
+    .line 627
     const/16 v1, 0x3d
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    goto :goto_8c
+    goto :goto_82
 
-    .line 519
-    :cond_7c
-    sget-object v2, Lcom/dex2c/plus/engine/ApkSignerHelper;->B64_CHARS:[C
-
+    .line 630
+    :cond_74
     and-int/lit8 v1, v1, 0x3
 
     shl-int/lit8 v1, v1, 0x4
 
-    aget-char v1, v2, v1
+    aget-char v1, v6, v1
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
 
-    .line 520
+    .line 631
     const-string v1, "=="
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 522
-    :goto_8c
+    .line 633
+    :goto_82
     move v1, v3
 
     goto :goto_14
 
-    .line 523
-    :cond_8e
+    .line 634
+    :cond_84
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object p0
 
     return-object p0
 
-    .line 500
-    :cond_93
-    :goto_93
+    .line 611
+    :cond_89
+    :goto_89
     const-string p0, ""
 
     return-object p0
@@ -1432,10 +1795,10 @@
 .method private static varargs concat([[B)[B
     .registers 8
 
-    .line 468
+    .line 579
     nop
 
-    .line 469
+    .line 580
     array-length v0, p0
 
     const/4 v1, 0x0
@@ -1457,14 +1820,14 @@
 
     goto :goto_5
 
-    .line 470
+    .line 581
     :cond_e
     new-array v0, v3, [B
 
-    .line 471
+    .line 582
     nop
 
-    .line 472
+    .line 583
     array-length v2, p0
 
     const/4 v3, 0x0
@@ -1476,22 +1839,22 @@
 
     aget-object v5, p0, v3
 
-    .line 473
+    .line 584
     array-length v6, v5
 
     invoke-static {v5, v1, v0, v4, v6}, Ljava/lang/System;->arraycopy(Ljava/lang/Object;ILjava/lang/Object;II)V
 
-    .line 474
+    .line 585
     array-length v5, v5
 
     add-int/2addr v4, v5
 
-    .line 472
+    .line 583
     add-int/lit8 v3, v3, 0x1
 
     goto :goto_14
 
-    .line 476
+    .line 587
     :cond_21
     return-object v0
 .end method
@@ -1504,18 +1867,18 @@
         }
     .end annotation
 
-    .line 368
+    .line 479
     invoke-virtual {p0, p1, p2}, Ljava/io/RandomAccessFile;->seek(J)V
 
-    .line 369
+    .line 480
     const/high16 p1, 0x10000
 
     new-array p2, p1, [B
 
-    .line 370
+    .line 481
     nop
 
-    .line 371
+    .line 482
     :goto_8
     const-wide/16 v0, 0x0
 
@@ -1523,7 +1886,7 @@
 
     if-lez v2, :cond_23
 
-    .line 372
+    .line 483
     int-to-long v0, p1
 
     invoke-static {v0, v1, p3, p4}, Ljava/lang/Math;->min(JJ)J
@@ -1532,33 +1895,33 @@
 
     long-to-int v1, v0
 
-    .line 373
+    .line 484
     const/4 v0, 0x0
 
     invoke-virtual {p0, p2, v0, v1}, Ljava/io/RandomAccessFile;->read([BII)I
 
     move-result v1
 
-    .line 374
+    .line 485
     const/4 v2, -0x1
 
     if-ne v1, v2, :cond_1d
 
     goto :goto_23
 
-    .line 375
+    .line 486
     :cond_1d
     invoke-virtual {p5, p2, v0, v1}, Ljava/io/OutputStream;->write([BII)V
 
-    .line 376
+    .line 487
     int-to-long v0, v1
 
     sub-long/2addr p3, v0
 
-    .line 377
+    .line 488
     goto :goto_8
 
-    .line 378
+    .line 489
     :cond_23
     :goto_23
     return-void
@@ -1572,7 +1935,7 @@
         }
     .end annotation
 
-    .line 416
+    .line 527
     invoke-virtual {p0}, Ljava/security/cert/X509Certificate;->getIssuerX500Principal()Ljavax/security/auth/x500/X500Principal;
 
     move-result-object v0
@@ -1581,12 +1944,12 @@
 
     move-result-object v0
 
-    .line 417
+    .line 528
     invoke-virtual {p0}, Ljava/security/cert/X509Certificate;->getSerialNumber()Ljava/math/BigInteger;
 
     move-result-object p0
 
-    .line 419
+    .line 530
     const-string v1, "06096086480165030402010500"
 
     invoke-static {v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->hexToBytes(Ljava/lang/String;)[B
@@ -1599,7 +1962,7 @@
 
     move-result-object v1
 
-    .line 420
+    .line 531
     const-string v3, "06092a864886f70d0101010500"
 
     invoke-static {v3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->hexToBytes(Ljava/lang/String;)[B
@@ -1610,12 +1973,12 @@
 
     move-result-object v3
 
-    .line 422
+    .line 533
     invoke-static {p0}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeInteger(Ljava/math/BigInteger;)[B
 
     move-result-object p0
 
-    .line 423
+    .line 534
     const/4 v4, 0x2
 
     new-array v5, v4, [[B
@@ -1636,37 +1999,37 @@
 
     move-result-object p0
 
-    .line 424
+    .line 535
     const/4 v5, 0x4
 
     invoke-static {v5, p2}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
 
     move-result-object p2
 
-    .line 426
-    sget-object v7, Ljava/math/BigInteger;->ONE:Ljava/math/BigInteger;
+    .line 537
+    const/4 v7, 0x5
 
-    invoke-static {v7}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeInteger(Ljava/math/BigInteger;)[B
+    new-array v8, v7, [[B
 
-    move-result-object v7
+    sget-object v9, Ljava/math/BigInteger;->ONE:Ljava/math/BigInteger;
 
-    const/4 v8, 0x5
+    invoke-static {v9}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeInteger(Ljava/math/BigInteger;)[B
 
-    new-array v9, v8, [[B
+    move-result-object v9
 
-    aput-object v7, v9, v6
+    aput-object v9, v8, v6
 
-    aput-object p0, v9, v0
+    aput-object p0, v8, v0
 
-    aput-object v1, v9, v4
+    aput-object v1, v8, v4
 
     const/4 p0, 0x3
 
-    aput-object v3, v9, p0
+    aput-object v3, v8, p0
 
-    aput-object p2, v9, v5
+    aput-object p2, v8, v5
 
-    invoke-static {v9}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+    invoke-static {v8}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
 
     move-result-object p2
 
@@ -1674,79 +2037,79 @@
 
     move-result-object p2
 
-    .line 427
+    .line 538
     const/16 v3, 0x31
 
     invoke-static {v3, p2}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
 
     move-result-object p2
 
-    .line 429
-    const-string v7, "06092a864886f70d010701"
+    .line 540
+    const-string v8, "06092a864886f70d010701"
 
-    invoke-static {v7}, Lcom/dex2c/plus/engine/ApkSignerHelper;->hexToBytes(Ljava/lang/String;)[B
+    invoke-static {v8}, Lcom/dex2c/plus/engine/ApkSignerHelper;->hexToBytes(Ljava/lang/String;)[B
 
-    move-result-object v7
+    move-result-object v8
 
-    .line 430
-    invoke-static {v2, v7}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
+    .line 541
+    invoke-static {v2, v8}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
 
-    move-result-object v7
+    move-result-object v8
 
-    .line 431
+    .line 542
     const/16 v9, 0xa0
 
     invoke-static {v9, p1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
 
     move-result-object p1
 
-    .line 433
+    .line 544
+    new-array v7, v7, [[B
+
     sget-object v10, Ljava/math/BigInteger;->ONE:Ljava/math/BigInteger;
 
     invoke-static {v10}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeInteger(Ljava/math/BigInteger;)[B
 
     move-result-object v10
 
+    aput-object v10, v7, v6
+
     invoke-static {v3, v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
 
     move-result-object v1
 
-    new-array v3, v8, [[B
+    aput-object v1, v7, v0
 
-    aput-object v10, v3, v6
+    aput-object v8, v7, v4
 
-    aput-object v1, v3, v0
+    aput-object p1, v7, p0
 
-    aput-object v7, v3, v4
+    aput-object p2, v7, v5
 
-    aput-object p1, v3, p0
-
-    aput-object p2, v3, v5
-
-    invoke-static {v3}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
+    invoke-static {v7}, Lcom/dex2c/plus/engine/ApkSignerHelper;->concat([[B)[B
 
     move-result-object p0
 
-    .line 434
+    .line 545
     invoke-static {v2, p0}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
 
     move-result-object p0
 
-    .line 435
+    .line 546
     const-string p1, "06092a864886f70d010702"
 
     invoke-static {p1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->hexToBytes(Ljava/lang/String;)[B
 
     move-result-object p1
 
-    .line 437
-    invoke-static {v9, p0}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
-
-    move-result-object p0
-
+    .line 548
     new-array p2, v4, [[B
 
     aput-object p1, p2, v6
+
+    invoke-static {v9, p0}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
+
+    move-result-object p0
 
     aput-object p0, p2, v0
 
@@ -1764,12 +2127,12 @@
 .method private static encodeInteger(Ljava/math/BigInteger;)[B
     .registers 2
 
-    .line 448
+    .line 559
     invoke-virtual {p0}, Ljava/math/BigInteger;->toByteArray()[B
 
     move-result-object p0
 
-    .line 449
+    .line 560
     const/4 v0, 0x2
 
     invoke-static {v0, p0}, Lcom/dex2c/plus/engine/ApkSignerHelper;->encodeTlv(I[B)[B
@@ -1782,10 +2145,10 @@
 .method private static encodeTlv(I[B)[B
     .registers 9
 
-    .line 453
+    .line 564
     array-length v0, p1
 
-    .line 455
+    .line 566
     const/16 v1, 0x80
 
     const/4 v2, 0x1
@@ -1796,7 +2159,7 @@
 
     if-ge v0, v1, :cond_11
 
-    .line 456
+    .line 567
     new-array v1, v4, [B
 
     int-to-byte p0, p0
@@ -1809,7 +2172,7 @@
 
     goto :goto_5b
 
-    .line 457
+    .line 568
     :cond_11
     const/16 v1, 0x100
 
@@ -1817,7 +2180,7 @@
 
     if-ge v0, v1, :cond_23
 
-    .line 458
+    .line 569
     new-array v1, v5, [B
 
     int-to-byte p0, p0
@@ -1834,7 +2197,7 @@
 
     goto :goto_5b
 
-    .line 459
+    .line 570
     :cond_23
     const/high16 v1, 0x10000
 
@@ -1842,7 +2205,7 @@
 
     if-ge v0, v1, :cond_3e
 
-    .line 460
+    .line 571
     new-array v1, v6, [B
 
     int-to-byte p0, p0
@@ -1869,7 +2232,7 @@
 
     goto :goto_5b
 
-    .line 462
+    .line 573
     :cond_3e
     const/4 v1, 0x5
 
@@ -1905,7 +2268,7 @@
 
     aput-byte p0, v1, v6
 
-    .line 464
+    .line 575
     :goto_5b
     new-array p0, v4, [[B
 
@@ -1923,23 +2286,23 @@
 .method private static hexToBytes(Ljava/lang/String;)[B
     .registers 8
 
-    .line 480
+    .line 591
     invoke-virtual {p0}, Ljava/lang/String;->length()I
 
     move-result v0
 
-    .line 481
+    .line 592
     div-int/lit8 v1, v0, 0x2
 
     new-array v1, v1, [B
 
-    .line 482
+    .line 593
     const/4 v2, 0x0
 
     :goto_9
     if-ge v2, v0, :cond_2a
 
-    .line 483
+    .line 594
     div-int/lit8 v3, v2, 0x2
 
     invoke-virtual {p0, v2}, Ljava/lang/String;->charAt(I)C
@@ -1956,7 +2319,7 @@
 
     add-int/lit8 v6, v2, 0x1
 
-    .line 484
+    .line 595
     invoke-virtual {p0, v6}, Ljava/lang/String;->charAt(I)C
 
     move-result v6
@@ -1971,12 +2334,12 @@
 
     aput-byte v4, v1, v3
 
-    .line 482
+    .line 593
     add-int/lit8 v2, v2, 0x2
 
     goto :goto_9
 
-    .line 486
+    .line 597
     :cond_2a
     return-object v1
 .end method
@@ -1984,7 +2347,7 @@
 .method public static isMetaInfSignature(Ljava/lang/String;)Z
     .registers 3
 
-    .line 241
+    .line 301
     const/4 v0, 0x0
 
     if-eqz p0, :cond_44
@@ -1999,7 +2362,7 @@
 
     goto :goto_44
 
-    .line 244
+    .line 304
     :cond_c
     sget-object v1, Ljava/util/Locale;->ROOT:Ljava/util/Locale;
 
@@ -2007,7 +2370,7 @@
 
     move-result-object p0
 
-    .line 245
+    .line 305
     const-string v1, ".SF"
 
     invoke-virtual {p0, v1}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
@@ -2016,7 +2379,7 @@
 
     if-nez v1, :cond_42
 
-    .line 246
+    .line 306
     const-string v1, ".RSA"
 
     invoke-virtual {p0, v1}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
@@ -2025,7 +2388,7 @@
 
     if-nez v1, :cond_42
 
-    .line 247
+    .line 307
     const-string v1, ".DSA"
 
     invoke-virtual {p0, v1}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
@@ -2034,7 +2397,7 @@
 
     if-nez v1, :cond_42
 
-    .line 248
+    .line 308
     const-string v1, ".EC"
 
     invoke-virtual {p0, v1}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
@@ -2043,7 +2406,7 @@
 
     if-nez v1, :cond_42
 
-    .line 249
+    .line 309
     const-string v1, "META-INF/MANIFEST.MF"
 
     invoke-virtual {p0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
@@ -2052,7 +2415,7 @@
 
     if-nez v1, :cond_42
 
-    .line 250
+    .line 310
     const-string v1, "META-INF/SIG-"
 
     invoke-virtual {p0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
@@ -2064,20 +2427,350 @@
     :cond_42
     const/4 v0, 0x1
 
-    .line 245
+    .line 305
     :cond_43
     return v0
 
-    .line 242
+    .line 302
     :cond_44
     :goto_44
     return v0
 .end method
 
+.method public static loadSigningCredentials(Ljava/lang/String;)Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;
+    .registers 6
+
+    .line 57
+    nop
+
+    .line 58
+    if-eqz p0, :cond_23
+
+    invoke-virtual {p0}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v0
+
+    invoke-virtual {v0}, Ljava/lang/String;->isEmpty()Z
+
+    move-result v0
+
+    if-nez v0, :cond_23
+
+    .line 59
+    new-instance v0, Ljava/io/File;
+
+    invoke-virtual {p0}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object p0
+
+    invoke-direct {v0, p0}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 60
+    invoke-virtual {v0}, Ljava/io/File;->exists()Z
+
+    move-result p0
+
+    if-eqz p0, :cond_23
+
+    invoke-virtual {v0}, Ljava/io/File;->isFile()Z
+
+    move-result p0
+
+    if-eqz p0, :cond_23
+
+    .line 61
+    goto :goto_24
+
+    .line 64
+    :cond_23
+    const/4 v0, 0x0
+
+    :goto_24
+    if-nez v0, :cond_3a
+
+    .line 65
+    new-instance p0, Ljava/io/File;
+
+    const-string v1, "/storage/emulated/0/MT2/keys/signature.key"
+
+    invoke-direct {p0, v1}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+
+    .line 66
+    invoke-virtual {p0}, Ljava/io/File;->exists()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_3a
+
+    invoke-virtual {p0}, Ljava/io/File;->isFile()Z
+
+    move-result v1
+
+    if-eqz v1, :cond_3a
+
+    .line 67
+    move-object v0, p0
+
+    .line 71
+    :cond_3a
+    const-string p0, "X.509"
+
+    const-string v1, "RSA"
+
+    if-eqz v0, :cond_ae
+
+    .line 72
+    :try_start_40
+    new-instance v2, Ljava/io/DataInputStream;
+
+    new-instance v3, Ljava/io/FileInputStream;
+
+    invoke-direct {v3, v0}, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V
+
+    invoke-direct {v2, v3}, Ljava/io/DataInputStream;-><init>(Ljava/io/InputStream;)V
+    :try_end_4a
+    .catchall {:try_start_40 .. :try_end_4a} :catchall_ad
+
+    .line 73
+    :try_start_4a
+    invoke-virtual {v2}, Ljava/io/DataInputStream;->readInt()I
+
+    move-result v0
+
+    .line 74
+    const v3, -0x532ddc55
+
+    if-ne v0, v3, :cond_9f
+
+    .line 75
+    invoke-virtual {v2}, Ljava/io/DataInputStream;->readInt()I
+
+    move-result v0
+
+    .line 76
+    new-array v0, v0, [B
+
+    .line 77
+    invoke-virtual {v2, v0}, Ljava/io/DataInputStream;->readFully([B)V
+
+    .line 78
+    invoke-static {p0}, Ljava/security/cert/CertificateFactory;->getInstance(Ljava/lang/String;)Ljava/security/cert/CertificateFactory;
+
+    move-result-object v3
+
+    .line 79
+    new-instance v4, Ljava/io/ByteArrayInputStream;
+
+    invoke-direct {v4, v0}, Ljava/io/ByteArrayInputStream;-><init>([B)V
+
+    invoke-virtual {v3, v4}, Ljava/security/cert/CertificateFactory;->generateCertificate(Ljava/io/InputStream;)Ljava/security/cert/Certificate;
+
+    move-result-object v0
+
+    check-cast v0, Ljava/security/cert/X509Certificate;
+
+    .line 80
+    invoke-virtual {v2}, Ljava/io/DataInputStream;->readInt()I
+
+    move-result v3
+
+    .line 81
+    new-array v3, v3, [B
+
+    .line 82
+    invoke-virtual {v2, v3}, Ljava/io/DataInputStream;->readFully([B)V
+
+    .line 83
+    new-instance v4, Ljava/security/spec/PKCS8EncodedKeySpec;
+
+    invoke-direct {v4, v3}, Ljava/security/spec/PKCS8EncodedKeySpec;-><init>([B)V
+
+    .line 84
+    invoke-static {v1}, Ljava/security/KeyFactory;->getInstance(Ljava/lang/String;)Ljava/security/KeyFactory;
+
+    move-result-object v3
+
+    .line 85
+    invoke-virtual {v3, v4}, Ljava/security/KeyFactory;->generatePrivate(Ljava/security/spec/KeySpec;)Ljava/security/PrivateKey;
+
+    move-result-object v3
+
+    .line 87
+    new-instance v4, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;
+
+    invoke-direct {v4}, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;-><init>()V
+
+    .line 88
+    iput-object v3, v4, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->privateKey:Ljava/security/PrivateKey;
+
+    .line 89
+    iput-object v0, v4, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->cert:Ljava/security/cert/X509Certificate;
+
+    .line 90
+    invoke-virtual {v0}, Ljava/security/cert/X509Certificate;->getEncoded()[B
+
+    move-result-object v3
+
+    iput-object v3, v4, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->certDer:[B
+
+    .line 91
+    invoke-virtual {v0}, Ljava/security/cert/X509Certificate;->getPublicKey()Ljava/security/PublicKey;
+
+    move-result-object v0
+
+    invoke-interface {v0}, Ljava/security/PublicKey;->getEncoded()[B
+
+    move-result-object v0
+
+    iput-object v0, v4, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->pubKeyDer:[B
+    :try_end_9a
+    .catchall {:try_start_4a .. :try_end_9a} :catchall_a3
+
+    .line 92
+    nop
+
+    .line 94
+    :try_start_9b
+    invoke-virtual {v2}, Ljava/io/DataInputStream;->close()V
+
+    .line 92
+    return-object v4
+
+    .line 94
+    :cond_9f
+    invoke-virtual {v2}, Ljava/io/DataInputStream;->close()V
+    :try_end_a2
+    .catchall {:try_start_9b .. :try_end_a2} :catchall_ad
+
+    .line 95
+    goto :goto_ae
+
+    .line 72
+    :catchall_a3
+    move-exception v0
+
+    :try_start_a4
+    invoke-virtual {v2}, Ljava/io/DataInputStream;->close()V
+    :try_end_a7
+    .catchall {:try_start_a4 .. :try_end_a7} :catchall_a8
+
+    goto :goto_ac
+
+    :catchall_a8
+    move-exception v2
+
+    :try_start_a9
+    invoke-static {v0, v2}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
+
+    :goto_ac
+    throw v0
+    :try_end_ad
+    .catchall {:try_start_a9 .. :try_end_ad} :catchall_ad
+
+    .line 94
+    :catchall_ad
+    move-exception v0
+
+    .line 99
+    :cond_ae
+    :goto_ae
+    :try_start_ae
+    const-string v0, "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDS30WBQ+vTRrrzAvvik5V7tnL+477pXPx+g6BrZzOIOIa+WD+8sWdglva4KuQbBzRAHFkzjt4XyYBl9UKjghJP01nuooQ+2R51VgOcBr8kjRPahIw8f95AYbFlpnDhcPbj6j4BxPek6p5/49rMaoshMnfzDDHBFQ/8eXAOuJGbzec1O+JwlS5FDyetwwtUn9zjwHrzjd4Ds8mXSQfsw5uU+BLhndYj1WsnDPNyln5MPAKFZkO1BlFITxP13JSUMGSC1D2ZX9alsz6b5Zxjbp/NWnDgN4AmmFm61i8mTvvSgC/Z8r5rRT5lplMl96nlw3ZjFAk5NG7WV7u2wojvd0JdAgMBAAECggEBAJV5THRnp+dYULZnXBLsmF5cIsGIwE/86MHpHbJkMgQSRXjxZySi/+tYt0Quqwh5n9D+B0DjuYxU+h3Lr1PlpINPBoWAT4uZLdzwfph/s8f99J/Fqv5LiUhLt4qdY5B6GZfO9+sbKouM/5MZ+YNC1qJOevYeo7oA6xcFIahdrmEoVprtbZjB4wRimbpDqdAktePxXOfsGe8vCXYflt/kV+VwjZmnnggwh3t6rm2A5LutVz0Zb3e1rALyX3J2lo/JpFZ1wNW5vXa0ba8u963DAzoq2fFS3Ag+rP5Bt34KJ4a3GPaGAGQUuzrucNQxDhuRz1BDrvpqZc1DTC5onK+j6uUCgYEA63+xyyGJiWvJYERJgUcP3wcBKKCPMRkqr6XFzRsoWG/dvEgrOMlWX560M5M8klb71512rEePlEcFLu1tW6zFCnIzYTAC5w4QUxoW5cGtsY8gxphL+enjXwixkq8QoMUlWMlwu6VR1NkuBxJjpUkCGDfoKvx9YFIVaEy9rG6uXd8CgYEA5Tq/5nX4cLuBfgx2fc3Br+HVFCUx/fGtdoRVi8YhyneURgWkztRoFtiWU6FN7dm9pDMl2jM3AMLk77EKOMwVyU22zZGPfA7PxPvcTyAtMEbjPXcrgHHe0LXMV4+sq+O0/G3e2D8kRL6aRwwW+9/ZQ08cupZ86uLiB308aKT/b0MCgYB3PhEoabLagllVBT6y1uiSZVmQ2LuogLW8epPNZxLmtL3xuBkqh8fUYuebtdHVx3V9l52fXhy1V8CoIlBdOv4KbAjYDRdrJxPdADjX3Vm1rmNKK5NM18DpPd2sCDjDLw/aBSWv3eWxgMZtjkImTvFgke5c1bwmKWnthe4EgYaIwQKBgCTZL9X1Ks28ZpGDoVyRwcvrKpyFaibfPboqhbHlVLM+S7iB2b9hx6W8hVXGPUe509FcY35S80mNCs45EGKW8/2bH4KmHoGbw+xvbDfP/VOgYZEU4gpQw7ebMdD1iJVNEl/trX/njoX6ecRn/h3ZGwzF3+FipYwAksMPb7GGrIUPAoGAF/wYSoZSADP/mCaRhjvKEBr0+f8brCtmQhn7bCDLeaHnT9M5r2R/jzO30dCRSMxxepRb1e/N5IVAyIB3dKKo68mPn8SRL4DHbxzz4XoDebi5++4u8mwcsJXsddZZ0hWFQAxt6/P8Oodk2AnAySF1OZ0bE4hWiZRpQHjlG238G9s="
+
+    invoke-static {v0}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Decode(Ljava/lang/String;)[B
+
+    move-result-object v0
+
+    .line 100
+    const-string v2, "MIICyDCCAbCgAwIBAgIENiws+DANBgkqhkiG9w0BAQsFADAlMQswCQYDVQQGEwJCRDEWMBQGA1UEAxMNTmF5ZW0gSG9zc2FpbjAgFw0yNTAyMjAxNjAxMjVaGA8yMTI1MDEyNzE2MDEyNVowJTELMAkGA1UEBhMCQkQxFjAUBgNVBAMTDU5heWVtIEhvc3NhaW4wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDS30WBQ+vTRrrzAvvik5V7tnL+477pXPx+g6BrZzOIOIa+WD+8sWdglva4KuQbBzRAHFkzjt4XyYBl9UKjghJP01nuooQ+2R51VgOcBr8kjRPahIw8f95AYbFlpnDhcPbj6j4BxPek6p5/49rMaoshMnfzDDHBFQ/8eXAOuJGbzec1O+JwlS5FDyetwwtUn9zjwHrzjd4Ds8mXSQfsw5uU+BLhndYj1WsnDPNyln5MPAKFZkO1BlFITxP13JSUMGSC1D2ZX9alsz6b5Zxjbp/NWnDgN4AmmFm61i8mTvvSgC/Z8r5rRT5lplMl96nlw3ZjFAk5NG7WV7u2wojvd0JdAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAI6U/sw5Te1J14jM02aIkYqP7h6jkhMuyjexkimZUGBl/pNqFEVrlqRtiQ7HN/k4o7UigAd1Z9XleKS1UIo9XI6cPdgJx3FtO+z0t0knnBTfXKVWYuuUz57gOEbYvhBa+10DHlvTELhuLQxWIlTjssFTkIOCoj8aCS0xJBCNxd9hW2UKha4VygA8gACHEt2VbMJbrJ5R1rUYi5lx0F3R+vkioRFkwky68S7r9SjgjBXlHWihTxnQUQBkAMTfx3QD1FABAT48uYxgg9hG16RC71eLSpypeV4fm2KXcJCfF5CsI1KJZHSAbXQDL81RtwFi1dlEd2NXS5tbusyuymMCcbQ="
+
+    invoke-static {v2}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Decode(Ljava/lang/String;)[B
+
+    move-result-object v2
+
+    .line 101
+    new-instance v3, Ljava/security/spec/PKCS8EncodedKeySpec;
+
+    invoke-direct {v3, v0}, Ljava/security/spec/PKCS8EncodedKeySpec;-><init>([B)V
+
+    .line 102
+    invoke-static {v1}, Ljava/security/KeyFactory;->getInstance(Ljava/lang/String;)Ljava/security/KeyFactory;
+
+    move-result-object v0
+
+    .line 103
+    invoke-virtual {v0, v3}, Ljava/security/KeyFactory;->generatePrivate(Ljava/security/spec/KeySpec;)Ljava/security/PrivateKey;
+
+    move-result-object v0
+
+    .line 105
+    invoke-static {p0}, Ljava/security/cert/CertificateFactory;->getInstance(Ljava/lang/String;)Ljava/security/cert/CertificateFactory;
+
+    move-result-object p0
+
+    .line 106
+    new-instance v1, Ljava/io/ByteArrayInputStream;
+
+    invoke-direct {v1, v2}, Ljava/io/ByteArrayInputStream;-><init>([B)V
+
+    invoke-virtual {p0, v1}, Ljava/security/cert/CertificateFactory;->generateCertificate(Ljava/io/InputStream;)Ljava/security/cert/Certificate;
+
+    move-result-object p0
+
+    check-cast p0, Ljava/security/cert/X509Certificate;
+
+    .line 108
+    new-instance v1, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;
+
+    invoke-direct {v1}, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;-><init>()V
+
+    .line 109
+    iput-object v0, v1, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->privateKey:Ljava/security/PrivateKey;
+
+    .line 110
+    iput-object p0, v1, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->cert:Ljava/security/cert/X509Certificate;
+
+    .line 111
+    invoke-virtual {p0}, Ljava/security/cert/X509Certificate;->getEncoded()[B
+
+    move-result-object v0
+
+    iput-object v0, v1, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->certDer:[B
+
+    .line 112
+    invoke-virtual {p0}, Ljava/security/cert/X509Certificate;->getPublicKey()Ljava/security/PublicKey;
+
+    move-result-object p0
+
+    invoke-interface {p0}, Ljava/security/PublicKey;->getEncoded()[B
+
+    move-result-object p0
+
+    iput-object p0, v1, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->pubKeyDer:[B
+    :try_end_ef
+    .catchall {:try_start_ae .. :try_end_ef} :catchall_f0
+
+    .line 113
+    return-object v1
+
+    .line 114
+    :catchall_f0
+    move-exception p0
+
+    .line 115
+    new-instance v0, Ljava/lang/RuntimeException;
+
+    const-string v1, "Failed to initialize built-in stealth signing credentials"
+
+    invoke-direct {v0, v1, p0}, Ljava/lang/RuntimeException;-><init>(Ljava/lang/String;Ljava/lang/Throwable;)V
+
+    throw v0
+.end method
+
 .method private static prefixLength([B)[B
     .registers 3
 
-    .line 441
+    .line 552
     array-length v0, p0
 
     add-int/lit8 v0, v0, 0x4
@@ -2092,15 +2785,15 @@
 
     move-result-object v0
 
-    .line 442
+    .line 553
     array-length v1, p0
 
     invoke-virtual {v0, v1}, Ljava/nio/ByteBuffer;->putInt(I)Ljava/nio/ByteBuffer;
 
-    .line 443
+    .line 554
     invoke-virtual {v0, p0}, Ljava/nio/ByteBuffer;->put([B)Ljava/nio/ByteBuffer;
 
-    .line 444
+    .line 555
     invoke-virtual {v0}, Ljava/nio/ByteBuffer;->array()[B
 
     move-result-object p0
@@ -2109,355 +2802,464 @@
 .end method
 
 .method public static signApk(Ljava/io/File;)Z
-    .registers 22
+    .registers 5
 
-    .line 79
+    .line 120
+    invoke-static {}, Lcom/dex2c/plus/model/ProjectState;->get()Lcom/dex2c/plus/model/ProjectState;
+
+    move-result-object v0
+
+    .line 121
+    const/4 v1, 0x1
+
+    if-eqz v0, :cond_a
+
+    iget-boolean v2, v0, Lcom/dex2c/plus/model/ProjectState;->signV1:Z
+
+    goto :goto_b
+
+    :cond_a
+    const/4 v2, 0x1
+
+    .line 122
+    :goto_b
+    if-eqz v0, :cond_10
+
+    iget-boolean v3, v0, Lcom/dex2c/plus/model/ProjectState;->signV2:Z
+
+    goto :goto_11
+
+    :cond_10
+    const/4 v3, 0x1
+
+    .line 123
+    :goto_11
+    if-eqz v0, :cond_15
+
+    iget-boolean v1, v0, Lcom/dex2c/plus/model/ProjectState;->signV3:Z
+
+    .line 124
+    :cond_15
+    if-eqz v0, :cond_1a
+
+    iget-object v0, v0, Lcom/dex2c/plus/model/ProjectState;->customKeyPath:Ljava/lang/String;
+
+    goto :goto_1c
+
+    :cond_1a
+    const-string v0, "/storage/emulated/0/MT2/keys/signature.key"
+
+    .line 125
+    :goto_1c
+    invoke-static {p0, v2, v3, v1, v0}, Lcom/dex2c/plus/engine/ApkSignerHelper;->signApk(Ljava/io/File;ZZZLjava/lang/String;)Z
+
+    move-result p0
+
+    return p0
+.end method
+
+.method public static signApk(Ljava/io/File;ZZZLjava/lang/String;)Z
+    .registers 27
+
+    .line 129
     move-object/from16 v0, p0
 
-    if-eqz v0, :cond_391
+    const-string v1, "\r\n"
+
+    if-eqz v0, :cond_400
 
     invoke-virtual/range {p0 .. p0}, Ljava/io/File;->exists()Z
 
-    move-result v2
+    move-result v3
 
-    if-eqz v2, :cond_391
+    if-eqz v3, :cond_400
 
     invoke-virtual/range {p0 .. p0}, Ljava/io/File;->length()J
 
-    move-result-wide v2
+    move-result-wide v3
 
-    const-wide/16 v4, 0x16
+    const-wide/16 v5, 0x16
 
-    cmp-long v6, v2, v4
+    cmp-long v7, v3, v5
 
-    if-gez v6, :cond_17
+    if-gez v7, :cond_19
 
     const/4 v1, 0x0
 
-    goto/16 :goto_392
+    goto/16 :goto_401
 
-    .line 83
-    :cond_17
+    .line 133
+    :cond_19
+    if-nez p1, :cond_25
+
+    if-nez p2, :cond_25
+
+    if-nez p3, :cond_25
+
+    .line 134
+    nop
+
+    .line 135
+    nop
+
+    .line 136
+    const/4 v4, 0x1
+
+    const/4 v10, 0x1
+
+    const/4 v11, 0x1
+
+    goto :goto_2b
+
+    .line 139
+    :cond_25
+    move/from16 v4, p1
+
+    move/from16 v10, p2
+
+    move/from16 v11, p3
+
+    :goto_2b
     invoke-virtual/range {p0 .. p0}, Ljava/io/File;->getParentFile()Ljava/io/File;
 
-    move-result-object v2
+    move-result-object v5
 
-    .line 84
-    new-instance v3, Ljava/io/File;
+    .line 140
+    new-instance v12, Ljava/io/File;
 
     invoke-virtual/range {p0 .. p0}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v6
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    move-result-wide v5
+    move-result-wide v7
 
-    new-instance v7, Ljava/lang/StringBuilder;
+    new-instance v9, Ljava/lang/StringBuilder;
 
-    invoke-direct {v7}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v7, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v9, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v6
 
-    const-string v7, ".v1."
+    const-string v9, ".v1."
 
-    invoke-virtual {v4, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v6
 
-    invoke-virtual {v4, v5, v6}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
+    invoke-virtual {v6, v7, v8}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
-    move-result-object v4
+    move-result-object v6
 
-    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v6
 
-    invoke-direct {v3, v2, v4}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
+    invoke-direct {v12, v5, v6}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    .line 85
-    new-instance v4, Ljava/io/File;
+    .line 141
+    new-instance v13, Ljava/io/File;
 
     invoke-virtual/range {p0 .. p0}, Ljava/io/File;->getName()Ljava/lang/String;
 
-    move-result-object v5
+    move-result-object v6
 
     invoke-static {}, Ljava/lang/System;->currentTimeMillis()J
 
-    move-result-wide v6
+    move-result-wide v7
 
-    new-instance v8, Ljava/lang/StringBuilder;
+    new-instance v9, Ljava/lang/StringBuilder;
 
-    invoke-direct {v8}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v9}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v8, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    const-string v8, ".v2."
-
-    invoke-virtual {v5, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5, v6, v7}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
-
-    move-result-object v5
-
-    invoke-virtual {v5}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v5
-
-    invoke-direct {v4, v2, v5}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
-
-    .line 88
-    :try_start_63
-    const-string v2, "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5+KuKKqeY6T67oypPYJKH8cCAsS5vNgVUyng7r5wQ99arRwNuqa2UM2nJ7WU1n1TcOUE31iCE51sVG0VsAax0KHVZYe9cqcufL03x8OFHTUtY8C+TGzciaNh0lyGodF1IN2k00k8ZsO3RT52isNrOr8n2+b8pztljHynNBAKJ4fyS3swrFDW4nYI/HQAN2wXyoBle898AteVht6lj3V4wHuHyRCNt2amRaPZM/aRIQdRjiZaBYWysah5uYaA/dkoLAjiv7t7ak0LMDKErHZwfT0PxSZCqIg6oKhtp5z7BB2mG6IEbumM28rLi+wrEh7Wh+uUrzX0FRTuXNFL9iEW5AgMBAAECggEAEJrC2jHHyA/fUYqWfwLc4nVz3imzvytAG5t+U7nwwdUXHjDXfhx5SpeylNx04m5I+ebEy3L7cVJk4AQQ1T1rA+4O2D21zPy+GQb0uyrqOl8M4LKFVOmjqRdaaEKMN0m4gHeuFZDHjkAtY7hrlziaOMUaT8ppxpZY85A3P75haaUUVYB1SjEv21A0praLJ49O7TZw50eN5n6b7DOcJj0XxahpZ9UljANG1FM9NYPEtpU2Wq0M6XpwG/GSbX6gV70/GH3RCmzp+sYvZ85G3c6X2ZW6UoQvuINnHPFDN2hmpNG2u6MLo0RM1WlZn8H3IDTqSWeIYby/AKBn4HHDrVJV9wKBgQDiwhTNViOgjAO92Zl2KxukDI64RxnEZXAQ4GcXZEC6kS5SU52ckjU09qhlO5ZP3rrueHBQe3OikzEEnSy4SgSJLnh4XWe7TxFjpUCeLLnQFHhu9UTSMaMXFSvMcI2ei6UpXONb1Kq5da0xxU7Mea+TF24wYMMUZXoFirx0Rx0i/wKBgQDR9Bqc6fZgm/ZSGsf9jgdDbSDW8dBL0pJZ/jfQi4MWx8WTCxpnC45ICo0M2JL1uRau+VJMDzA9tjAufGVdoPtrFIqPKMVgagKH7/iKhqCfscijqwmy/+UpCiwhDS9y9kJxR4nvYu6r7uTna1iZdW6+JOI+65WstDT5rlXIqLlvRwKBgGYgGtZP0UPhS14Zvm/mAlDkBvMfso8tUEeJiWSTlkNwV3hkiDuX7bao0Danm47lNTNpssvMjcvOlukJELb/PwO5ljA/gRRvC9ng9zVF13nLfmIavKAeEuG2ez9cAaxCIGR8nTkikrFsOlCMGG0m8NhCWTIYokNxYH9WeIG19X1pAoGAWcO4LSaKxDtqUShKIUo8KMPbqoqwt/pLwFZEntFHNtIq0veITk5Ogtaf/8II8y4zWJQYb5R+16Oxbe6ZmDJfzCR4KUURPmuUsXIUHYX53s0wL2nNN87Yt3c17tuoUcqgFba0brkpujDlhVwMAXCH7Jvwb15iG/jgPXAgFS6uObkCgYAzpINGjchb06jU0JymKBqo/8+S55DGLib63FBunMTLU/LJ448q5yhE/OpJQzwF5+CqCbZpJ9s6ZIJlFQviRxBnQL1DSd7I7wSTjkk9DVd0UMi3cE+lS2S89jULz+7wBZX0FAexWWPiBVW4Dhil4T25842O97xr+rNrzzT7tohrIg=="
-
-    invoke-static {v2}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Decode(Ljava/lang/String;)[B
-
-    move-result-object v2
-
-    .line 89
-    const-string v5, "MIICzDCCAbSgAwIBAgICA+kwDQYJKoZIhvcNAQELBQAwKTETMBEGA1UEAwwKRGV4MmMgUGx1czESMBAGA1UECgwJRGV4MmNQbHVzMB4XDTI0MDEwMTAwMDAwMFoXDTQ5MDEwMTAwMDAwMFowKTETMBEGA1UEAwwKRGV4MmMgUGx1czESMBAGA1UECgwJRGV4MmNQbHVzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAufiriiqnmOk+u6MqT2CSh/HAgLEubzYFVMp4O6+cEPfWq0cDbqmtlDNpye1lNZ9U3DlBN9YghOdbFRtFbAGsdCh1WWHvXKnLny9N8fDhR01LWPAvkxs3ImjYdJchqHRdSDdpNNJPGbDt0U+dorDazq/J9vm/Kc7ZYx8pzQQCieH8kt7MKxQ1uJ2CPx0ADdsF8qAZXvPfALXlYbepY91eMB7h8kQjbdmpkWj2TP2kSEHUY4mWgWFsrGoebmGgP3ZKCwI4r+7e2pNCzAyhKx2cH09D8UmQqiIOqCobaec+wQdphuiBG7pjNvKy4vsKxIe1ofrlK819BUU7lzRS/YhFuQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQCQyT4Oaje8UjZPy3Dm+ohm+SgZG/X1qpFOqF+waiobs2ACk2DJtepF6oQAyLrQ/a/6D761wvYLzgnmqDLUlpjPv20xZM8FDlgsBWDB7+PQJzOfT127NB1WpjSCTs0om8RHlMyN8vMJoesIVm2RGH7VyUp9AyXrv98N5/oqQeBAZPsYKFFJrV2iUq6lfcAWYsYvf6icgB1ZENsTj06GLr0XXeXtQ6cXFck5DzQatucF30s5Z55igqOqvQUlebO2xrsgzDFxX7AU2NC7hcT0S9BaDd4f2jYD62pmxBESEQSPuVIeXOHt8KYFvu2bVpV2Iz2r/hHULW5NzvQB4pN97mmY"
-
-    invoke-static {v5}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Decode(Ljava/lang/String;)[B
-
-    move-result-object v5
-
-    .line 91
-    new-instance v6, Ljava/security/spec/PKCS8EncodedKeySpec;
-
-    invoke-direct {v6, v2}, Ljava/security/spec/PKCS8EncodedKeySpec;-><init>([B)V
-
-    .line 92
-    const-string v2, "RSA"
-
-    invoke-static {v2}, Ljava/security/KeyFactory;->getInstance(Ljava/lang/String;)Ljava/security/KeyFactory;
-
-    move-result-object v2
-
-    .line 93
-    invoke-virtual {v2, v6}, Ljava/security/KeyFactory;->generatePrivate(Ljava/security/spec/KeySpec;)Ljava/security/PrivateKey;
-
-    move-result-object v2
-
-    .line 95
-    const-string v6, "X.509"
-
-    invoke-static {v6}, Ljava/security/cert/CertificateFactory;->getInstance(Ljava/lang/String;)Ljava/security/cert/CertificateFactory;
+    invoke-virtual {v9, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v6
 
-    .line 96
-    new-instance v7, Ljava/io/ByteArrayInputStream;
+    const-string v9, ".v2."
 
-    invoke-direct {v7, v5}, Ljava/io/ByteArrayInputStream;-><init>([B)V
-
-    invoke-virtual {v6, v7}, Ljava/security/cert/CertificateFactory;->generateCertificate(Ljava/io/InputStream;)Ljava/security/cert/Certificate;
-
-    move-result-object v5
-
-    check-cast v5, Ljava/security/cert/X509Certificate;
-
-    .line 97
-    invoke-virtual {v5}, Ljava/security/cert/X509Certificate;->getEncoded()[B
+    invoke-virtual {v6, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v6
 
-    .line 98
-    invoke-virtual {v5}, Ljava/security/cert/X509Certificate;->getPublicKey()Ljava/security/PublicKey;
+    invoke-virtual {v6, v7, v8}, Ljava/lang/StringBuilder;->append(J)Ljava/lang/StringBuilder;
 
-    move-result-object v7
+    move-result-object v6
 
-    invoke-interface {v7}, Ljava/security/PublicKey;->getEncoded()[B
+    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
-    move-result-object v7
+    move-result-object v6
 
-    .line 101
-    new-instance v8, Ljava/util/TreeMap;
+    invoke-direct {v13, v5, v6}, Ljava/io/File;-><init>(Ljava/io/File;Ljava/lang/String;)V
 
-    invoke-direct {v8}, Ljava/util/TreeMap;-><init>()V
+    .line 144
+    :try_start_77
+    invoke-static/range {p4 .. p4}, Lcom/dex2c/plus/engine/ApkSignerHelper;->loadSigningCredentials(Ljava/lang/String;)Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;
 
-    .line 102
-    const-string v9, "SHA-256"
+    move-result-object v5
 
-    invoke-static {v9}, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;
+    .line 145
+    iget-object v7, v5, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->privateKey:Ljava/security/PrivateKey;
 
-    move-result-object v9
+    .line 146
+    iget-object v6, v5, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->cert:Ljava/security/cert/X509Certificate;
 
-    .line 103
-    const/high16 v10, 0x10000
+    .line 147
+    iget-object v8, v5, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->certDer:[B
 
-    new-array v11, v10, [B
+    .line 148
+    iget-object v9, v5, Lcom/dex2c/plus/engine/ApkSignerHelper$SigningCredentials;->pubKeyDer:[B
 
-    .line 105
-    new-instance v12, Ljava/util/zip/ZipFile;
+    .line 150
+    new-instance v5, Ljava/util/TreeMap;
 
-    invoke-direct {v12, v0}, Ljava/util/zip/ZipFile;-><init>(Ljava/io/File;)V
-    :try_end_af
-    .catchall {:try_start_63 .. :try_end_af} :catchall_37b
+    invoke-direct {v5}, Ljava/util/TreeMap;-><init>()V
 
-    .line 106
-    :try_start_af
-    invoke-virtual {v12}, Ljava/util/zip/ZipFile;->entries()Ljava/util/Enumeration;
+    .line 151
+    const-string v14, "SHA-256"
 
-    move-result-object v13
-
-    .line 107
-    :goto_b3
-    invoke-interface {v13}, Ljava/util/Enumeration;->hasMoreElements()Z
-
-    move-result v14
-    :try_end_b7
-    .catchall {:try_start_af .. :try_end_b7} :catchall_36c
-
-    const/4 v15, -0x1
-
-    if-eqz v14, :cond_106
-
-    .line 108
-    :try_start_ba
-    invoke-interface {v13}, Ljava/util/Enumeration;->nextElement()Ljava/lang/Object;
+    invoke-static {v14}, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;
 
     move-result-object v14
 
-    check-cast v14, Ljava/util/zip/ZipEntry;
+    .line 152
+    const/high16 v15, 0x10000
 
-    .line 109
-    invoke-virtual {v14}, Ljava/util/zip/ZipEntry;->getName()Ljava/lang/String;
+    new-array v3, v15, [B
 
-    move-result-object v10
+    .line 154
+    new-instance v15, Ljava/util/zip/ZipFile;
 
-    .line 110
-    invoke-static {v10}, Lcom/dex2c/plus/engine/ApkSignerHelper;->isMetaInfSignature(Ljava/lang/String;)Z
+    invoke-direct {v15, v0}, Ljava/util/zip/ZipFile;-><init>(Ljava/io/File;)V
+    :try_end_97
+    .catchall {:try_start_77 .. :try_end_97} :catchall_3e8
 
-    move-result v16
+    .line 155
+    :try_start_97
+    invoke-virtual {v15}, Ljava/util/zip/ZipFile;->entries()Ljava/util/Enumeration;
 
-    if-eqz v16, :cond_cd
+    move-result-object v16
 
-    .line 111
-    const/high16 v10, 0x10000
+    .line 156
+    :goto_9b
+    invoke-interface/range {v16 .. v16}, Ljava/util/Enumeration;->hasMoreElements()Z
 
-    goto :goto_b3
+    move-result v17
+    :try_end_9f
+    .catchall {:try_start_97 .. :try_end_9f} :catchall_3d6
 
-    .line 113
-    :cond_cd
-    invoke-virtual {v9}, Ljava/security/MessageDigest;->reset()V
+    if-eqz v17, :cond_107
 
-    .line 114
-    invoke-virtual {v12, v14}, Ljava/util/zip/ZipFile;->getInputStream(Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;
+    .line 157
+    :try_start_a1
+    invoke-interface/range {v16 .. v16}, Ljava/util/Enumeration;->nextElement()Ljava/lang/Object;
 
-    move-result-object v14
-    :try_end_d4
-    .catchall {:try_start_ba .. :try_end_d4} :catchall_101
+    move-result-object v17
 
-    .line 116
-    :goto_d4
-    :try_start_d4
-    invoke-virtual {v14, v11}, Ljava/io/InputStream;->read([B)I
+    move-object/from16 v2, v17
 
-    move-result v1
+    check-cast v2, Ljava/util/zip/ZipEntry;
 
-    if-eq v1, v15, :cond_e0
+    .line 158
+    invoke-virtual {v2}, Ljava/util/zip/ZipEntry;->getName()Ljava/lang/String;
 
-    .line 117
-    const/4 v15, 0x0
+    move-result-object v0
 
-    invoke-virtual {v9, v11, v15, v1}, Ljava/security/MessageDigest;->update([BII)V
-    :try_end_de
-    .catchall {:try_start_d4 .. :try_end_de} :catchall_f3
+    .line 159
+    invoke-static {v0}, Lcom/dex2c/plus/engine/ApkSignerHelper;->isMetaInfSignature(Ljava/lang/String;)Z
 
-    const/4 v15, -0x1
+    move-result v17
 
-    goto :goto_d4
+    if-eqz v17, :cond_b6
 
-    .line 119
-    :cond_e0
-    if-eqz v14, :cond_e5
+    .line 160
+    move-object/from16 v0, p0
 
-    :try_start_e2
-    invoke-virtual {v14}, Ljava/io/InputStream;->close()V
+    goto :goto_9b
 
-    .line 120
-    :cond_e5
-    invoke-virtual {v9}, Ljava/security/MessageDigest;->digest()[B
+    .line 162
+    :cond_b6
+    invoke-virtual {v14}, Ljava/security/MessageDigest;->reset()V
 
-    move-result-object v1
+    .line 163
+    invoke-virtual {v15, v2}, Ljava/util/zip/ZipFile;->getInputStream(Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;
 
-    invoke-static {v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Encode([B)Ljava/lang/String;
+    move-result-object v2
+    :try_end_bd
+    .catchall {:try_start_a1 .. :try_end_bd} :catchall_fc
 
-    move-result-object v1
+    .line 165
+    :goto_bd
+    move-object/from16 v17, v9
 
-    invoke-interface {v8, v10, v1}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-    :try_end_f0
-    .catchall {:try_start_e2 .. :try_end_f0} :catchall_101
+    :try_start_bf
+    invoke-virtual {v2, v3}, Ljava/io/InputStream;->read([B)I
 
-    .line 121
-    const/high16 v10, 0x10000
+    move-result v9
+    :try_end_c3
+    .catchall {:try_start_bf .. :try_end_c3} :catchall_ea
 
-    goto :goto_b3
+    move-object/from16 p3, v13
 
-    .line 114
-    :catchall_f3
+    const/4 v13, -0x1
+
+    if-eq v9, v13, :cond_d3
+
+    .line 166
+    const/4 v13, 0x0
+
+    :try_start_c9
+    invoke-virtual {v14, v3, v13, v9}, Ljava/security/MessageDigest;->update([BII)V
+    :try_end_cc
+    .catchall {:try_start_c9 .. :try_end_cc} :catchall_d1
+
+    move-object/from16 v13, p3
+
+    move-object/from16 v9, v17
+
+    goto :goto_bd
+
+    .line 163
+    :catchall_d1
     move-exception v0
 
+    goto :goto_ed
+
+    .line 168
+    :cond_d3
+    if-eqz v2, :cond_d8
+
+    :try_start_d5
+    invoke-virtual {v2}, Ljava/io/InputStream;->close()V
+
+    .line 169
+    :cond_d8
+    invoke-virtual {v14}, Ljava/security/MessageDigest;->digest()[B
+
+    move-result-object v2
+
+    invoke-static {v2}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Encode([B)Ljava/lang/String;
+
+    move-result-object v2
+
+    invoke-interface {v5, v0, v2}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    :try_end_e3
+    .catchall {:try_start_d5 .. :try_end_e3} :catchall_fa
+
+    .line 170
+    move-object/from16 v0, p0
+
+    move-object/from16 v13, p3
+
+    move-object/from16 v9, v17
+
+    goto :goto_9b
+
+    .line 163
+    :catchall_ea
+    move-exception v0
+
+    move-object/from16 p3, v13
+
+    :goto_ed
     move-object v1, v0
 
-    if-eqz v14, :cond_100
+    if-eqz v2, :cond_f9
 
-    :try_start_f7
-    invoke-virtual {v14}, Ljava/io/InputStream;->close()V
-    :try_end_fa
-    .catchall {:try_start_f7 .. :try_end_fa} :catchall_fb
+    :try_start_f0
+    invoke-virtual {v2}, Ljava/io/InputStream;->close()V
+    :try_end_f3
+    .catchall {:try_start_f0 .. :try_end_f3} :catchall_f4
 
-    goto :goto_100
+    goto :goto_f9
 
-    :catchall_fb
+    :catchall_f4
     move-exception v0
 
     move-object v2, v0
 
-    :try_start_fd
+    :try_start_f6
     invoke-static {v1, v2}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
 
-    :cond_100
-    :goto_100
+    :cond_f9
+    :goto_f9
     throw v1
-    :try_end_101
-    .catchall {:try_start_fd .. :try_end_101} :catchall_101
+    :try_end_fa
+    .catchall {:try_start_f6 .. :try_end_fa} :catchall_fa
 
-    .line 105
-    :catchall_101
+    .line 154
+    :catchall_fa
     move-exception v0
 
-    move-object v2, v0
+    goto :goto_ff
 
-    move-object v1, v4
+    :catchall_fc
+    move-exception v0
 
-    goto/16 :goto_36f
+    move-object/from16 p3, v13
 
-    .line 124
-    :cond_106
-    :try_start_106
-    new-instance v1, Ljava/lang/StringBuilder;
+    :goto_ff
+    move-object/from16 v1, p3
 
-    invoke-direct {v1}, Ljava/lang/StringBuilder;-><init>()V
+    move-object v3, v0
 
-    .line 125
-    const-string v10, "Manifest-Version: 1.0\r\nCreated-By: 1.0 (Dex2c Plus)\r\n\r\n"
+    move-object/from16 p1, v12
 
-    invoke-virtual {v1, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    move-object v2, v15
 
-    .line 127
-    new-instance v10, Ljava/util/HashMap;
+    goto/16 :goto_3dc
 
-    invoke-direct {v10}, Ljava/util/HashMap;-><init>()V
+    .line 172
+    :cond_107
+    move-object/from16 v17, v9
 
-    .line 128
-    invoke-interface {v8}, Ljava/util/Map;->entrySet()Ljava/util/Set;
+    move-object/from16 p3, v13
+
+    :try_start_10b
+    new-instance v0, Lcom/dex2c/plus/engine/FastZipModifier$CountingOutputStream;
+
+    new-instance v2, Ljava/io/BufferedOutputStream;
+
+    new-instance v9, Ljava/io/FileOutputStream;
+
+    invoke-direct {v9, v12}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+
+    const/high16 v13, 0x10000
+
+    invoke-direct {v2, v9, v13}, Ljava/io/BufferedOutputStream;-><init>(Ljava/io/OutputStream;I)V
+
+    invoke-direct {v0, v2}, Lcom/dex2c/plus/engine/FastZipModifier$CountingOutputStream;-><init>(Ljava/io/OutputStream;)V
+
+    .line 174
+    new-instance v2, Ljava/util/zip/ZipOutputStream;
+
+    invoke-direct {v2, v0}, Ljava/util/zip/ZipOutputStream;-><init>(Ljava/io/OutputStream;)V
+    :try_end_121
+    .catchall {:try_start_10b .. :try_end_121} :catchall_3d0
+
+    .line 175
+    if-eqz v4, :cond_2a3
+
+    .line 177
+    :try_start_123
+    new-instance v4, Ljava/lang/StringBuilder;
+
+    invoke-direct {v4}, Ljava/lang/StringBuilder;-><init>()V
+
+    .line 178
+    const-string v9, "Manifest-Version: 1.0\r\nCreated-By: 1.0 (Android SignApk)\r\n\r\n"
+
+    invoke-virtual {v4, v9}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 180
+    new-instance v9, Ljava/util/HashMap;
+
+    invoke-direct {v9}, Ljava/util/HashMap;-><init>()V
+
+    .line 181
+    invoke-interface {v5}, Ljava/util/Map;->entrySet()Ljava/util/Set;
 
     move-result-object v13
 
@@ -2465,70 +3267,76 @@
 
     move-result-object v13
 
-    :goto_11d
+    :goto_13a
     invoke-interface {v13}, Ljava/util/Iterator;->hasNext()Z
 
-    move-result v14
-    :try_end_121
-    .catchall {:try_start_106 .. :try_end_121} :catchall_36c
+    move-result v16
+    :try_end_13e
+    .catchall {:try_start_123 .. :try_end_13e} :catchall_296
 
-    const-string v15, "\r\n\r\n"
+    move-object/from16 p1, v12
 
-    const-string v0, "\r\nSHA-256-Digest: "
+    const-string v12, "\r\n\r\n"
 
-    move-object/from16 v17, v4
+    move-object/from16 p4, v3
 
-    const-string v4, "Name: "
+    const-string v3, "\r\nSHA-256-Digest: "
 
-    if-eqz v14, :cond_181
+    move-object/from16 v18, v0
 
-    :try_start_12b
+    const-string v0, "Name: "
+
+    if-eqz v16, :cond_1b0
+
+    :try_start_14c
     invoke-interface {v13}, Ljava/util/Iterator;->next()Ljava/lang/Object;
 
-    move-result-object v14
+    move-result-object v16
 
-    check-cast v14, Ljava/util/Map$Entry;
+    check-cast v16, Ljava/util/Map$Entry;
 
-    .line 129
-    invoke-interface {v14}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
+    .line 182
+    invoke-interface/range {v16 .. v16}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
-    move-result-object v18
+    move-result-object v19
 
-    move-object/from16 v19, v13
+    move-object/from16 v20, v13
 
-    move-object/from16 v13, v18
+    move-object/from16 v13, v19
 
     check-cast v13, Ljava/lang/String;
 
-    invoke-interface {v14}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
+    invoke-interface/range {v16 .. v16}, Ljava/util/Map$Entry;->getValue()Ljava/lang/Object;
 
-    move-result-object v18
+    move-result-object v19
+    :try_end_160
+    .catchall {:try_start_14c .. :try_end_160} :catchall_1a4
 
-    move-object/from16 v20, v7
+    move-object/from16 v21, v15
 
-    move-object/from16 v7, v18
+    :try_start_162
+    move-object/from16 v15, v19
 
-    check-cast v7, Ljava/lang/String;
+    check-cast v15, Ljava/lang/String;
+    :try_end_166
+    .catchall {:try_start_162 .. :try_end_166} :catchall_1a0
 
-    move-object/from16 v18, v11
+    move-object/from16 v19, v2
 
-    new-instance v11, Ljava/lang/StringBuilder;
+    :try_start_168
+    new-instance v2, Ljava/lang/StringBuilder;
 
-    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
+    invoke-direct {v2}, Ljava/lang/StringBuilder;-><init>()V
 
-    invoke-virtual {v11, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4, v13}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v4
-
-    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v2, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
-    invoke-virtual {v0, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    invoke-virtual {v0, v13}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
+    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
     move-result-object v0
 
@@ -2536,761 +3344,922 @@
 
     move-result-object v0
 
+    invoke-virtual {v0, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v0
+
     invoke-virtual {v0}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
 
-    .line 130
-    invoke-virtual {v1, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    .line 183
+    invoke-virtual {v4, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 131
-    invoke-interface {v14}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
+    .line 184
+    invoke-interface/range {v16 .. v16}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
+
+    move-result-object v2
+
+    check-cast v2, Ljava/lang/String;
+
+    invoke-interface {v9, v2, v0}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
+    :try_end_191
+    .catchall {:try_start_168 .. :try_end_191} :catchall_19e
+
+    .line 185
+    move-object/from16 v12, p1
+
+    move-object/from16 v3, p4
+
+    move-object/from16 v0, v18
+
+    move-object/from16 v2, v19
+
+    move-object/from16 v13, v20
+
+    move-object/from16 v15, v21
+
+    goto :goto_13a
+
+    .line 174
+    :catchall_19e
+    move-exception v0
+
+    goto :goto_1a9
+
+    :catchall_1a0
+    move-exception v0
+
+    move-object/from16 v19, v2
+
+    goto :goto_1a9
+
+    :catchall_1a4
+    move-exception v0
+
+    move-object/from16 v19, v2
+
+    move-object/from16 v21, v15
+
+    :goto_1a9
+    move-object/from16 v1, p3
+
+    move-object v3, v0
+
+    move-object/from16 v4, v19
+
+    goto/16 :goto_29f
+
+    .line 186
+    :cond_1b0
+    move-object/from16 v19, v2
+
+    move-object/from16 v21, v15
+
+    :try_start_1b4
+    invoke-virtual {v4}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+
+    move-result-object v2
+
+    sget-object v4, Ljava/nio/charset/StandardCharsets;->UTF_8:Ljava/nio/charset/Charset;
+
+    invoke-virtual {v2, v4}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
+
+    move-result-object v2
+
+    .line 189
+    invoke-virtual {v14}, Ljava/security/MessageDigest;->reset()V
+
+    .line 190
+    invoke-virtual {v14, v2}, Ljava/security/MessageDigest;->digest([B)[B
+
+    move-result-object v4
+
+    .line 191
+    invoke-static {v4}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Encode([B)Ljava/lang/String;
+
+    move-result-object v4
+
+    .line 193
+    new-instance v13, Ljava/lang/StringBuilder;
+
+    invoke-direct {v13}, Ljava/lang/StringBuilder;-><init>()V
+
+    .line 194
+    const-string v15, "Signature-Version: 1.0\r\nCreated-By: 1.0 (Android SignApk)\r\nSHA-256-Digest-Manifest: "
+
+    invoke-virtual {v13, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v15
+
+    .line 195
+    invoke-virtual {v15, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v4
+
+    .line 196
+    invoke-virtual {v4, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :try_end_1db
+    .catchall {:try_start_1b4 .. :try_end_1db} :catchall_292
+
+    .line 198
+    if-eqz v10, :cond_1e5
+
+    if-eqz v11, :cond_1e5
+
+    .line 199
+    :try_start_1df
+    const-string v1, "X-Android-APK-Signed: 2, 3\r\n\r\n"
+
+    invoke-virtual {v13, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    goto :goto_1f8
+
+    .line 200
+    :cond_1e5
+    if-eqz v10, :cond_1ed
+
+    .line 201
+    const-string v1, "X-Android-APK-Signed: 2\r\n\r\n"
+
+    invoke-virtual {v13, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    goto :goto_1f8
+
+    .line 202
+    :cond_1ed
+    if-eqz v11, :cond_1f5
+
+    .line 203
+    const-string v1, "X-Android-APK-Signed: 3\r\n\r\n"
+
+    invoke-virtual {v13, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :try_end_1f4
+    .catchall {:try_start_1df .. :try_end_1f4} :catchall_19e
+
+    goto :goto_1f8
+
+    .line 205
+    :cond_1f5
+    :try_start_1f5
+    invoke-virtual {v13, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    .line 208
+    :goto_1f8
+    invoke-interface {v5}, Ljava/util/Map;->entrySet()Ljava/util/Set;
+
+    move-result-object v1
+
+    invoke-interface {v1}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
+
+    move-result-object v1
+
+    :goto_200
+    invoke-interface {v1}, Ljava/util/Iterator;->hasNext()Z
+
+    move-result v4
+    :try_end_204
+    .catchall {:try_start_1f5 .. :try_end_204} :catchall_292
+
+    if-eqz v4, :cond_241
+
+    :try_start_206
+    invoke-interface {v1}, Ljava/util/Iterator;->next()Ljava/lang/Object;
+
+    move-result-object v4
+
+    check-cast v4, Ljava/util/Map$Entry;
+
+    .line 209
+    invoke-interface {v4}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
+
+    move-result-object v5
+
+    invoke-interface {v9, v5}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
+
+    move-result-object v5
+
+    check-cast v5, Ljava/lang/String;
+
+    .line 210
+    invoke-virtual {v14}, Ljava/security/MessageDigest;->reset()V
+
+    .line 211
+    sget-object v15, Ljava/nio/charset/StandardCharsets;->UTF_8:Ljava/nio/charset/Charset;
+
+    invoke-virtual {v5, v15}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
+
+    move-result-object v5
+
+    invoke-virtual {v14, v5}, Ljava/security/MessageDigest;->digest([B)[B
+
+    move-result-object v5
+
+    .line 212
+    invoke-static {v5}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Encode([B)Ljava/lang/String;
+
+    move-result-object v5
+
+    .line 213
+    invoke-virtual {v13, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v15
+
+    invoke-interface {v4}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
 
     move-result-object v4
 
     check-cast v4, Ljava/lang/String;
 
-    invoke-interface {v10, v4, v0}, Ljava/util/Map;->put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;
-    :try_end_170
-    .catchall {:try_start_12b .. :try_end_170} :catchall_17b
+    invoke-virtual {v15, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    .line 132
-    move-object/from16 v0, p0
+    move-result-object v4
 
-    move-object/from16 v4, v17
+    invoke-virtual {v4, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-object/from16 v11, v18
+    move-result-object v4
 
-    move-object/from16 v13, v19
+    invoke-virtual {v4, v5}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-object/from16 v7, v20
+    move-result-object v4
 
-    goto :goto_11d
+    invoke-virtual {v4, v12}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+    :try_end_240
+    .catchall {:try_start_206 .. :try_end_240} :catchall_19e
 
-    .line 105
-    :catchall_17b
-    move-exception v0
+    .line 214
+    goto :goto_200
 
-    move-object v2, v0
-
-    move-object/from16 v1, v17
-
-    goto/16 :goto_36f
-
-    .line 133
-    :cond_181
-    move-object/from16 v20, v7
-
-    move-object/from16 v18, v11
-
-    :try_start_185
-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v1
-
-    sget-object v7, Ljava/nio/charset/StandardCharsets;->UTF_8:Ljava/nio/charset/Charset;
-
-    invoke-virtual {v1, v7}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
-
-    move-result-object v1
-
-    .line 136
-    invoke-virtual {v9}, Ljava/security/MessageDigest;->reset()V
-
-    .line 137
-    invoke-virtual {v9, v1}, Ljava/security/MessageDigest;->digest([B)[B
-
-    move-result-object v7
-
-    .line 138
-    invoke-static {v7}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Encode([B)Ljava/lang/String;
-
-    move-result-object v7
-
-    .line 140
-    new-instance v11, Ljava/lang/StringBuilder;
-
-    invoke-direct {v11}, Ljava/lang/StringBuilder;-><init>()V
-
-    .line 141
-    const-string v13, "Signature-Version: 1.0\r\nCreated-By: 1.0 (Dex2c Plus)\r\nSHA-256-Digest-Manifest: "
-
-    invoke-virtual {v11, v13}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v13
-
-    .line 142
-    invoke-virtual {v13, v7}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v7
-
-    const-string v13, "\r\nX-Android-APK-Signed: 2\r\n\r\n"
-
-    .line 143
-    invoke-virtual {v7, v13}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    .line 145
-    invoke-interface {v8}, Ljava/util/Map;->entrySet()Ljava/util/Set;
-
-    move-result-object v7
-
-    invoke-interface {v7}, Ljava/util/Set;->iterator()Ljava/util/Iterator;
-
-    move-result-object v7
-
-    :goto_1b6
-    invoke-interface {v7}, Ljava/util/Iterator;->hasNext()Z
-
-    move-result v8
-    :try_end_1ba
-    .catchall {:try_start_185 .. :try_end_1ba} :catchall_368
-
-    if-eqz v8, :cond_1f7
-
-    :try_start_1bc
-    invoke-interface {v7}, Ljava/util/Iterator;->next()Ljava/lang/Object;
-
-    move-result-object v8
-
-    check-cast v8, Ljava/util/Map$Entry;
-
-    .line 146
-    invoke-interface {v8}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
-
-    move-result-object v13
-
-    invoke-interface {v10, v13}, Ljava/util/Map;->get(Ljava/lang/Object;)Ljava/lang/Object;
-
-    move-result-object v13
-
-    check-cast v13, Ljava/lang/String;
-
-    .line 147
-    invoke-virtual {v9}, Ljava/security/MessageDigest;->reset()V
-
-    .line 148
-    sget-object v14, Ljava/nio/charset/StandardCharsets;->UTF_8:Ljava/nio/charset/Charset;
-
-    invoke-virtual {v13, v14}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
-
-    move-result-object v13
-
-    invoke-virtual {v9, v13}, Ljava/security/MessageDigest;->digest([B)[B
-
-    move-result-object v13
-
-    .line 149
-    invoke-static {v13}, Lcom/dex2c/plus/engine/ApkSignerHelper;->base64Encode([B)Ljava/lang/String;
-
-    move-result-object v13
-
-    .line 150
-    invoke-virtual {v11, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v14
-
-    invoke-interface {v8}, Ljava/util/Map$Entry;->getKey()Ljava/lang/Object;
-
-    move-result-object v8
-
-    check-cast v8, Ljava/lang/String;
-
-    invoke-virtual {v14, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v8
-
-    invoke-virtual {v8, v0}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v8
-
-    invoke-virtual {v8, v13}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v8
-
-    invoke-virtual {v8, v15}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-    :try_end_1f6
-    .catchall {:try_start_1bc .. :try_end_1f6} :catchall_17b
-
-    .line 151
-    goto :goto_1b6
-
-    .line 152
-    :cond_1f7
-    :try_start_1f7
-    invoke-virtual {v11}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    .line 215
+    :cond_241
+    :try_start_241
+    invoke-virtual {v13}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v0
 
-    sget-object v4, Ljava/nio/charset/StandardCharsets;->UTF_8:Ljava/nio/charset/Charset;
+    sget-object v1, Ljava/nio/charset/StandardCharsets;->UTF_8:Ljava/nio/charset/Charset;
 
-    invoke-virtual {v0, v4}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
+    invoke-virtual {v0, v1}, Ljava/lang/String;->getBytes(Ljava/nio/charset/Charset;)[B
 
     move-result-object v0
 
-    .line 155
-    const-string v4, "SHA256withRSA"
+    .line 218
+    const-string v1, "SHA256withRSA"
 
-    invoke-static {v4}, Ljava/security/Signature;->getInstance(Ljava/lang/String;)Ljava/security/Signature;
+    invoke-static {v1}, Ljava/security/Signature;->getInstance(Ljava/lang/String;)Ljava/security/Signature;
 
-    move-result-object v4
+    move-result-object v1
 
-    .line 156
-    invoke-virtual {v4, v2}, Ljava/security/Signature;->initSign(Ljava/security/PrivateKey;)V
+    .line 219
+    invoke-virtual {v1, v7}, Ljava/security/Signature;->initSign(Ljava/security/PrivateKey;)V
 
-    .line 157
-    invoke-virtual {v4, v0}, Ljava/security/Signature;->update([B)V
+    .line 220
+    invoke-virtual {v1, v0}, Ljava/security/Signature;->update([B)V
 
-    .line 158
-    invoke-virtual {v4}, Ljava/security/Signature;->sign()[B
+    .line 221
+    invoke-virtual {v1}, Ljava/security/Signature;->sign()[B
 
-    move-result-object v4
+    move-result-object v1
 
-    .line 159
-    invoke-static {v5, v6, v4}, Lcom/dex2c/plus/engine/ApkSignerHelper;->createPkcs7SignedData(Ljava/security/cert/X509Certificate;[B[B)[B
+    .line 222
+    invoke-static {v6, v8, v1}, Lcom/dex2c/plus/engine/ApkSignerHelper;->createPkcs7SignedData(Ljava/security/cert/X509Certificate;[B[B)[B
 
-    move-result-object v4
+    move-result-object v1
 
-    .line 162
-    new-instance v5, Lcom/dex2c/plus/engine/FastZipModifier$CountingOutputStream;
+    .line 224
+    new-instance v3, Ljava/util/zip/ZipEntry;
 
-    new-instance v7, Ljava/io/BufferedOutputStream;
+    const-string v4, "META-INF/MANIFEST.MF"
 
-    new-instance v8, Ljava/io/FileOutputStream;
+    invoke-direct {v3, v4}, Ljava/util/zip/ZipEntry;-><init>(Ljava/lang/String;)V
+    :try_end_266
+    .catchall {:try_start_241 .. :try_end_266} :catchall_292
 
-    invoke-direct {v8, v3}, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V
+    .line 225
+    move-object/from16 v4, v19
 
-    const/high16 v9, 0x10000
+    :try_start_268
+    invoke-virtual {v4, v3}, Ljava/util/zip/ZipOutputStream;->putNextEntry(Ljava/util/zip/ZipEntry;)V
 
-    invoke-direct {v7, v8, v9}, Ljava/io/BufferedOutputStream;-><init>(Ljava/io/OutputStream;I)V
+    .line 226
+    invoke-virtual {v4, v2}, Ljava/util/zip/ZipOutputStream;->write([B)V
 
-    invoke-direct {v5, v7}, Lcom/dex2c/plus/engine/FastZipModifier$CountingOutputStream;-><init>(Ljava/io/OutputStream;)V
+    .line 227
+    invoke-virtual {v4}, Ljava/util/zip/ZipOutputStream;->closeEntry()V
 
-    .line 163
-    new-instance v7, Ljava/util/zip/ZipOutputStream;
+    .line 229
+    new-instance v2, Ljava/util/zip/ZipEntry;
 
-    invoke-direct {v7, v5}, Ljava/util/zip/ZipOutputStream;-><init>(Ljava/io/OutputStream;)V
-    :try_end_22b
-    .catchall {:try_start_1f7 .. :try_end_22b} :catchall_368
+    const-string v3, "META-INF/CERT.SF"
 
-    .line 164
-    :try_start_22b
-    new-instance v8, Ljava/util/zip/ZipEntry;
+    invoke-direct {v2, v3}, Ljava/util/zip/ZipEntry;-><init>(Ljava/lang/String;)V
 
-    const-string v9, "META-INF/MANIFEST.MF"
+    .line 230
+    invoke-virtual {v4, v2}, Ljava/util/zip/ZipOutputStream;->putNextEntry(Ljava/util/zip/ZipEntry;)V
 
-    invoke-direct {v8, v9}, Ljava/util/zip/ZipEntry;-><init>(Ljava/lang/String;)V
+    .line 231
+    invoke-virtual {v4, v0}, Ljava/util/zip/ZipOutputStream;->write([B)V
 
-    .line 165
-    invoke-virtual {v7, v8}, Ljava/util/zip/ZipOutputStream;->putNextEntry(Ljava/util/zip/ZipEntry;)V
+    .line 232
+    invoke-virtual {v4}, Ljava/util/zip/ZipOutputStream;->closeEntry()V
 
-    .line 166
-    invoke-virtual {v7, v1}, Ljava/util/zip/ZipOutputStream;->write([B)V
-
-    .line 167
-    invoke-virtual {v7}, Ljava/util/zip/ZipOutputStream;->closeEntry()V
-
-    .line 169
-    new-instance v1, Ljava/util/zip/ZipEntry;
-
-    const-string v8, "META-INF/CERT.SF"
-
-    invoke-direct {v1, v8}, Ljava/util/zip/ZipEntry;-><init>(Ljava/lang/String;)V
-
-    .line 170
-    invoke-virtual {v7, v1}, Ljava/util/zip/ZipOutputStream;->putNextEntry(Ljava/util/zip/ZipEntry;)V
-
-    .line 171
-    invoke-virtual {v7, v0}, Ljava/util/zip/ZipOutputStream;->write([B)V
-
-    .line 172
-    invoke-virtual {v7}, Ljava/util/zip/ZipOutputStream;->closeEntry()V
-
-    .line 174
+    .line 234
     new-instance v0, Ljava/util/zip/ZipEntry;
 
-    const-string v1, "META-INF/CERT.RSA"
+    const-string v2, "META-INF/CERT.RSA"
 
-    invoke-direct {v0, v1}, Ljava/util/zip/ZipEntry;-><init>(Ljava/lang/String;)V
+    invoke-direct {v0, v2}, Ljava/util/zip/ZipEntry;-><init>(Ljava/lang/String;)V
+
+    .line 235
+    invoke-virtual {v4, v0}, Ljava/util/zip/ZipOutputStream;->putNextEntry(Ljava/util/zip/ZipEntry;)V
+
+    .line 236
+    invoke-virtual {v4, v1}, Ljava/util/zip/ZipOutputStream;->write([B)V
+
+    .line 237
+    invoke-virtual {v4}, Ljava/util/zip/ZipOutputStream;->closeEntry()V
+    :try_end_291
+    .catchall {:try_start_268 .. :try_end_291} :catchall_2e1
+
+    goto :goto_2ac
+
+    .line 174
+    :catchall_292
+    move-exception v0
+
+    move-object/from16 v4, v19
+
+    goto :goto_29c
+
+    :catchall_296
+    move-exception v0
+
+    move-object v4, v2
+
+    move-object/from16 p1, v12
+
+    move-object/from16 v21, v15
+
+    :goto_29c
+    move-object/from16 v1, p3
+
+    move-object v3, v0
+
+    :goto_29f
+    move-object/from16 v2, v21
+
+    goto/16 :goto_3c4
 
     .line 175
-    invoke-virtual {v7, v0}, Ljava/util/zip/ZipOutputStream;->putNextEntry(Ljava/util/zip/ZipEntry;)V
+    :cond_2a3
+    move-object/from16 v18, v0
 
-    .line 176
-    invoke-virtual {v7, v4}, Ljava/util/zip/ZipOutputStream;->write([B)V
+    move-object v4, v2
 
-    .line 177
-    invoke-virtual {v7}, Ljava/util/zip/ZipOutputStream;->closeEntry()V
+    move-object/from16 p4, v3
 
-    .line 179
-    invoke-virtual {v12}, Ljava/util/zip/ZipFile;->entries()Ljava/util/Enumeration;
+    move-object/from16 p1, v12
+
+    move-object/from16 v21, v15
+
+    .line 240
+    :goto_2ac
+    :try_start_2ac
+    invoke-virtual/range {v21 .. v21}, Ljava/util/zip/ZipFile;->entries()Ljava/util/Enumeration;
 
     move-result-object v0
 
-    .line 180
-    :goto_25f
+    .line 241
+    :goto_2b0
     invoke-interface {v0}, Ljava/util/Enumeration;->hasMoreElements()Z
 
     move-result v1
-    :try_end_263
-    .catchall {:try_start_22b .. :try_end_263} :catchall_358
+    :try_end_2b4
+    .catchall {:try_start_2ac .. :try_end_2b4} :catchall_3be
 
-    if-eqz v1, :cond_32b
+    if-eqz v1, :cond_383
 
-    .line 181
-    :try_start_265
+    .line 242
+    :try_start_2b6
     invoke-interface {v0}, Ljava/util/Enumeration;->nextElement()Ljava/lang/Object;
 
     move-result-object v1
 
     check-cast v1, Ljava/util/zip/ZipEntry;
 
-    .line 182
+    .line 243
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getName()Ljava/lang/String;
 
-    move-result-object v4
+    move-result-object v2
 
-    .line 183
-    invoke-static {v4}, Lcom/dex2c/plus/engine/ApkSignerHelper;->isMetaInfSignature(Ljava/lang/String;)Z
+    .line 244
+    invoke-static {v2}, Lcom/dex2c/plus/engine/ApkSignerHelper;->isMetaInfSignature(Ljava/lang/String;)Z
 
-    move-result v8
+    move-result v3
 
-    if-eqz v8, :cond_276
+    if-eqz v3, :cond_2c7
 
-    .line 184
-    goto :goto_25f
+    .line 245
+    goto :goto_2b0
 
-    .line 186
-    :cond_276
-    new-instance v8, Ljava/util/zip/ZipEntry;
+    .line 247
+    :cond_2c7
+    new-instance v3, Ljava/util/zip/ZipEntry;
 
-    invoke-direct {v8, v4}, Ljava/util/zip/ZipEntry;-><init>(Ljava/lang/String;)V
+    invoke-direct {v3, v2}, Ljava/util/zip/ZipEntry;-><init>(Ljava/lang/String;)V
 
-    .line 187
+    .line 248
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getTime()J
 
-    move-result-wide v9
+    move-result-wide v5
 
-    invoke-virtual {v8, v9, v10}, Ljava/util/zip/ZipEntry;->setTime(J)V
+    invoke-virtual {v3, v5, v6}, Ljava/util/zip/ZipEntry;->setTime(J)V
 
-    .line 188
+    .line 249
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getComment()Ljava/lang/String;
 
-    move-result-object v9
+    move-result-object v5
+    :try_end_2d7
+    .catchall {:try_start_2b6 .. :try_end_2d7} :catchall_37f
 
-    if-eqz v9, :cond_28f
+    if-eqz v5, :cond_2e3
 
+    :try_start_2d9
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getComment()Ljava/lang/String;
 
-    move-result-object v9
+    move-result-object v5
 
-    invoke-virtual {v8, v9}, Ljava/util/zip/ZipEntry;->setComment(Ljava/lang/String;)V
+    invoke-virtual {v3, v5}, Ljava/util/zip/ZipEntry;->setComment(Ljava/lang/String;)V
+    :try_end_2e0
+    .catchall {:try_start_2d9 .. :try_end_2e0} :catchall_2e1
 
-    .line 190
-    :cond_28f
-    const-string v9, "lib/"
+    goto :goto_2e3
 
-    invoke-virtual {v4, v9}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+    .line 174
+    :catchall_2e1
+    move-exception v0
 
-    move-result v9
+    goto :goto_29c
 
-    const/4 v10, 0x1
+    .line 251
+    :cond_2e3
+    :goto_2e3
+    :try_start_2e3
+    const-string v5, "lib/"
 
-    if-nez v9, :cond_2a3
+    invoke-virtual {v2, v5}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
-    const-string v9, ".so"
+    move-result v5
+    :try_end_2e9
+    .catchall {:try_start_2e3 .. :try_end_2e9} :catchall_37f
 
-    invoke-virtual {v4, v9}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
+    if-nez v5, :cond_2f6
 
-    move-result v9
+    :try_start_2eb
+    const-string v5, ".so"
 
-    if-eqz v9, :cond_2a1
+    invoke-virtual {v2, v5}, Ljava/lang/String;->endsWith(Ljava/lang/String;)Z
 
-    goto :goto_2a3
+    move-result v5
 
-    :cond_2a1
-    const/4 v9, 0x0
+    if-eqz v5, :cond_2f4
 
-    goto :goto_2a4
+    goto :goto_2f6
 
-    :cond_2a3
-    :goto_2a3
-    const/4 v9, 0x1
+    :cond_2f4
+    const/4 v5, 0x0
 
-    .line 191
-    :goto_2a4
-    if-nez v9, :cond_2ae
+    goto :goto_2f7
+
+    :cond_2f6
+    :goto_2f6
+    const/4 v5, 0x1
+
+    .line 252
+    :goto_2f7
+    if-nez v5, :cond_302
 
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getMethod()I
 
-    move-result v11
+    move-result v6
 
-    if-nez v11, :cond_2ad
+    if-nez v6, :cond_300
 
-    goto :goto_2ae
+    goto :goto_302
 
-    :cond_2ad
-    const/4 v10, 0x0
+    :cond_300
+    const/4 v6, 0x0
 
-    .line 192
-    :cond_2ae
-    :goto_2ae
-    if-eqz v10, :cond_2df
+    goto :goto_303
 
-    .line 193
-    const/4 v10, 0x0
+    :cond_302
+    :goto_302
+    const/4 v6, 0x1
 
-    invoke-virtual {v8, v10}, Ljava/util/zip/ZipEntry;->setMethod(I)V
+    .line 253
+    :goto_303
+    if-eqz v6, :cond_334
 
-    .line 194
+    .line 254
+    const/4 v6, 0x0
+
+    invoke-virtual {v3, v6}, Ljava/util/zip/ZipEntry;->setMethod(I)V
+
+    .line 255
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getSize()J
 
-    move-result-wide v10
+    move-result-wide v12
 
-    invoke-virtual {v8, v10, v11}, Ljava/util/zip/ZipEntry;->setSize(J)V
+    invoke-virtual {v3, v12, v13}, Ljava/util/zip/ZipEntry;->setSize(J)V
 
-    .line 195
+    .line 256
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getSize()J
 
-    move-result-wide v10
+    move-result-wide v12
 
-    invoke-virtual {v8, v10, v11}, Ljava/util/zip/ZipEntry;->setCompressedSize(J)V
+    invoke-virtual {v3, v12, v13}, Ljava/util/zip/ZipEntry;->setCompressedSize(J)V
 
-    .line 196
+    .line 257
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getCrc()J
 
-    move-result-wide v10
+    move-result-wide v12
 
-    invoke-virtual {v8, v10, v11}, Ljava/util/zip/ZipEntry;->setCrc(J)V
+    invoke-virtual {v3, v12, v13}, Ljava/util/zip/ZipEntry;->setCrc(J)V
 
-    .line 197
-    if-eqz v9, :cond_2ce
+    .line 258
+    if-eqz v5, :cond_323
 
-    const/16 v9, 0x1000
+    const/16 v5, 0x1000
 
-    goto :goto_2cf
+    goto :goto_324
 
-    :cond_2ce
-    const/4 v9, 0x4
+    :cond_323
+    const/4 v5, 0x4
 
-    .line 198
-    :goto_2cf
+    .line 259
+    :goto_324
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getExtra()[B
 
-    move-result-object v10
+    move-result-object v6
 
-    invoke-virtual {v5}, Lcom/dex2c/plus/engine/FastZipModifier$CountingOutputStream;->getCount()J
+    invoke-virtual/range {v18 .. v18}, Lcom/dex2c/plus/engine/FastZipModifier$CountingOutputStream;->getCount()J
 
-    move-result-wide v13
+    move-result-wide v12
 
-    invoke-static {v10, v13, v14, v4, v9}, Lcom/dex2c/plus/engine/FastZipModifier;->buildAlignedExtra([BJLjava/lang/String;I)[B
+    invoke-static {v6, v12, v13, v2, v5}, Lcom/dex2c/plus/engine/FastZipModifier;->buildAlignedExtra([BJLjava/lang/String;I)[B
 
-    move-result-object v4
+    move-result-object v2
 
-    invoke-virtual {v8, v4}, Ljava/util/zip/ZipEntry;->setExtra([B)V
+    invoke-virtual {v3, v2}, Ljava/util/zip/ZipEntry;->setExtra([B)V
+    :try_end_333
+    .catchall {:try_start_2eb .. :try_end_333} :catchall_2e1
 
-    .line 199
-    goto :goto_2f5
+    .line 260
+    goto :goto_34a
 
-    .line 200
-    :cond_2df
-    const/16 v4, 0x8
+    .line 261
+    :cond_334
+    const/16 v2, 0x8
 
-    invoke-virtual {v8, v4}, Ljava/util/zip/ZipEntry;->setMethod(I)V
+    :try_start_336
+    invoke-virtual {v3, v2}, Ljava/util/zip/ZipEntry;->setMethod(I)V
 
-    .line 201
+    .line 262
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getExtra()[B
 
-    move-result-object v4
+    move-result-object v2
+    :try_end_33d
+    .catchall {:try_start_336 .. :try_end_33d} :catchall_37f
 
-    if-eqz v4, :cond_2f5
+    if-eqz v2, :cond_34a
 
-    .line 202
+    .line 263
+    :try_start_33f
     invoke-virtual {v1}, Ljava/util/zip/ZipEntry;->getExtra()[B
 
-    move-result-object v4
+    move-result-object v2
 
-    invoke-static {v4}, Lcom/dex2c/plus/engine/FastZipModifier;->cleanAlignmentExtra([B)[B
+    invoke-static {v2}, Lcom/dex2c/plus/engine/FastZipModifier;->cleanAlignmentExtra([B)[B
 
-    move-result-object v4
+    move-result-object v2
 
-    invoke-virtual {v8, v4}, Ljava/util/zip/ZipEntry;->setExtra([B)V
+    invoke-virtual {v3, v2}, Ljava/util/zip/ZipEntry;->setExtra([B)V
+    :try_end_34a
+    .catchall {:try_start_33f .. :try_end_34a} :catchall_2e1
 
-    .line 205
-    :cond_2f5
-    :goto_2f5
-    invoke-virtual {v7, v8}, Ljava/util/zip/ZipOutputStream;->putNextEntry(Ljava/util/zip/ZipEntry;)V
+    .line 266
+    :cond_34a
+    :goto_34a
+    :try_start_34a
+    invoke-virtual {v4, v3}, Ljava/util/zip/ZipOutputStream;->putNextEntry(Ljava/util/zip/ZipEntry;)V
+    :try_end_34d
+    .catchall {:try_start_34a .. :try_end_34d} :catchall_37f
 
-    .line 206
-    invoke-virtual {v12, v1}, Ljava/util/zip/ZipFile;->getInputStream(Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;
+    .line 267
+    move-object/from16 v2, v21
+
+    :try_start_34f
+    invoke-virtual {v2, v1}, Ljava/util/zip/ZipFile;->getInputStream(Ljava/util/zip/ZipEntry;)Ljava/io/InputStream;
 
     move-result-object v1
-    :try_end_2fc
-    .catchall {:try_start_265 .. :try_end_2fc} :catchall_326
+    :try_end_353
+    .catchall {:try_start_34f .. :try_end_353} :catchall_3ba
 
-    .line 208
-    :goto_2fc
-    move-object/from16 v4, v18
+    .line 269
+    :goto_353
+    move-object/from16 v3, p4
 
-    :try_start_2fe
-    invoke-virtual {v1, v4}, Ljava/io/InputStream;->read([B)I
+    :try_start_355
+    invoke-virtual {v1, v3}, Ljava/io/InputStream;->read([B)I
 
-    move-result v8
+    move-result v5
 
-    const/4 v9, -0x1
+    const/4 v6, -0x1
 
-    if-eq v8, v9, :cond_30c
+    if-eq v5, v6, :cond_363
 
-    .line 209
-    const/4 v10, 0x0
+    .line 270
+    const/4 v9, 0x0
 
-    invoke-virtual {v7, v4, v10, v8}, Ljava/util/zip/ZipOutputStream;->write([BII)V
-    :try_end_309
-    .catchall {:try_start_2fe .. :try_end_309} :catchall_318
+    invoke-virtual {v4, v3, v9, v5}, Ljava/util/zip/ZipOutputStream;->write([BII)V
+    :try_end_360
+    .catchall {:try_start_355 .. :try_end_360} :catchall_371
 
-    move-object/from16 v18, v4
+    move-object/from16 p4, v3
 
-    goto :goto_2fc
+    goto :goto_353
 
-    .line 211
-    :cond_30c
-    if-eqz v1, :cond_311
+    .line 272
+    :cond_363
+    if-eqz v1, :cond_368
 
-    :try_start_30e
+    :try_start_365
     invoke-virtual {v1}, Ljava/io/InputStream;->close()V
 
-    .line 212
-    :cond_311
-    invoke-virtual {v7}, Ljava/util/zip/ZipOutputStream;->closeEntry()V
-    :try_end_314
-    .catchall {:try_start_30e .. :try_end_314} :catchall_326
+    .line 273
+    :cond_368
+    invoke-virtual {v4}, Ljava/util/zip/ZipOutputStream;->closeEntry()V
+    :try_end_36b
+    .catchall {:try_start_365 .. :try_end_36b} :catchall_3ba
 
-    .line 213
-    move-object/from16 v18, v4
+    .line 274
+    move-object/from16 v21, v2
 
-    goto/16 :goto_25f
+    move-object/from16 p4, v3
 
-    .line 206
-    :catchall_318
+    goto/16 :goto_2b0
+
+    .line 267
+    :catchall_371
     move-exception v0
 
-    move-object v2, v0
+    move-object v3, v0
 
-    if-eqz v1, :cond_325
+    if-eqz v1, :cond_37e
 
-    :try_start_31c
+    :try_start_375
     invoke-virtual {v1}, Ljava/io/InputStream;->close()V
-    :try_end_31f
-    .catchall {:try_start_31c .. :try_end_31f} :catchall_320
+    :try_end_378
+    .catchall {:try_start_375 .. :try_end_378} :catchall_379
 
-    goto :goto_325
+    goto :goto_37e
 
-    :catchall_320
+    :catchall_379
     move-exception v0
 
     move-object v1, v0
 
-    :try_start_322
-    invoke-static {v2, v1}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
+    :try_start_37b
+    invoke-static {v3, v1}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
 
-    :cond_325
-    :goto_325
-    throw v2
-    :try_end_326
-    .catchall {:try_start_322 .. :try_end_326} :catchall_326
+    :cond_37e
+    :goto_37e
+    throw v3
 
-    .line 163
-    :catchall_326
+    .line 174
+    :catchall_37f
     move-exception v0
 
-    move-object v2, v0
+    move-object/from16 v2, v21
 
-    move-object/from16 v1, v17
+    goto :goto_3bb
 
-    goto :goto_35c
+    .line 275
+    :cond_383
+    move-object/from16 v2, v21
 
-    .line 214
-    :cond_32b
-    :try_start_32b
-    invoke-virtual {v7}, Ljava/util/zip/ZipOutputStream;->finish()V
-    :try_end_32e
-    .catchall {:try_start_32b .. :try_end_32e} :catchall_358
+    invoke-virtual {v4}, Ljava/util/zip/ZipOutputStream;->finish()V
+    :try_end_388
+    .catchall {:try_start_37b .. :try_end_388} :catchall_3ba
 
-    .line 215
-    :try_start_32e
-    invoke-virtual {v7}, Ljava/util/zip/ZipOutputStream;->close()V
-    :try_end_331
-    .catchall {:try_start_32e .. :try_end_331} :catchall_368
+    .line 276
+    :try_start_388
+    invoke-virtual {v4}, Ljava/util/zip/ZipOutputStream;->close()V
+    :try_end_38b
+    .catchall {:try_start_388 .. :try_end_38b} :catchall_3b6
 
-    .line 216
-    :try_start_331
-    invoke-virtual {v12}, Ljava/util/zip/ZipFile;->close()V
-    :try_end_334
-    .catchall {:try_start_331 .. :try_end_334} :catchall_354
+    .line 277
+    :try_start_38b
+    invoke-virtual {v2}, Ljava/util/zip/ZipFile;->close()V
 
-    .line 219
-    move-object/from16 v1, v17
+    .line 279
+    move-object/from16 v5, p1
 
-    move-object/from16 v0, v20
+    move-object/from16 v6, p3
 
-    :try_start_338
-    invoke-static {v3, v1, v2, v6, v0}, Lcom/dex2c/plus/engine/ApkSignerHelper;->applyApkSigningBlockV2(Ljava/io/File;Ljava/io/File;Ljava/security/PrivateKey;[B[B)V
+    move-object/from16 v9, v17
 
-    .line 221
-    invoke-virtual {v3}, Ljava/io/File;->exists()Z
+    invoke-static/range {v5 .. v11}, Lcom/dex2c/plus/engine/ApkSignerHelper;->applyApkSigningBlock(Ljava/io/File;Ljava/io/File;Ljava/security/PrivateKey;[B[BZZ)V
+
+    .line 281
+    invoke-virtual/range {p1 .. p1}, Ljava/io/File;->exists()Z
 
     move-result v0
 
-    if-eqz v0, :cond_344
+    if-eqz v0, :cond_3a0
 
-    .line 222
-    invoke-virtual {v3}, Ljava/io/File;->delete()Z
+    .line 282
+    invoke-virtual/range {p1 .. p1}, Ljava/io/File;->delete()Z
 
-    .line 224
-    :cond_344
+    .line 284
+    :cond_3a0
     invoke-virtual/range {p0 .. p0}, Ljava/io/File;->exists()Z
 
     move-result v0
 
-    if-eqz v0, :cond_34d
+    if-eqz v0, :cond_3a9
 
-    .line 225
+    .line 285
     invoke-virtual/range {p0 .. p0}, Ljava/io/File;->delete()Z
+    :try_end_3a9
+    .catchall {:try_start_38b .. :try_end_3a9} :catchall_3b2
 
-    .line 227
-    :cond_34d
+    .line 287
+    :cond_3a9
     move-object/from16 v0, p0
 
+    move-object/from16 v1, p3
+
+    :try_start_3ad
     invoke-virtual {v1, v0}, Ljava/io/File;->renameTo(Ljava/io/File;)Z
 
     move-result v0
-    :try_end_353
-    .catchall {:try_start_338 .. :try_end_353} :catchall_379
+    :try_end_3b1
+    .catchall {:try_start_3ad .. :try_end_3b1} :catchall_3e6
 
     return v0
 
-    .line 229
-    :catchall_354
+    .line 289
+    :catchall_3b2
     move-exception v0
 
-    move-object/from16 v1, v17
+    move-object/from16 v1, p3
 
-    goto :goto_37d
+    goto :goto_3ec
 
-    .line 163
-    :catchall_358
+    .line 154
+    :catchall_3b6
     move-exception v0
 
-    move-object/from16 v1, v17
+    move-object/from16 v1, p3
 
-    move-object v2, v0
+    goto :goto_3db
 
-    :goto_35c
-    :try_start_35c
-    invoke-virtual {v7}, Ljava/util/zip/ZipOutputStream;->close()V
-    :try_end_35f
-    .catchall {:try_start_35c .. :try_end_35f} :catchall_360
-
-    goto :goto_365
-
-    :catchall_360
+    .line 174
+    :catchall_3ba
     move-exception v0
 
-    move-object v4, v0
+    :goto_3bb
+    move-object/from16 v1, p3
 
-    :try_start_362
-    invoke-static {v2, v4}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
+    goto :goto_3c3
 
-    :goto_365
-    throw v2
-    :try_end_366
-    .catchall {:try_start_362 .. :try_end_366} :catchall_366
-
-    .line 105
-    :catchall_366
+    :catchall_3be
     move-exception v0
 
-    goto :goto_36e
+    move-object/from16 v1, p3
 
-    :catchall_368
-    move-exception v0
+    move-object/from16 v2, v21
 
-    move-object/from16 v1, v17
+    :goto_3c3
+    move-object v3, v0
 
-    goto :goto_36e
+    :goto_3c4
+    :try_start_3c4
+    invoke-virtual {v4}, Ljava/util/zip/ZipOutputStream;->close()V
+    :try_end_3c7
+    .catchall {:try_start_3c4 .. :try_end_3c7} :catchall_3c8
 
-    :catchall_36c
-    move-exception v0
+    goto :goto_3cd
 
-    move-object v1, v4
-
-    :goto_36e
-    move-object v2, v0
-
-    :goto_36f
-    :try_start_36f
-    invoke-virtual {v12}, Ljava/util/zip/ZipFile;->close()V
-    :try_end_372
-    .catchall {:try_start_36f .. :try_end_372} :catchall_373
-
-    goto :goto_378
-
-    :catchall_373
+    :catchall_3c8
     move-exception v0
 
     move-object v4, v0
 
-    :try_start_375
-    invoke-static {v2, v4}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
+    :try_start_3ca
+    invoke-static {v3, v4}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
 
-    :goto_378
-    throw v2
-    :try_end_379
-    .catchall {:try_start_375 .. :try_end_379} :catchall_379
+    :goto_3cd
+    throw v3
+    :try_end_3ce
+    .catchall {:try_start_3ca .. :try_end_3ce} :catchall_3ce
 
-    .line 229
-    :catchall_379
+    .line 154
+    :catchall_3ce
     move-exception v0
 
-    goto :goto_37d
+    goto :goto_3db
 
-    :catchall_37b
+    :catchall_3d0
     move-exception v0
 
-    move-object v1, v4
+    move-object/from16 v1, p3
 
-    .line 230
-    :goto_37d
-    invoke-virtual {v3}, Ljava/io/File;->exists()Z
+    move-object/from16 p1, v12
+
+    goto :goto_3da
+
+    :catchall_3d6
+    move-exception v0
+
+    move-object/from16 p1, v12
+
+    move-object v1, v13
+
+    :goto_3da
+    move-object v2, v15
+
+    :goto_3db
+    move-object v3, v0
+
+    :goto_3dc
+    :try_start_3dc
+    invoke-virtual {v2}, Ljava/util/zip/ZipFile;->close()V
+    :try_end_3df
+    .catchall {:try_start_3dc .. :try_end_3df} :catchall_3e0
+
+    goto :goto_3e5
+
+    :catchall_3e0
+    move-exception v0
+
+    move-object v2, v0
+
+    :try_start_3e2
+    invoke-static {v3, v2}, Lcom/dex2c/plus/engine/ApkSignerHelper$$ExternalSyntheticBackport0;->m(Ljava/lang/Throwable;Ljava/lang/Throwable;)V
+
+    :goto_3e5
+    throw v3
+    :try_end_3e6
+    .catchall {:try_start_3e2 .. :try_end_3e6} :catchall_3e6
+
+    .line 289
+    :catchall_3e6
+    move-exception v0
+
+    goto :goto_3ec
+
+    :catchall_3e8
+    move-exception v0
+
+    move-object/from16 p1, v12
+
+    move-object v1, v13
+
+    .line 290
+    :goto_3ec
+    invoke-virtual/range {p1 .. p1}, Ljava/io/File;->exists()Z
 
     move-result v0
 
-    if-eqz v0, :cond_386
+    if-eqz v0, :cond_3f5
 
-    .line 231
-    invoke-virtual {v3}, Ljava/io/File;->delete()Z
+    .line 291
+    invoke-virtual/range {p1 .. p1}, Ljava/io/File;->delete()Z
 
-    .line 233
-    :cond_386
+    .line 293
+    :cond_3f5
     invoke-virtual {v1}, Ljava/io/File;->exists()Z
 
     move-result v0
 
-    if-eqz v0, :cond_38f
+    if-eqz v0, :cond_3fe
 
-    .line 234
+    .line 294
     invoke-virtual {v1}, Ljava/io/File;->delete()Z
 
-    .line 236
-    :cond_38f
+    .line 296
+    :cond_3fe
     const/4 v1, 0x0
 
     return v1
 
-    .line 79
-    :cond_391
+    .line 129
+    :cond_400
     const/4 v1, 0x0
 
-    .line 80
-    :goto_392
+    .line 130
+    :goto_401
     return v1
 .end method

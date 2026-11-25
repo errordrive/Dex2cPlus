@@ -1,8 +1,10 @@
 package com.dex2c.plus.engine;
 
+import com.dex2c.plus.model.ProjectState;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -29,7 +31,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
@@ -37,47 +38,102 @@ import java.util.zip.ZipOutputStream;
 public final class ApkSignerHelper {
 
     private static final String KEY_B64 =
-            "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC5+KuKKqeY6T67oypPYJKH8cCAsS5vNgVU"
-            + "yng7r5wQ99arRwNuqa2UM2nJ7WU1n1TcOUE31iCE51sVG0VsAax0KHVZYe9cqcufL03x8OFHTUtY8C+TGzci"
-            + "aNh0lyGodF1IN2k00k8ZsO3RT52isNrOr8n2+b8pztljHynNBAKJ4fyS3swrFDW4nYI/HQAN2wXyoBle898A"
-            + "teVht6lj3V4wHuHyRCNt2amRaPZM/aRIQdRjiZaBYWysah5uYaA/dkoLAjiv7t7ak0LMDKErHZwfT0PxSZCq"
-            + "Ig6oKhtp5z7BB2mG6IEbumM28rLi+wrEh7Wh+uUrzX0FRTuXNFL9iEW5AgMBAAECggEAEJrC2jHHyA/fUYqW"
-            + "fwLc4nVz3imzvytAG5t+U7nwwdUXHjDXfhx5SpeylNx04m5I+ebEy3L7cVJk4AQQ1T1rA+4O2D21zPy+GQb0"
-            + "uyrqOl8M4LKFVOmjqRdaaEKMN0m4gHeuFZDHjkAtY7hrlziaOMUaT8ppxpZY85A3P75haaUUVYB1SjEv21A0"
-            + "praLJ49O7TZw50eN5n6b7DOcJj0XxahpZ9UljANG1FM9NYPEtpU2Wq0M6XpwG/GSbX6gV70/GH3RCmzp+sYv"
-            + "Z85G3c6X2ZW6UoQvuINnHPFDN2hmpNG2u6MLo0RM1WlZn8H3IDTqSWeIYby/AKBn4HHDrVJV9wKBgQDiwhTN"
-            + "ViOgjAO92Zl2KxukDI64RxnEZXAQ4GcXZEC6kS5SU52ckjU09qhlO5ZP3rrueHBQe3OikzEEnSy4SgSJLnh4"
-            + "XWe7TxFjpUCeLLnQFHhu9UTSMaMXFSvMcI2ei6UpXONb1Kq5da0xxU7Mea+TF24wYMMUZXoFirx0Rx0i/wKB"
-            + "gQDR9Bqc6fZgm/ZSGsf9jgdDbSDW8dBL0pJZ/jfQi4MWx8WTCxpnC45ICo0M2JL1uRau+VJMDzA9tjAufGVd"
-            + "oPtrFIqPKMVgagKH7/iKhqCfscijqwmy/+UpCiwhDS9y9kJxR4nvYu6r7uTna1iZdW6+JOI+65WstDT5rlXI"
-            + "qLlvRwKBgGYgGtZP0UPhS14Zvm/mAlDkBvMfso8tUEeJiWSTlkNwV3hkiDuX7bao0Danm47lNTNpssvMjcvO"
-            + "lukJELb/PwO5ljA/gRRvC9ng9zVF13nLfmIavKAeEuG2ez9cAaxCIGR8nTkikrFsOlCMGG0m8NhCWTIYokNx"
-            + "YH9WeIG19X1pAoGAWcO4LSaKxDtqUShKIUo8KMPbqoqwt/pLwFZEntFHNtIq0veITk5Ogtaf/8II8y4zWJQY"
-            + "b5R+16Oxbe6ZmDJfzCR4KUURPmuUsXIUHYX53s0wL2nNN87Yt3c17tuoUcqgFba0brkpujDlhVwMAXCH7Jvw"
-            + "b15iG/jgPXAgFS6uObkCgYAzpINGjchb06jU0JymKBqo/8+S55DGLib63FBunMTLU/LJ448q5yhE/OpJQzwF"
-            + "5+CqCbZpJ9s6ZIJlFQviRxBnQL1DSd7I7wSTjkk9DVd0UMi3cE+lS2S89jULz+7wBZX0FAexWWPiBVW4Dhil"
-            + "4T25842O97xr+rNrzzT7tohrIg==";
+            "MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDS30WBQ+vTRrrzAvvik5V7tnL+477pXPx+g6BrZzOIOIa+WD+8sWdglva4KuQbBzRAHFkzjt4XyYBl9UKjghJP01nuooQ+2R51VgOcBr8kjRPahIw8f95AYbFlpnDhcPbj6j4BxPek6p5/49rMaoshMnfzDDHBFQ/8eXAOuJGbzec1O+JwlS5FDyetwwtUn9zjwHrzjd4Ds8mXSQfsw5uU+BLhndYj1WsnDPNyln5MPAKFZkO1BlFITxP13JSUMGSC1D2ZX9alsz6b5Zxjbp/NWnDgN4AmmFm61i8mTvvSgC/Z8r5rRT5lplMl96nlw3ZjFAk5NG7WV7u2wojvd0JdAgMBAAECggEBAJV5THRnp+dYULZnXBLsmF5cIsGIwE/86MHpHbJkMgQSRXjxZySi/+tYt0Quqwh5n9D+B0DjuYxU+h3Lr1PlpINPBoWAT4uZLdzwfph/s8f99J/Fqv5LiUhLt4qdY5B6GZfO9+sbKouM/5MZ+YNC1qJOevYeo7oA6xcFIahdrmEoVprtbZjB4wRimbpDqdAktePxXOfsGe8vCXYflt/kV+VwjZmnnggwh3t6rm2A5LutVz0Zb3e1rALyX3J2lo/JpFZ1wNW5vXa0ba8u963DAzoq2fFS3Ag+rP5Bt34KJ4a3GPaGAGQUuzrucNQxDhuRz1BDrvpqZc1DTC5onK+j6uUCgYEA63+xyyGJiWvJYERJgUcP3wcBKKCPMRkqr6XFzRsoWG/dvEgrOMlWX560M5M8klb71512rEePlEcFLu1tW6zFCnIzYTAC5w4QUxoW5cGtsY8gxphL+enjXwixkq8QoMUlWMlwu6VR1NkuBxJjpUkCGDfoKvx9YFIVaEy9rG6uXd8CgYEA5Tq/5nX4cLuBfgx2fc3Br+HVFCUx/fGtdoRVi8YhyneURgWkztRoFtiWU6FN7dm9pDMl2jM3AMLk77EKOMwVyU22zZGPfA7PxPvcTyAtMEbjPXcrgHHe0LXMV4+sq+O0/G3e2D8kRL6aRwwW+9/ZQ08cupZ86uLiB308aKT/b0MCgYB3PhEoabLagllVBT6y1uiSZVmQ2LuogLW8epPNZxLmtL3xuBkqh8fUYuebtdHVx3V9l52fXhy1V8CoIlBdOv4KbAjYDRdrJxPdADjX3Vm1rmNKK5NM18DpPd2sCDjDLw/aBSWv3eWxgMZtjkImTvFgke5c1bwmKWnthe4EgYaIwQKBgCTZL9X1Ks28ZpGDoVyRwcvrKpyFaibfPboqhbHlVLM+S7iB2b9hx6W8hVXGPUe509FcY35S80mNCs45EGKW8/2bH4KmHoGbw+xvbDfP/VOgYZEU4gpQw7ebMdD1iJVNEl/trX/njoX6ecRn/h3ZGwzF3+FipYwAksMPb7GGrIUPAoGAF/wYSoZSADP/mCaRhjvKEBr0+f8brCtmQhn7bCDLeaHnT9M5r2R/jzO30dCRSMxxepRb1e/N5IVAyIB3dKKo68mPn8SRL4DHbxzz4XoDebi5++4u8mwcsJXsddZZ0hWFQAxt6/P8Oodk2AnAySF1OZ0bE4hWiZRpQHjlG238G9s=";
 
     private static final String CERT_B64 =
-            "MIICzDCCAbSgAwIBAgICA+kwDQYJKoZIhvcNAQELBQAwKTETMBEGA1UEAwwKRGV4MmMgUGx1czESMBAGA1UE"
-            + "CgwJRGV4MmNQbHVzMB4XDTI0MDEwMTAwMDAwMFoXDTQ5MDEwMTAwMDAwMFowKTETMBEGA1UEAwwKRGV4MmMg"
-            + "UGx1czESMBAGA1UECgwJRGV4MmNQbHVzMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAufiriiqn"
-            + "mOk+u6MqT2CSh/HAgLEubzYFVMp4O6+cEPfWq0cDbqmtlDNpye1lNZ9U3DlBN9YghOdbFRtFbAGsdCh1WWHv"
-            + "XKnLny9N8fDhR01LWPAvkxs3ImjYdJchqHRdSDdpNNJPGbDt0U+dorDazq/J9vm/Kc7ZYx8pzQQCieH8kt7M"
-            + "KxQ1uJ2CPx0ADdsF8qAZXvPfALXlYbepY91eMB7h8kQjbdmpkWj2TP2kSEHUY4mWgWFsrGoebmGgP3ZKCwI4"
-            + "r+7e2pNCzAyhKx2cH09D8UmQqiIOqCobaec+wQdphuiBG7pjNvKy4vsKxIe1ofrlK819BUU7lzRS/YhFuQID"
-            + "AQABMA0GCSqGSIb3DQEBCwUAA4IBAQCQyT4Oaje8UjZPy3Dm+ohm+SgZG/X1qpFOqF+waiobs2ACk2DJtepF"
-            + "6oQAyLrQ/a/6D761wvYLzgnmqDLUlpjPv20xZM8FDlgsBWDB7+PQJzOfT127NB1WpjSCTs0om8RHlMyN8vMJ"
-            + "oesIVm2RGH7VyUp9AyXrv98N5/oqQeBAZPsYKFFJrV2iUq6lfcAWYsYvf6icgB1ZENsTj06GLr0XXeXtQ6cX"
-            + "Fck5DzQatucF30s5Z55igqOqvQUlebO2xrsgzDFxX7AU2NC7hcT0S9BaDd4f2jYD62pmxBESEQSPuVIeXOHt"
-            + "8KYFvu2bVpV2Iz2r/hHULW5NzvQB4pN97mmY";
+            "MIICyDCCAbCgAwIBAgIENiws+DANBgkqhkiG9w0BAQsFADAlMQswCQYDVQQGEwJCRDEWMBQGA1UEAxMNTmF5ZW0gSG9zc2FpbjAgFw0yNTAyMjAxNjAxMjVaGA8yMTI1MDEyNzE2MDEyNVowJTELMAkGA1UEBhMCQkQxFjAUBgNVBAMTDU5heWVtIEhvc3NhaW4wggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDS30WBQ+vTRrrzAvvik5V7tnL+477pXPx+g6BrZzOIOIa+WD+8sWdglva4KuQbBzRAHFkzjt4XyYBl9UKjghJP01nuooQ+2R51VgOcBr8kjRPahIw8f95AYbFlpnDhcPbj6j4BxPek6p5/49rMaoshMnfzDDHBFQ/8eXAOuJGbzec1O+JwlS5FDyetwwtUn9zjwHrzjd4Ds8mXSQfsw5uU+BLhndYj1WsnDPNyln5MPAKFZkO1BlFITxP13JSUMGSC1D2ZX9alsz6b5Zxjbp/NWnDgN4AmmFm61i8mTvvSgC/Z8r5rRT5lplMl96nlw3ZjFAk5NG7WV7u2wojvd0JdAgMBAAEwDQYJKoZIhvcNAQELBQADggEBAI6U/sw5Te1J14jM02aIkYqP7h6jkhMuyjexkimZUGBl/pNqFEVrlqRtiQ7HN/k4o7UigAd1Z9XleKS1UIo9XI6cPdgJx3FtO+z0t0knnBTfXKVWYuuUz57gOEbYvhBa+10DHlvTELhuLQxWIlTjssFTkIOCoj8aCS0xJBCNxd9hW2UKha4VygA8gACHEt2VbMJbrJ5R1rUYi5lx0F3R+vkioRFkwky68S7r9SjgjBXlHWihTxnQUQBkAMTfx3QD1FABAT48uYxgg9hG16RC71eLSpypeV4fm2KXcJCfF5CsI1KJZHSAbXQDL81RtwFi1dlEd2NXS5tbusyuymMCcbQ=";
+
+    public static class SigningCredentials {
+        public PrivateKey privateKey;
+        public X509Certificate cert;
+        public byte[] certDer;
+        public byte[] pubKeyDer;
+    }
 
     private ApkSignerHelper() {
     }
 
+    public static SigningCredentials loadSigningCredentials(String customKeyPath) {
+        File keyFile = null;
+        if (customKeyPath != null && !customKeyPath.trim().isEmpty()) {
+            File f = new File(customKeyPath.trim());
+            if (f.exists() && f.isFile()) {
+                keyFile = f;
+            }
+        }
+        if (keyFile == null) {
+            File defMt = new File("/storage/emulated/0/MT2/keys/signature.key");
+            if (defMt.exists() && defMt.isFile()) {
+                keyFile = defMt;
+            }
+        }
+
+        if (keyFile != null) {
+            try (DataInputStream dis = new DataInputStream(new FileInputStream(keyFile))) {
+                int magic = dis.readInt();
+                if (magic == 0xacd223ab) {
+                    int certLen = dis.readInt();
+                    byte[] certPemBytes = new byte[certLen];
+                    dis.readFully(certPemBytes);
+                    CertificateFactory cf = CertificateFactory.getInstance("X.509");
+                    X509Certificate cert = (X509Certificate) cf.generateCertificate(new ByteArrayInputStream(certPemBytes));
+                    int keyLen = dis.readInt();
+                    byte[] keyBytes = new byte[keyLen];
+                    dis.readFully(keyBytes);
+                    PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
+                    KeyFactory kf = KeyFactory.getInstance("RSA");
+                    PrivateKey priv = kf.generatePrivate(spec);
+
+                    SigningCredentials creds = new SigningCredentials();
+                    creds.privateKey = priv;
+                    creds.cert = cert;
+                    creds.certDer = cert.getEncoded();
+                    creds.pubKeyDer = cert.getPublicKey().getEncoded();
+                    return creds;
+                }
+            } catch (Throwable ignored) {
+            }
+        }
+
+        try {
+            byte[] keyBytes = base64Decode(KEY_B64);
+            byte[] certBytes = base64Decode(CERT_B64);
+            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
+            KeyFactory kf = KeyFactory.getInstance("RSA");
+            PrivateKey privateKey = kf.generatePrivate(keySpec);
+
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            X509Certificate cert = (X509Certificate) cf.generateCertificate(new ByteArrayInputStream(certBytes));
+
+            SigningCredentials creds = new SigningCredentials();
+            creds.privateKey = privateKey;
+            creds.cert = cert;
+            creds.certDer = cert.getEncoded();
+            creds.pubKeyDer = cert.getPublicKey().getEncoded();
+            return creds;
+        } catch (Throwable t) {
+            throw new RuntimeException("Failed to initialize built-in stealth signing credentials", t);
+        }
+    }
+
     public static boolean signApk(File apkFile) {
+        ProjectState state = ProjectState.get();
+        boolean s1 = (state != null) ? state.signV1 : true;
+        boolean s2 = (state != null) ? state.signV2 : true;
+        boolean s3 = (state != null) ? state.signV3 : true;
+        String keyPath = (state != null) ? state.customKeyPath : "/storage/emulated/0/MT2/keys/signature.key";
+        return signApk(apkFile, s1, s2, s3, keyPath);
+    }
+
+    public static boolean signApk(File apkFile, boolean signV1, boolean signV2, boolean signV3, String customKeyPath) {
         if (apkFile == null || !apkFile.exists() || apkFile.length() < 22) {
             return false;
+        }
+
+        if (!signV1 && !signV2 && !signV3) {
+            signV1 = true;
+            signV2 = true;
+            signV3 = true;
         }
 
         File parentDir = apkFile.getParentFile();
@@ -85,19 +141,12 @@ public final class ApkSignerHelper {
         File v2SignedFile = new File(parentDir, apkFile.getName() + ".v2." + System.currentTimeMillis());
 
         try {
-            byte[] keyBytes = base64Decode(KEY_B64);
-            byte[] certBytes = base64Decode(CERT_B64);
+            SigningCredentials creds = loadSigningCredentials(customKeyPath);
+            PrivateKey privateKey = creds.privateKey;
+            X509Certificate cert = creds.cert;
+            byte[] certDer = creds.certDer;
+            byte[] pubKeyDer = creds.pubKeyDer;
 
-            PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
-            KeyFactory kf = KeyFactory.getInstance("RSA");
-            PrivateKey privateKey = kf.generatePrivate(keySpec);
-
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
-            X509Certificate cert = (X509Certificate) cf.generateCertificate(new ByteArrayInputStream(certBytes));
-            byte[] certDer = cert.getEncoded();
-            byte[] pubKeyDer = cert.getPublicKey().getEncoded();
-
-            // 1. Calculate SHA-256 for all non-META-INF signature entries
             Map<String, String> entryDigests = new TreeMap<>();
             MessageDigest sha256 = MessageDigest.getInstance("SHA-256");
             byte[] buffer = new byte[65536];
@@ -120,61 +169,73 @@ public final class ApkSignerHelper {
                     entryDigests.put(name, base64Encode(sha256.digest()));
                 }
 
-                // 2. Generate MANIFEST.MF
-                StringBuilder manifestSb = new StringBuilder();
-                manifestSb.append("Manifest-Version: 1.0\r\nCreated-By: 1.0 (Dex2c Plus)\r\n\r\n");
-
-                Map<String, String> manifestSections = new HashMap<>();
-                for (Map.Entry<String, String> entry : entryDigests.entrySet()) {
-                    String sec = "Name: " + entry.getKey() + "\r\nSHA-256-Digest: " + entry.getValue() + "\r\n\r\n";
-                    manifestSb.append(sec);
-                    manifestSections.put(entry.getKey(), sec);
-                }
-                byte[] manifestBytes = manifestSb.toString().getBytes(StandardCharsets.UTF_8);
-
-                // 3. Generate CERT.SF
-                sha256.reset();
-                byte[] mfDigest = sha256.digest(manifestBytes);
-                String mfDigestB64 = base64Encode(mfDigest);
-
-                StringBuilder sfSb = new StringBuilder();
-                sfSb.append("Signature-Version: 1.0\r\nCreated-By: 1.0 (Dex2c Plus)\r\nSHA-256-Digest-Manifest: ")
-                        .append(mfDigestB64)
-                        .append("\r\nX-Android-APK-Signed: 2\r\n\r\n");
-
-                for (Map.Entry<String, String> entry : entryDigests.entrySet()) {
-                    String sec = manifestSections.get(entry.getKey());
-                    sha256.reset();
-                    byte[] secDigest = sha256.digest(sec.getBytes(StandardCharsets.UTF_8));
-                    String secB64 = base64Encode(secDigest);
-                    sfSb.append("Name: ").append(entry.getKey()).append("\r\nSHA-256-Digest: ").append(secB64).append("\r\n\r\n");
-                }
-                byte[] sfBytes = sfSb.toString().getBytes(StandardCharsets.UTF_8);
-
-                // 4. Generate CERT.RSA
-                Signature rsaSigner = Signature.getInstance("SHA256withRSA");
-                rsaSigner.initSign(privateKey);
-                rsaSigner.update(sfBytes);
-                byte[] v1Signature = rsaSigner.sign();
-                byte[] pkcs7Der = createPkcs7SignedData(cert, certDer, v1Signature);
-
-                // 5. Re-write ZIP with v1 signature entries at beginning
-                FastZipModifier.CountingOutputStream cos = new FastZipModifier.CountingOutputStream(new BufferedOutputStream(new FileOutputStream(v1SignedFile), 65536));
+                FastZipModifier.CountingOutputStream cos = new FastZipModifier.CountingOutputStream(
+                        new BufferedOutputStream(new FileOutputStream(v1SignedFile), 65536));
                 try (ZipOutputStream zos = new ZipOutputStream(cos)) {
-                    ZipEntry zeMf = new ZipEntry("META-INF/MANIFEST.MF");
-                    zos.putNextEntry(zeMf);
-                    zos.write(manifestBytes);
-                    zos.closeEntry();
+                    if (signV1) {
+                        // 1. Generate MANIFEST.MF with zero Dex2c Plus traces
+                        StringBuilder manifestSb = new StringBuilder();
+                        manifestSb.append("Manifest-Version: 1.0\r\nCreated-By: 1.0 (Android SignApk)\r\n\r\n");
 
-                    ZipEntry zeSf = new ZipEntry("META-INF/CERT.SF");
-                    zos.putNextEntry(zeSf);
-                    zos.write(sfBytes);
-                    zos.closeEntry();
+                        Map<String, String> manifestSections = new HashMap<>();
+                        for (Map.Entry<String, String> entry : entryDigests.entrySet()) {
+                            String sec = "Name: " + entry.getKey() + "\r\nSHA-256-Digest: " + entry.getValue() + "\r\n\r\n";
+                            manifestSb.append(sec);
+                            manifestSections.put(entry.getKey(), sec);
+                        }
+                        byte[] manifestBytes = manifestSb.toString().getBytes(StandardCharsets.UTF_8);
 
-                    ZipEntry zeRsa = new ZipEntry("META-INF/CERT.RSA");
-                    zos.putNextEntry(zeRsa);
-                    zos.write(pkcs7Der);
-                    zos.closeEntry();
+                        // 2. Generate CERT.SF
+                        sha256.reset();
+                        byte[] mfDigest = sha256.digest(manifestBytes);
+                        String mfDigestB64 = base64Encode(mfDigest);
+
+                        StringBuilder sfSb = new StringBuilder();
+                        sfSb.append("Signature-Version: 1.0\r\nCreated-By: 1.0 (Android SignApk)\r\nSHA-256-Digest-Manifest: ")
+                                .append(mfDigestB64)
+                                .append("\r\n");
+
+                        if (signV2 && signV3) {
+                            sfSb.append("X-Android-APK-Signed: 2, 3\r\n\r\n");
+                        } else if (signV2) {
+                            sfSb.append("X-Android-APK-Signed: 2\r\n\r\n");
+                        } else if (signV3) {
+                            sfSb.append("X-Android-APK-Signed: 3\r\n\r\n");
+                        } else {
+                            sfSb.append("\r\n");
+                        }
+
+                        for (Map.Entry<String, String> entry : entryDigests.entrySet()) {
+                            String sec = manifestSections.get(entry.getKey());
+                            sha256.reset();
+                            byte[] secDigest = sha256.digest(sec.getBytes(StandardCharsets.UTF_8));
+                            String secB64 = base64Encode(secDigest);
+                            sfSb.append("Name: ").append(entry.getKey()).append("\r\nSHA-256-Digest: ").append(secB64).append("\r\n\r\n");
+                        }
+                        byte[] sfBytes = sfSb.toString().getBytes(StandardCharsets.UTF_8);
+
+                        // 3. Generate CERT.RSA
+                        Signature rsaSigner = Signature.getInstance("SHA256withRSA");
+                        rsaSigner.initSign(privateKey);
+                        rsaSigner.update(sfBytes);
+                        byte[] v1Signature = rsaSigner.sign();
+                        byte[] pkcs7Der = createPkcs7SignedData(cert, certDer, v1Signature);
+
+                        ZipEntry zeMf = new ZipEntry("META-INF/MANIFEST.MF");
+                        zos.putNextEntry(zeMf);
+                        zos.write(manifestBytes);
+                        zos.closeEntry();
+
+                        ZipEntry zeSf = new ZipEntry("META-INF/CERT.SF");
+                        zos.putNextEntry(zeSf);
+                        zos.write(sfBytes);
+                        zos.closeEntry();
+
+                        ZipEntry zeRsa = new ZipEntry("META-INF/CERT.RSA");
+                        zos.putNextEntry(zeRsa);
+                        zos.write(pkcs7Der);
+                        zos.closeEntry();
+                    }
 
                     en = zipFile.entries();
                     while (en.hasMoreElements()) {
@@ -215,8 +276,7 @@ public final class ApkSignerHelper {
                 }
             }
 
-            // 6. Apply APK Signature Scheme v2
-            applyApkSigningBlockV2(v1SignedFile, v2SignedFile, privateKey, certDer, pubKeyDer);
+            applyApkSigningBlock(v1SignedFile, v2SignedFile, privateKey, certDer, pubKeyDer, signV2, signV3);
 
             if (v1SignedFile.exists()) {
                 v1SignedFile.delete();
@@ -250,7 +310,18 @@ public final class ApkSignerHelper {
                 || upper.startsWith("META-INF/SIG-");
     }
 
-    private static void applyApkSigningBlockV2(File srcZip, File destApk, PrivateKey privateKey, byte[] certDer, byte[] pubKeyDer) throws Exception {
+    private static void applyApkSigningBlock(File srcZip, File destApk, PrivateKey privateKey, byte[] certDer, byte[] pubKeyDer, boolean signV2, boolean signV3) throws Exception {
+        if (!signV2 && !signV3) {
+            try (InputStream in = new FileInputStream(srcZip); OutputStream out = new FileOutputStream(destApk)) {
+                byte[] buf = new byte[65536];
+                int r;
+                while ((r = in.read(buf)) != -1) {
+                    out.write(buf, 0, r);
+                }
+            }
+            return;
+        }
+
         long fileLen = srcZip.length();
         if (fileLen < 22) {
             throw new IllegalStateException("ZIP too small");
@@ -315,43 +386,83 @@ public final class ApkSignerHelper {
         attrsBuf.putInt(0);
         byte[] attrsSeq = attrsBuf.array();
 
-        byte[] v2SignedData = concat(digestsSeq, certsSeq, attrsSeq);
-        byte[] v2SignedDataPrefixed = prefixLength(v2SignedData);
-
-        Signature rsa = Signature.getInstance("SHA256withRSA");
-        rsa.initSign(privateKey);
-        rsa.update(v2SignedData);
-        byte[] v2Sig = rsa.sign();
-
-        ByteBuffer sigInner = ByteBuffer.allocate(4 + 4 + v2Sig.length).order(ByteOrder.LITTLE_ENDIAN);
-        sigInner.putInt(0x0103);
-        sigInner.putInt(v2Sig.length);
-        sigInner.put(v2Sig);
-        byte[] sigEntry = prefixLength(sigInner.array());
-        byte[] sigsSeq = prefixLength(sigEntry);
-
         byte[] pubKeySeq = prefixLength(pubKeyDer);
 
-        byte[] signer = concat(v2SignedDataPrefixed, sigsSeq, pubKeySeq);
-        byte[] signerPrefixed = prefixLength(signer);
-        byte[] signersSeq = prefixLength(signerPrefixed);
+        Signature rsa = Signature.getInstance("SHA256withRSA");
+        ByteArrayOutputStream pairsBaos = new ByteArrayOutputStream();
 
-        ByteBuffer pairIdBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
-        pairIdBuf.putInt(0x7109871a);
-        byte[] v2Pair = concat(pairIdBuf.array(), signersSeq);
+        // 1. APK Signature Scheme v2 (ID: 0x7109871a)
+        if (signV2) {
+            byte[] v2SignedData = concat(digestsSeq, certsSeq, attrsSeq);
+            byte[] v2SignedDataPrefixed = prefixLength(v2SignedData);
 
-        ByteBuffer pairLenBuf = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
-        pairLenBuf.putLong(v2Pair.length);
-        byte[] v2PairPrefixed = concat(pairLenBuf.array(), v2Pair);
+            rsa.initSign(privateKey);
+            rsa.update(v2SignedData);
+            byte[] v2Sig = rsa.sign();
 
-        long blockContentSize = v2PairPrefixed.length + 8 + 16;
+            ByteBuffer sigInner = ByteBuffer.allocate(4 + 4 + v2Sig.length).order(ByteOrder.LITTLE_ENDIAN);
+            sigInner.putInt(0x0103);
+            sigInner.putInt(v2Sig.length);
+            sigInner.put(v2Sig);
+            byte[] sigEntry = prefixLength(sigInner.array());
+            byte[] sigsSeq = prefixLength(sigEntry);
+
+            byte[] signer = concat(v2SignedDataPrefixed, sigsSeq, pubKeySeq);
+            byte[] signerPrefixed = prefixLength(signer);
+            byte[] signersSeq = prefixLength(signerPrefixed);
+
+            ByteBuffer pairIdBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
+            pairIdBuf.putInt(0x7109871a);
+            byte[] v2Pair = concat(pairIdBuf.array(), signersSeq);
+
+            ByteBuffer pairLenBuf = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
+            pairLenBuf.putLong(v2Pair.length);
+            pairsBaos.write(concat(pairLenBuf.array(), v2Pair));
+        }
+
+        // 2. APK Signature Scheme v3 (ID: 0xf05368c0)
+        if (signV3) {
+            ByteBuffer sdkBuf = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
+            sdkBuf.putInt(24);          // minSdkVersion (Android 7.0+)
+            sdkBuf.putInt(0x7fffffff);  // maxSdkVersion
+            byte[] sdkBytes = sdkBuf.array();
+
+            byte[] v3SignedData = concat(digestsSeq, certsSeq, sdkBytes, attrsSeq);
+            byte[] v3SignedDataPrefixed = prefixLength(v3SignedData);
+
+            rsa.initSign(privateKey);
+            rsa.update(v3SignedData);
+            byte[] v3Sig = rsa.sign();
+
+            ByteBuffer sigInner = ByteBuffer.allocate(4 + 4 + v3Sig.length).order(ByteOrder.LITTLE_ENDIAN);
+            sigInner.putInt(0x0103);
+            sigInner.putInt(v3Sig.length);
+            sigInner.put(v3Sig);
+            byte[] sigEntry = prefixLength(sigInner.array());
+            byte[] sigsSeq = prefixLength(sigEntry);
+
+            byte[] v3Signer = concat(v3SignedDataPrefixed, sdkBytes, sigsSeq, pubKeySeq);
+            byte[] v3SignerPrefixed = prefixLength(v3Signer);
+            byte[] v3SignersSeq = prefixLength(v3SignerPrefixed);
+
+            ByteBuffer pairIdBuf = ByteBuffer.allocate(4).order(ByteOrder.LITTLE_ENDIAN);
+            pairIdBuf.putInt(0xf05368c0);
+            byte[] v3Pair = concat(pairIdBuf.array(), v3SignersSeq);
+
+            ByteBuffer pairLenBuf = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
+            pairLenBuf.putLong(v3Pair.length);
+            pairsBaos.write(concat(pairLenBuf.array(), v3Pair));
+        }
+
+        byte[] signingPairs = pairsBaos.toByteArray();
+        long blockContentSize = signingPairs.length + 8 + 16;
         long fullBlockSize = 8 + blockContentSize;
 
         ByteBuffer blockContentSizeBuf = ByteBuffer.allocate(8).order(ByteOrder.LITTLE_ENDIAN);
         blockContentSizeBuf.putLong(blockContentSize);
 
         byte[] magic = "APK Sig Block 42".getBytes(StandardCharsets.US_ASCII);
-        byte[] apkSigningBlock = concat(blockContentSizeBuf.array(), v2PairPrefixed, blockContentSizeBuf.array(), magic);
+        byte[] apkSigningBlock = concat(blockContentSizeBuf.array(), signingPairs, blockContentSizeBuf.array(), magic);
 
         eocdMod.putInt(16, (int) (cdOffset + fullBlockSize));
 

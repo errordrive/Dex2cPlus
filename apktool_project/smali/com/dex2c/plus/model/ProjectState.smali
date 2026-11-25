@@ -124,6 +124,16 @@
 
 .field public typeSynthetic:Z
 
+.field public customKeyPath:Ljava/lang/String;
+
+.field public remoteControlUrl:Ljava/lang/String;
+
+.field public signV1:Z
+
+.field public signV2:Z
+
+.field public signV3:Z
+
 .field public typeVarargs:Z
 
 .field public typeVirtual:Z
@@ -248,6 +258,18 @@
 
     .line 82
     iput-boolean v1, p0, Lcom/dex2c/plus/model/ProjectState;->promptedNdkStartup:Z
+
+    iput-boolean v2, p0, Lcom/dex2c/plus/model/ProjectState;->signV1:Z
+
+    iput-boolean v2, p0, Lcom/dex2c/plus/model/ProjectState;->signV2:Z
+
+    iput-boolean v2, p0, Lcom/dex2c/plus/model/ProjectState;->signV3:Z
+
+    const-string v3, "/storage/emulated/0/MT2/keys/signature.key"
+
+    iput-object v3, p0, Lcom/dex2c/plus/model/ProjectState;->customKeyPath:Ljava/lang/String;
+
+    iput-object v0, p0, Lcom/dex2c/plus/model/ProjectState;->remoteControlUrl:Ljava/lang/String;
 
     return-void
 .end method
@@ -1524,9 +1546,53 @@
 
     invoke-interface {p1, v0, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
 
-    move-result p1
+    move-result v0
 
-    iput-boolean p1, p0, Lcom/dex2c/plus/model/ProjectState;->typeVarargs:Z
+    iput-boolean v0, p0, Lcom/dex2c/plus/model/ProjectState;->typeVarargs:Z
+
+    const-string v0, "opt_sign_v1"
+
+    invoke-interface {p1, v0, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
+
+    move-result v0
+
+    iput-boolean v0, p0, Lcom/dex2c/plus/model/ProjectState;->signV1:Z
+
+    const-string v0, "opt_sign_v2"
+
+    invoke-interface {p1, v0, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
+
+    move-result v0
+
+    iput-boolean v0, p0, Lcom/dex2c/plus/model/ProjectState;->signV2:Z
+
+    const-string v0, "opt_sign_v3"
+
+    invoke-interface {p1, v0, v1}, Landroid/content/SharedPreferences;->getBoolean(Ljava/lang/String;Z)Z
+
+    move-result v0
+
+    iput-boolean v0, p0, Lcom/dex2c/plus/model/ProjectState;->signV3:Z
+
+    const-string v0, "opt_custom_key_path"
+
+    const-string v2, "/storage/emulated/0/MT2/keys/signature.key"
+
+    invoke-interface {p1, v0, v2}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/dex2c/plus/model/ProjectState;->customKeyPath:Ljava/lang/String;
+
+    const-string v0, "opt_remote_control_url"
+
+    const-string v2, ""
+
+    invoke-interface {p1, v0, v2}, Landroid/content/SharedPreferences;->getString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+
+    move-result-object v0
+
+    iput-object v0, p0, Lcom/dex2c/plus/model/ProjectState;->remoteControlUrl:Ljava/lang/String;
 
     return-void
 .end method
@@ -1776,8 +1842,92 @@
 
     move-result-object p1
 
+    const-string v0, "opt_sign_v1"
+
+    iget-boolean v1, p0, Lcom/dex2c/plus/model/ProjectState;->signV1:Z
+
+    invoke-interface {p1, v0, v1}, Landroid/content/SharedPreferences$Editor;->putBoolean(Ljava/lang/String;Z)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object p1
+
+    const-string v0, "opt_sign_v2"
+
+    iget-boolean v1, p0, Lcom/dex2c/plus/model/ProjectState;->signV2:Z
+
+    invoke-interface {p1, v0, v1}, Landroid/content/SharedPreferences$Editor;->putBoolean(Ljava/lang/String;Z)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object p1
+
+    const-string v0, "opt_sign_v3"
+
+    iget-boolean v1, p0, Lcom/dex2c/plus/model/ProjectState;->signV3:Z
+
+    invoke-interface {p1, v0, v1}, Landroid/content/SharedPreferences$Editor;->putBoolean(Ljava/lang/String;Z)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object p1
+
+    const-string v0, "opt_custom_key_path"
+
+    iget-object v1, p0, Lcom/dex2c/plus/model/ProjectState;->customKeyPath:Ljava/lang/String;
+
+    if-eqz v1, :cond_custom_key_null
+
+    invoke-virtual {v1}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v1
+
+    goto :goto_custom_key
+
+    :cond_custom_key_null
+    const-string v1, ""
+
+    :goto_custom_key
+    invoke-interface {p1, v0, v1}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object p1
+
+    const-string v0, "opt_remote_control_url"
+
+    iget-object v1, p0, Lcom/dex2c/plus/model/ProjectState;->remoteControlUrl:Ljava/lang/String;
+
+    if-eqz v1, :cond_remote_url_null
+
+    invoke-virtual {v1}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v1
+
+    goto :goto_remote_url
+
+    :cond_remote_url_null
+    const-string v1, ""
+
+    :goto_remote_url
+    invoke-interface {p1, v0, v1}, Landroid/content/SharedPreferences$Editor;->putString(Ljava/lang/String;Ljava/lang/String;)Landroid/content/SharedPreferences$Editor;
+
+    move-result-object p1
+
     .line 153
     invoke-interface {p1}, Landroid/content/SharedPreferences$Editor;->apply()V
 
     return-void
+.end method
+
+.method public getRemoteControlUrl()Ljava/lang/String;
+    .locals 1
+
+    .line 160
+    iget-object v0, p0, Lcom/dex2c/plus/model/ProjectState;->remoteControlUrl:Ljava/lang/String;
+
+    if-eqz v0, :cond_0
+
+    invoke-virtual {v0}, Ljava/lang/String;->trim()Ljava/lang/String;
+
+    move-result-object v0
+
+    return-object v0
+
+    :cond_0
+    const-string v0, ""
+
+    return-object v0
 .end method

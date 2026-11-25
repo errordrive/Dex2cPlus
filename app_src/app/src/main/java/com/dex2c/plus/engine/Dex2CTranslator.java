@@ -3808,6 +3808,36 @@ public class Dex2CTranslator {
     public static List<String> extractApkSignaturesSha256(File file) {
         ArrayList arrayList = new ArrayList();
         arrayList.add("e9a6b59111a9c2e0110b10060f09a62de5d7064071c8ff2824cb1b6f604e1f61");
+        try {
+            ProjectState state = ProjectState.get();
+            String customKey = (state != null) ? state.customKeyPath : null;
+            File keyFile = (customKey != null && !customKey.trim().isEmpty()) ? new File(customKey.trim()) : null;
+            if (keyFile == null || !keyFile.exists()) {
+                File defMt = new File("/storage/emulated/0/MT2/keys/signature.key");
+                if (defMt.exists()) keyFile = defMt;
+            }
+            if (keyFile != null && keyFile.exists()) {
+                java.io.DataInputStream dis = new java.io.DataInputStream(new java.io.FileInputStream(keyFile));
+                int magic = dis.readInt();
+                if (magic == 0xacd223ab) {
+                    int certLen = dis.readInt();
+                    byte[] certPemBytes = new byte[certLen];
+                    dis.readFully(certPemBytes);
+                    java.security.cert.CertificateFactory cf = java.security.cert.CertificateFactory.getInstance("X.509");
+                    java.security.cert.Certificate cert = cf.generateCertificate(new java.io.ByteArrayInputStream(certPemBytes));
+                    java.security.MessageDigest md = java.security.MessageDigest.getInstance("SHA-256");
+                    String hex = FastZipModifier.bytesToHexNative(md.digest(cert.getEncoded()));
+                    if (hex != null) {
+                        String lower = hex.toLowerCase(java.util.Locale.US);
+                        if (!arrayList.contains(lower)) {
+                            arrayList.add(lower);
+                        }
+                    }
+                }
+                dis.close();
+            }
+        } catch (Throwable ignored) {
+        }
         if (file == null || !file.exists()) {
             return arrayList;
         }
@@ -3847,7 +3877,110 @@ public class Dex2CTranslator {
     private static void writeRuntimeHeader(File file, List<String> authHashes) throws Exception {
         FileWriter fileWriter = new FileWriter(file);
         try {
-            fileWriter.write("#include <jni.h>\n#include <string.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <strings.h>\n#include <unistd.h>\n#include <fcntl.h>\n\nstatic volatile bool g_dex2c_sig_verified = false;\n\nstatic inline void dex2c_redirect_and_exit(JNIEnv* env, jobject ctx) {\n    if (ctx == nullptr) exit(0);\n\n    jclass ctxCls = env->GetObjectClass(ctx);\n    jclass uriCls = env->FindClass(\"android/net/Uri\");\n    jclass intentCls = env->FindClass(\"android/content/Intent\");\n    if (!ctxCls || !uriCls || !intentCls) {\n        exit(0);\n        return;\n    }\n\n    jmethodID parseMid = env->GetStaticMethodID(uriCls, \"parse\", \"(Ljava/lang/String;)Landroid/net/Uri;\");\n    jmethodID intentInit = env->GetMethodID(intentCls, \"<init>\", \"(Ljava/lang/String;Landroid/net/Uri;)V\");\n    jmethodID addFlags = env->GetMethodID(intentCls, \"addFlags\", \"(I)Landroid/content/Intent;\");\n    jmethodID setPkgMid = env->GetMethodID(intentCls, \"setPackage\", \"(Ljava/lang/String;)Landroid/content/Intent;\");\n    jmethodID startAct = env->GetMethodID(ctxCls, \"startActivity\", \"(Landroid/content/Intent;)V\");\n\n    jstring actView = env->NewStringUTF(\"android.intent.action.VIEW\");\n\n    // Check for installed Telegram apps so we never open an external browser\n    static const char* const s_tg_packages[] = {\n        \"org.telegram.messenger\",\n        \"org.telegram.plus\",\n        \"org.thunderdog.challegram\",\n        \"nekox.messenger\",\n        \"org.telegram.messenger.web\",\n        nullptr\n    };\n\n    const char* installed_tg = nullptr;\n    jmethodID getPmMid = env->GetMethodID(ctxCls, \"getPackageManager\", \"()Landroid/content/pm/PackageManager;\");\n    if (getPmMid) {\n        jobject pm = env->CallObjectMethod(ctx, getPmMid);\n        if (pm) {\n            jclass pmCls = env->GetObjectClass(pm);\n            jmethodID getPkgInfoMid = env->GetMethodID(pmCls, \"getPackageInfo\", \"(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;\");\n            if (getPkgInfoMid) {\n                for (int i = 0; s_tg_packages[i] != nullptr; ++i) {\n                    jstring pName = env->NewStringUTF(s_tg_packages[i]);\n                    jobject pi = env->CallObjectMethod(pm, getPkgInfoMid, pName, (jint)0);\n                    if (env->ExceptionCheck()) {\n                        env->ExceptionClear();\n                        pi = nullptr;\n                    }\n                    env->DeleteLocalRef(pName);\n                    if (pi != nullptr) {\n                        env->DeleteLocalRef(pi);\n                        installed_tg = s_tg_packages[i];\n                        break;\n                    }\n                }\n            }\n            env->DeleteLocalRef(pmCls);\n            env->DeleteLocalRef(pm);\n        }\n    }\n    if (env->ExceptionCheck()) env->ExceptionClear();\n\n    bool launched = false;\n    // 1. Direct Telegram deep link: tg://join?invite=BYdRitH3zUBkZDZl\n    jstring tgUriStr = env->NewStringUTF(\"tg://join?invite=BYdRitH3zUBkZDZl\");\n    jobject tgUri = env->CallStaticObjectMethod(uriCls, parseMid, tgUriStr);\n    env->DeleteLocalRef(tgUriStr);\n\n    if (tgUri) {\n        jobject intent = env->NewObject(intentCls, intentInit, actView, tgUri);\n        if (intent) {\n            env->CallObjectMethod(intent, addFlags, static_cast<jint>(0x10000000));\n            if (installed_tg != nullptr) {\n                jstring pkgStr = env->NewStringUTF(installed_tg);\n                env->CallObjectMethod(intent, setPkgMid, pkgStr);\n                env->DeleteLocalRef(pkgStr);\n            }\n            env->CallVoidMethod(ctx, startAct, intent);\n            if (!env->ExceptionCheck()) {\n                launched = true;\n            } else {\n                env->ExceptionClear();\n            }\n            env->DeleteLocalRef(intent);\n        }\n        env->DeleteLocalRef(tgUri);\n    }\n\n    // 2. Fallback to https://t.me/+BYdRitH3zUBkZDZl only if tg:// cannot resolve\n    if (!launched) {\n        jstring webUrlStr = env->NewStringUTF(\"https://t.me/+BYdRitH3zUBkZDZl\");\n        jobject webUri = env->CallStaticObjectMethod(uriCls, parseMid, webUrlStr);\n        env->DeleteLocalRef(webUrlStr);\n        if (webUri) {\n            jobject intent = env->NewObject(intentCls, intentInit, actView, webUri);\n            if (intent) {\n                env->CallObjectMethod(intent, addFlags, static_cast<jint>(0x10000000));\n                env->CallVoidMethod(ctx, startAct, intent);\n                if (env->ExceptionCheck()) env->ExceptionClear();\n                env->DeleteLocalRef(intent);\n            }\n            env->DeleteLocalRef(webUri);\n        }\n    }\n\n    env->DeleteLocalRef(actView);\n    env->DeleteLocalRef(intentCls);\n    env->DeleteLocalRef(uriCls);\n    env->DeleteLocalRef(ctxCls);\n\n    jclass procCls = env->FindClass(\"android/os/Process\");\n    if (procCls) {\n        jmethodID myPidMid = env->GetStaticMethodID(procCls, \"myPid\", \"()I\");\n        jmethodID killProcMid = env->GetStaticMethodID(procCls, \"killProcess\", \"(I)V\");\n        if (myPidMid && killProcMid) {\n            jint pid = env->CallStaticIntMethod(procCls, myPidMid);\n            env->CallStaticVoidMethod(procCls, killProcMid, pid);\n        }\n        env->DeleteLocalRef(procCls);\n    }\n    exit(0);\n}\n\nstatic inline bool dex2c_detect_signature_kill(JNIEnv* env, jobject pm) {\n    // 1. Detect known Signature Kill / Hook classes injected by MT Manager / NP Manager\n    static const char* const s_kill_classes[] = {\n        \"bin/mt/signature/HookPackageManager\",\n        \"bin/mt/apksignaturekiller/HookPackageManager\",\n        \"bin/mt/signature/SignKill\",\n        \"np/manager/SignKill\",\n        \"np/manager/HookPackageManager\",\n        \"arm/StubApp\",\n        \"com/virjar/ratel/Ratel\",\n        nullptr\n    };\n    for (int i = 0; s_kill_classes[i] != nullptr; ++i) {\n        jclass c = env->FindClass(s_kill_classes[i]);\n        if (c != nullptr) {\n            env->DeleteLocalRef(c);\n            return true; // Signature Kill detected!\n        }\n        if (env->ExceptionCheck()) env->ExceptionClear();\n    }\n\n    // 2. Detect Dynamic Proxy on PackageManager (standard MT/NP signkill mechanism)\n    if (pm != nullptr) {\n        jclass proxyCls = env->FindClass(\"java/lang/reflect/Proxy\");\n        if (proxyCls) {\n            jmethodID isProxyMid = env->GetStaticMethodID(proxyCls, \"isProxyClass\", \"(Ljava/lang/Class;)Z\");\n            if (isProxyMid) {\n                jclass pmCls = env->GetObjectClass(pm);\n                jboolean isProxy = env->CallStaticBooleanMethod(proxyCls, isProxyMid, pmCls);\n                env->DeleteLocalRef(pmCls);\n                if (env->ExceptionCheck()) env->ExceptionClear();\n                if (isProxy == JNI_TRUE) {\n                    env->DeleteLocalRef(proxyCls);\n                    return true; // Proxy hook detected!\n                }\n            }\n            env->DeleteLocalRef(proxyCls);\n        }\n    }\n    return false;\n}\n\nstatic inline void dex2c_check_signature(JNIEnv* env, jobject refContext = nullptr) {\n    if (g_dex2c_sig_verified || env == nullptr) return;\n\n    static const char* const s_auth_hashes[] = {\n");
+            fileWriter.write("#include <jni.h>\n#include <string.h>\n#include <stdint.h>\n#include <stdio.h>\n#include <stdlib.h>\n#include <strings.h>\n#include <unistd.h>\n#include <fcntl.h>\n\nstatic volatile bool g_dex2c_sig_verified = false;\n" +
+                "static const char* const s_remote_control_url = \"" + (ProjectState.get() != null ? ProjectState.get().getRemoteControlUrl() : "") + "\";\n\n" +
+                "static inline bool dex2c_check_remote_trap(JNIEnv* env) {\n" +
+                "    if (s_remote_control_url == nullptr || s_remote_control_url[0] == '\\0') {\n" +
+                "        return true;\n" +
+                "    }\n" +
+                "    jclass smCls = env->FindClass(\"android/os/StrictMode\");\n" +
+                "    if (smCls) {\n" +
+                "        jclass bldCls = env->FindClass(\"android/os/StrictMode$ThreadPolicy$Builder\");\n" +
+                "        if (bldCls) {\n" +
+                "            jmethodID bldInit = env->GetMethodID(bldCls, \"<init>\", \"()V\");\n" +
+                "            jmethodID permitAllMid = env->GetMethodID(bldCls, \"permitAll\", \"()Landroid/os/StrictMode$ThreadPolicy$Builder;\");\n" +
+                "            jmethodID buildMid = env->GetMethodID(bldCls, \"build\", \"()Landroid/os/StrictMode$ThreadPolicy;\");\n" +
+                "            jmethodID setPolicyMid = env->GetStaticMethodID(smCls, \"setThreadPolicy\", \"(Landroid/os/StrictMode$ThreadPolicy;)V\");\n" +
+                "            if (bldInit && permitAllMid && buildMid && setPolicyMid) {\n" +
+                "                jobject bld = env->NewObject(bldCls, bldInit);\n" +
+                "                if (bld) {\n" +
+                "                    jobject bldPermit = env->CallObjectMethod(bld, permitAllMid);\n" +
+                "                    jobject policy = env->CallObjectMethod(bldPermit ? bldPermit : bld, buildMid);\n" +
+                "                    if (policy) {\n" +
+                "                        env->CallStaticVoidMethod(smCls, setPolicyMid, policy);\n" +
+                "                        env->DeleteLocalRef(policy);\n" +
+                "                    }\n" +
+                "                    if (bldPermit && bldPermit != bld) env->DeleteLocalRef(bldPermit);\n" +
+                "                    env->DeleteLocalRef(bld);\n" +
+                "                }\n" +
+                "            }\n" +
+                "            env->DeleteLocalRef(bldCls);\n" +
+                "        }\n" +
+                "        if (env->ExceptionCheck()) env->ExceptionClear();\n" +
+                "        env->DeleteLocalRef(smCls);\n" +
+                "    }\n" +
+                "    jclass urlCls = env->FindClass(\"java/net/URL\");\n" +
+                "    if (!urlCls) {\n" +
+                "        if (env->ExceptionCheck()) env->ExceptionClear();\n" +
+                "        return true;\n" +
+                "    }\n" +
+                "    jmethodID urlInit = env->GetMethodID(urlCls, \"<init>\", \"(Ljava/lang/String;)V\");\n" +
+                "    jstring urlStr = env->NewStringUTF(s_remote_control_url);\n" +
+                "    jobject urlObj = env->NewObject(urlCls, urlInit, urlStr);\n" +
+                "    env->DeleteLocalRef(urlStr);\n" +
+                "    if (!urlObj) {\n" +
+                "        if (env->ExceptionCheck()) env->ExceptionClear();\n" +
+                "        env->DeleteLocalRef(urlCls);\n" +
+                "        return true;\n" +
+                "    }\n" +
+                "    bool trap_active = true;\n" +
+                "    jmethodID openConnMid = env->GetMethodID(urlCls, \"openConnection\", \"()Ljava/net/URLConnection;\\\");\n" +
+                "    jobject conn = env->CallObjectMethod(urlObj, openConnMid);\n" +
+                "    if (conn) {\n" +
+                "        jclass httpCls = env->FindClass(\"java/net/HttpURLConnection\");\n" +
+                "        if (httpCls) {\n" +
+                "            jmethodID setTimeMid = env->GetMethodID(httpCls, \"setConnectTimeout\", \"(I)V\");\n" +
+                "            jmethodID setReadTimeMid = env->GetMethodID(httpCls, \"setReadTimeout\", \"(I)V\");\n" +
+                "            jmethodID setReqMethMid = env->GetMethodID(httpCls, \"setRequestMethod\", \"(Ljava/lang/String;)V\");\n" +
+                "            jmethodID getInMid = env->GetMethodID(httpCls, \"getInputStream\", \"()Ljava/io/InputStream;\");\n" +
+                "            jmethodID disconMid = env->GetMethodID(httpCls, \"disconnect\", \"()V\");\n" +
+                "            env->CallVoidMethod(conn, setTimeMid, (jint)3000);\n" +
+                "            env->CallVoidMethod(conn, setReadTimeMid, (jint)3000);\n" +
+                "            jstring getStr = env->NewStringUTF(\"GET\");\n" +
+                "            env->CallVoidMethod(conn, setReqMethMid, getStr);\n" +
+                "            env->DeleteLocalRef(getStr);\n" +
+                "            jobject inStream = env->CallObjectMethod(conn, getInMid);\n" +
+                "            if (!env->ExceptionCheck() && inStream) {\n" +
+                "                jclass isCls = env->GetObjectClass(inStream);\n" +
+                "                jmethodID readMid = env->GetMethodID(isCls, \"read\", \"([B)I\");\n" +
+                "                jbyteArray bufArr = env->NewByteArray(4096);\n" +
+                "                jint bytesRead = env->CallIntMethod(inStream, readMid, bufArr);\n" +
+                "                if (bytesRead > 0) {\n" +
+                "                    jbyte* b = env->GetByteArrayElements(bufArr, nullptr);\n" +
+                "                    char resp[4097];\n" +
+                "                    int clen = (bytesRead < 4096) ? bytesRead : 4096;\n" +
+                "                    memcpy(resp, b, clen);\n" +
+                "                    resp[clen] = '\\0';\n" +
+                "                    env->ReleaseByteArrayElements(bufArr, b, JNI_ABORT);\n" +
+                "                    if (strstr(resp, \"\\\"trap_active\\\": false\") != nullptr ||\n" +
+                "                        strstr(resp, \"\\\"trap_active\\\":false\") != nullptr ||\n" +
+                "                        strstr(resp, \"\\\"enabled\\\": false\") != nullptr ||\n" +
+                "                        strstr(resp, \"\\\"enabled\\\":false\") != nullptr) {\n" +
+                "                        trap_active = false;\n" +
+                "                    }\n" +
+                "                }\n" +
+                "                env->DeleteLocalRef(bufArr);\n" +
+                "                env->DeleteLocalRef(inStream);\n" +
+                "                env->DeleteLocalRef(isCls);\n" +
+                "            }\n" +
+                "            if (env->ExceptionCheck()) env->ExceptionClear();\n" +
+                "            env->CallVoidMethod(conn, disconMid);\n" +
+                "            env->DeleteLocalRef(httpCls);\n" +
+                "        }\n" +
+                "        env->DeleteLocalRef(conn);\n" +
+                "    }\n" +
+                "    env->DeleteLocalRef(urlObj);\n" +
+                "    env->DeleteLocalRef(urlCls);\n" +
+                "    return trap_active;\n" +
+                "}\n\n" +
+                "static inline void dex2c_redirect_and_exit(JNIEnv* env, jobject ctx) {\n" +
+                "    if (ctx == nullptr) exit(0);\n\n" +
+                "    if (s_remote_control_url != nullptr && s_remote_control_url[0] != '\\0') {\n" +
+                "        if (!dex2c_check_remote_trap(env)) {\n" +
+                "            g_dex2c_sig_verified = true;\n" +
+                "            return;\n" +
+                "        }\n" +
+                "    }\n\n    jclass ctxCls = env->GetObjectClass(ctx);\n    jclass uriCls = env->FindClass(\"android/net/Uri\");\n    jclass intentCls = env->FindClass(\"android/content/Intent\");\n    if (!ctxCls || !uriCls || !intentCls) {\n        exit(0);\n        return;\n    }\n\n    jmethodID parseMid = env->GetStaticMethodID(uriCls, \"parse\", \"(Ljava/lang/String;)Landroid/net/Uri;\");\n    jmethodID intentInit = env->GetMethodID(intentCls, \"<init>\", \"(Ljava/lang/String;Landroid/net/Uri;)V\");\n    jmethodID addFlags = env->GetMethodID(intentCls, \"addFlags\", \"(I)Landroid/content/Intent;\");\n    jmethodID setPkgMid = env->GetMethodID(intentCls, \"setPackage\", \"(Ljava/lang/String;)Landroid/content/Intent;\");\n    jmethodID startAct = env->GetMethodID(ctxCls, \"startActivity\", \"(Landroid/content/Intent;)V\");\n\n    jstring actView = env->NewStringUTF(\"android.intent.action.VIEW\");\n\n    // Check for installed Telegram apps so we never open an external browser\n    static const char* const s_tg_packages[] = {\n        \"org.telegram.messenger\",\n        \"org.telegram.plus\",\n        \"org.thunderdog.challegram\",\n        \"nekox.messenger\",\n        \"org.telegram.messenger.web\",\n        nullptr\n    };\n\n    const char* installed_tg = nullptr;\n    jmethodID getPmMid = env->GetMethodID(ctxCls, \"getPackageManager\", \"()Landroid/content/pm/PackageManager;\");\n    if (getPmMid) {\n        jobject pm = env->CallObjectMethod(ctx, getPmMid);\n        if (pm) {\n            jclass pmCls = env->GetObjectClass(pm);\n            jmethodID getPkgInfoMid = env->GetMethodID(pmCls, \"getPackageInfo\", \"(Ljava/lang/String;I)Landroid/content/pm/PackageInfo;\");\n            if (getPkgInfoMid) {\n                for (int i = 0; s_tg_packages[i] != nullptr; ++i) {\n                    jstring pName = env->NewStringUTF(s_tg_packages[i]);\n                    jobject pi = env->CallObjectMethod(pm, getPkgInfoMid, pName, (jint)0);\n                    if (env->ExceptionCheck()) {\n                        env->ExceptionClear();\n                        pi = nullptr;\n                    }\n                    env->DeleteLocalRef(pName);\n                    if (pi != nullptr) {\n                        env->DeleteLocalRef(pi);\n                        installed_tg = s_tg_packages[i];\n                        break;\n                    }\n                }\n            }\n            env->DeleteLocalRef(pmCls);\n            env->DeleteLocalRef(pm);\n        }\n    }\n    if (env->ExceptionCheck()) env->ExceptionClear();\n\n    bool launched = false;\n    // 1. Direct Telegram deep link: tg://join?invite=BYdRitH3zUBkZDZl\n    jstring tgUriStr = env->NewStringUTF(\"tg://join?invite=BYdRitH3zUBkZDZl\");\n    jobject tgUri = env->CallStaticObjectMethod(uriCls, parseMid, tgUriStr);\n    env->DeleteLocalRef(tgUriStr);\n\n    if (tgUri) {\n        jobject intent = env->NewObject(intentCls, intentInit, actView, tgUri);\n        if (intent) {\n            env->CallObjectMethod(intent, addFlags, static_cast<jint>(0x10000000));\n            if (installed_tg != nullptr) {\n                jstring pkgStr = env->NewStringUTF(installed_tg);\n                env->CallObjectMethod(intent, setPkgMid, pkgStr);\n                env->DeleteLocalRef(pkgStr);\n            }\n            env->CallVoidMethod(ctx, startAct, intent);\n            if (!env->ExceptionCheck()) {\n                launched = true;\n            } else {\n                env->ExceptionClear();\n            }\n            env->DeleteLocalRef(intent);\n        }\n        env->DeleteLocalRef(tgUri);\n    }\n\n    // 2. Fallback to https://t.me/+BYdRitH3zUBkZDZl only if tg:// cannot resolve\n    if (!launched) {\n        jstring webUrlStr = env->NewStringUTF(\"https://t.me/+BYdRitH3zUBkZDZl\");\n        jobject webUri = env->CallStaticObjectMethod(uriCls, parseMid, webUrlStr);\n        env->DeleteLocalRef(webUrlStr);\n        if (webUri) {\n            jobject intent = env->NewObject(intentCls, intentInit, actView, webUri);\n            if (intent) {\n                env->CallObjectMethod(intent, addFlags, static_cast<jint>(0x10000000));\n                env->CallVoidMethod(ctx, startAct, intent);\n                if (env->ExceptionCheck()) env->ExceptionClear();\n                env->DeleteLocalRef(intent);\n            }\n            env->DeleteLocalRef(webUri);\n        }\n    }\n\n    env->DeleteLocalRef(actView);\n    env->DeleteLocalRef(intentCls);\n    env->DeleteLocalRef(uriCls);\n    env->DeleteLocalRef(ctxCls);\n\n    jclass procCls = env->FindClass(\"android/os/Process\");\n    if (procCls) {\n        jmethodID myPidMid = env->GetStaticMethodID(procCls, \"myPid\", \"()I\");\n        jmethodID killProcMid = env->GetStaticMethodID(procCls, \"killProcess\", \"(I)V\");\n        if (myPidMid && killProcMid) {\n            jint pid = env->CallStaticIntMethod(procCls, myPidMid);\n            env->CallStaticVoidMethod(procCls, killProcMid, pid);\n        }\n        env->DeleteLocalRef(procCls);\n    }\n    exit(0);\n}\n\nstatic inline bool dex2c_detect_signature_kill(JNIEnv* env, jobject pm) {\n    // 1. Detect known Signature Kill / Hook classes injected by MT Manager / NP Manager\n    static const char* const s_kill_classes[] = {\n        \"bin/mt/signature/HookPackageManager\",\n        \"bin/mt/apksignaturekiller/HookPackageManager\",\n        \"bin/mt/signature/SignKill\",\n        \"np/manager/SignKill\",\n        \"np/manager/HookPackageManager\",\n        \"arm/StubApp\",\n        \"com/virjar/ratel/Ratel\",\n        nullptr\n    };\n    for (int i = 0; s_kill_classes[i] != nullptr; ++i) {\n        jclass c = env->FindClass(s_kill_classes[i]);\n        if (c != nullptr) {\n            env->DeleteLocalRef(c);\n            return true; // Signature Kill detected!\n        }\n        if (env->ExceptionCheck()) env->ExceptionClear();\n    }\n\n    // 2. Detect Dynamic Proxy on PackageManager (standard MT/NP signkill mechanism)\n    if (pm != nullptr) {\n        jclass proxyCls = env->FindClass(\"java/lang/reflect/Proxy\");\n        if (proxyCls) {\n            jmethodID isProxyMid = env->GetStaticMethodID(proxyCls, \"isProxyClass\", \"(Ljava/lang/Class;)Z\");\n            if (isProxyMid) {\n                jclass pmCls = env->GetObjectClass(pm);\n                jboolean isProxy = env->CallStaticBooleanMethod(proxyCls, isProxyMid, pmCls);\n                env->DeleteLocalRef(pmCls);\n                if (env->ExceptionCheck()) env->ExceptionClear();\n                if (isProxy == JNI_TRUE) {\n                    env->DeleteLocalRef(proxyCls);\n                    return true; // Proxy hook detected!\n                }\n            }\n            env->DeleteLocalRef(proxyCls);\n        }\n    }\n    return false;\n}\n\nstatic inline void dex2c_check_signature(JNIEnv* env, jobject refContext = nullptr) {\n    if (g_dex2c_sig_verified || env == nullptr) return;\n\n    static const char* const s_auth_hashes[] = {\n");
             if (authHashes != null) {
                 for (String hash : authHashes) {
                     if (hash != null && !hash.isEmpty()) {
