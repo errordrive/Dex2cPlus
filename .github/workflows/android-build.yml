@@ -115,6 +115,7 @@ jobs:
       - name: Publish GitHub Release
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
+        continue-on-error: true
         with:
           tag_name: v2.0.2
           name: "Dex2c Plus v2.0.2 Release"
