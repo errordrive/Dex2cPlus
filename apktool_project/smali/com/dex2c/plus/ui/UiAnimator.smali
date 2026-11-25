@@ -700,7 +700,7 @@
     return-void
 
     :cond_3
-    invoke-virtual {v1}, Landroid/content/Context;->getDisplayMetrics()Landroid/util/DisplayMetrics;
+    invoke-virtual {v1}, Landroid/content/res/Resources;->getDisplayMetrics()Landroid/util/DisplayMetrics;
 
     move-result-object v1
 
